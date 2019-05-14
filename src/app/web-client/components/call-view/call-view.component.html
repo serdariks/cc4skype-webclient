@@ -1,0 +1,15 @@
+<div *ngIf="hasActiveCall" class="panel panel-default"> 
+  <div class="panel-body">
+      <div class="floatLeft" *ngIf="hasPerson1()">{{currentState.person1.displayName}}</div>
+      <!-- <div *ngIf="hasPerson2()">person2:{{currentState.person2.displayName}}</div> -->
+      <div class="floatLeft" *ngIf="isIncoming()">        
+          <button *ngIf="isRinging()" class="btn btn-primary" (click)="onAcceptCall()">Accept Call</button>
+          <button *ngIf="isRinging()" class="btn btn-primary" (click)="onRejectCall()">Reject Call</button>
+          <button *ngIf="isConnected()" class="btn btn-primary" (click)="onHangupCall()">Hangup Call</button>
+      </div> 
+      <div class="floatLeft" *ngIf="isOutgoing()">        
+          <button *ngIf="isConnecting()" class="btn btn-primary" (click)="onCancelCall()">Cancel Call</button>
+          <button style="margin-left: 20px;" *ngIf="isConnected()" class="btn btn-primary" (click)="onHangupCall()">Hangup Call</button>
+      </div>           
+  </div>
+</div>

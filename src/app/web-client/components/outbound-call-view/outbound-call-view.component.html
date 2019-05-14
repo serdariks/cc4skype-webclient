@@ -1,0 +1,49 @@
+<div *ngIf="hasActiveCall" class="panel panel-default view-border">
+  <div class="panel-body">
+     <!--  {{lastMessageReceivedJson}} -->
+     {{currentState.toString()}}
+       <div>
+            Callee: {{lastModel.QueueName}}-{{lastModel.CalledAgentSIP}}
+       </div>            
+       <div *ngIf="hasOtherAgent">
+           {{otherAgentFormattedString}}
+       </div>
+      <div *ngIf="isRinging">         
+         <img [src]="iconPaths['ignoreImg']" (click)="onCancelOutBoundCall()">
+      </div>
+      <div *ngIf="isAccepted">
+          <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="onHoldButtonVisible" [src]="iconPaths['holdImg']" (click)="onAgentPutOnHold()">
+          <img *ngIf="resumeButtonVisible" [src]="iconPaths['resumeImg']" (click)="onAgentResumed()">
+          <img [src]="iconPaths['disconnectImg']" (click)="onHangupCall()">
+       </div>
+
+       <div *ngIf="isWarmInviteRingingFirstAgent">
+          <img [src]="iconPaths['ignoreImg']" (click)="onCancelWarmTransferRinging()">          
+       </div> 
+       <div *ngIf="isWarmInviteRingingSecondAgent">
+          <img [src]="iconPaths['answerImg']" (click)="onAcceptCall()">          
+          <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()">
+       </div> 
+       <div *ngIf="isWarmTransferSecondAgentAnswered">
+          <img [src]="iconPaths['ignoreImg']" (click)="onRejectWarmTransfer()">
+       </div>
+       <div *ngIf="isWarmInviteAcceptedFirstAgent">
+          <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="!warmSwitchedToCaller" [src]="iconPaths['switchToCallerImg']" (click)="onSwitchToCaller()">
+          <img *ngIf="warmSwitchedToCaller" [src]="iconPaths['switchToAgentImg']" (click)="onSwitchToAgent()">
+          <img [src]="iconPaths['warmTransferCommitImg']" (click)="onWarmTransferCommit()">
+          <img [src]="iconPaths['ignoreImg']" (click)="onCancelWarmTransferSession()">
+       </div>
+       <div *ngIf="isColdTransferFirstAgentInvite">
+          <img [src]="iconPaths['ignoreImg']" (click)="onCancelColdTransfer()">
+       </div>
+       <div *ngIf="isColdTransferSecondAgentInvite">
+          <img [src]="iconPaths['answerImg']" (click)="onAcceptCall()">
+          <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()">
+       </div>
+
+  </div>  
+</div>

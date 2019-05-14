@@ -1,0 +1,10 @@
+<label>Server Name:</label>
+<input type="text" class="form-control" (input)="onServerNameChanged($event)" [(ngModel)]="server.name" #serverNameInput>
+<!--<button [disabled]="!allowNewServer" class="btn btn-primary" (click)="onServerCreated()">Add server</button>-->
+<button class="btn btn-primary" (click)="onAddServer(serverNameInput)">Add server</button>
+<br/>
+<button class="btn btn-primary" (click)="refreshServerDates()">Refresh server dates</button>
+<br/>
+<button class="btn btn-primary" (click)="sendServerName(serverNameInput)">Subject test</button>
+<br/>
+<button class="btn btn-primary" (click)="testServiceCall()">testServiceCall</button>

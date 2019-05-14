@@ -1,0 +1,5 @@
+.floatLeft{
+    /* float: left; */
+    display: inline-block;
+    margin-left: 20px;
+}

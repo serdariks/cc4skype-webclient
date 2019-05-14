@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+.visible{
+    display: block;
+}
+.invisible{
+    display: none;
+}
+
+.nav-tabs>li>a{
+    cursor: pointer;
+}

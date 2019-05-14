@@ -1,0 +1,32 @@
+<div class="panel panel-default group-panel">
+  <div class="panel-heading" role="button" data-toggle="collapse" data-target="#panel-body-contact-search">Contact Search</div>
+  <div class="panel-body" id="panel-body-contact-search">    
+    <div class="form-group">
+        <label for="txtContactSearch">Search keywords</label>
+        <input type="text" id="txtContactSearch" #searchInput class="form-control" placeholder="Type search text here" />
+    </div>    
+    <button class="btn btn-primary" (click)="onSearch(searchInput.value)">Search</button>
+    <table class="table table-striped">
+      <thead>
+        <th></th>
+        <th>Presence</th>
+        <th>Note</th>
+        <th>Sip</th>
+        <th>Display name</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of resultList">
+            <td>
+              <img *ngIf="shouldShowWarmTransfer(result)" [src]="warmTransferIconPath" (click)="onStartWarmTransfer(result.SipAddress)"/>
+              <img *ngIf="shouldShowColdTransfer(result)" [src]="coldTransferIconPath" (click)="onColdTransfer(result.SipAddress)"/>
+              <img *ngIf="shouldShowPersonalPark(result)" [src]="personalParkIconPath" (click)="onColdTransfer(result.SipAddress)"/>              
+            </td>
+            <td><img [src]="result.lastPresenceItemPath"/> {{result.lastPresence}}</td>
+            <td>{{result.lastNote}}</td>
+            <td>{{result.SipAddress}}</td>
+            <td>{{result.DisplayName}}</td>            
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

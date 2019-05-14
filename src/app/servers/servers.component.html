@@ -1,0 +1,15 @@
+ 
+      <div class="row">
+        <div class="col-xs-12">
+            <app-cockpit (serverAdded)="onServerCreated($event)" ></app-cockpit>
+        </div>          
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <app-server [server]="server" *ngFor="let server of servers"></app-server>          
+        </div>
+      </div>  
+
+  
+
+  

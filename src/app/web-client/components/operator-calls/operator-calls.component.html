@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Operator Calls</div>
+  <div class="panel-body">
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>Queue</td>
+              <td colspan="2">Caller</td>              
+              <td>Operator</td>
+              <td>Agent</td>
+              <td>State</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let call of operatorCalls">
+              <td>{{call.QueueName}}</td>
+              <td>{{call.Source}}</td>
+              <td>{{call.SourceDisplayName}}</td>
+              <td>{{call.OperatorSip}}</td>
+              <td>{{call.TargetAgent}}</td>
+              <td>{{call.OperatorCallStateAsString}}</td>
+              <td>
+                <button *ngIf="isParked(call)" class="btn btn-primary" (click)="onReJoin(call)">Rejoin</button>
+                <button *ngIf="isFallBack(call)" class="btn btn-primary" (click)="onReJoin(call)">Rejoin</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+

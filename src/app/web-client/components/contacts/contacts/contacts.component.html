@@ -1,0 +1,29 @@
+<div class="panel panel-default group-panel">
+  <div class="panel-heading" role="button" data-toggle="collapse" data-target="#panel-body-contacts">Contacts</div>
+  <div class="panel-body" id="panel-body-contacts">      
+     <!--  <ul class="list-group contacts">
+        <li *ngFor="let contact of contacts" class="list-group-item">
+            <span>{{contact.id()}}</span> 
+            <span>{{contact.displayName()}}</span> 
+        </li>
+      </ul>  -->  
+      <table class="table table-striped">
+        <thead>          
+          <th>Presence</th>
+          <th>Sip</th>
+          <th>Display Name</th>
+          <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contact of contacts">
+                <!-- <td><img src="{{contact.avatarPath}}"/></td> -->
+                <td><img [src]="contact.lastPresenceItemPath"/> {{contact.lastPresence}}</td>
+                <td>{{contact.id}}</td>
+                <td>{{contact.displayName}}</td>                
+                <td><button class="btn btn-primary" (click)="onCallPerson(contact)">Call</button></td>
+            </tr>
+        </tbody>        
+      </table>   
+  </div>  
+</div>
+  

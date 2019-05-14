@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Handling Media</div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Media</td>
+                <td colspan="2">Caller</td>                              
+                <td>Queue</td>
+                <td>Agent</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let media of list">
+                <td>{{media.MediaTypeAsString}}</td>
+                <td>{{media.CallerUri}}</td>
+                <td>{{media.CallerName}}</td>
+                <td>{{media.QueueName}}</td>
+                <td>{{media.PrimaryAgentName}}</td>
+                <td>
+                  <img class="monitorButton" [ngClass] = "monitoringStateClass(media,'Silent')" [src]="monitorIconPath" (click)="onToggleMonitoringState(media,'Silent')" title="Silent Monitor"/>
+                  <img class="monitorButton" [ngClass] = "monitoringStateClass(media,'Whisper')" [src]="whisperIconPath" (click)="onToggleMonitoringState(media,'Whisper')" title="Whisper"/>
+                  <img class="monitorButton" [ngClass] = "monitoringStateClass(media,'BargeIn')" [src]="bargeInIconPath" (click)="onToggleMonitoringState(media,'BargeIn')" title="Barge in"/>
+                </td>                             
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+  

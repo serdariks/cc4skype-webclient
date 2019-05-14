@@ -1,0 +1,84 @@
+<div class="container">
+
+  <div class="row">  
+    <div class="col-md-5">
+        <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
+    </div>    
+  </div>
+
+  <div *ngIf="userSignedIn==true">
+
+        <div class="row">
+
+                <div class="col-md-12">                                
+                    <app-call-view></app-call-view>                                
+                </div>
+
+        </div>
+        <div class="row">
+                <div class="col-md-12">                                
+                    <app-call-center-call-view></app-call-center-call-view>   
+                    <app-outbound-call-view></app-outbound-call-view>                             
+                </div>
+
+        </div>       
+
+        <div class="row">
+                <div class="col-md-12">
+                      <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+                              <li role="presentation" [ngClass]="activeTabClass('main')"><a (click)="showTab('main')">Main</a></li>                    
+                              <li role="presentation" [ngClass]="activeTabClass('logs')"><a (click)="showTab('logs')">Logs</a></li>
+                              <li role="presentation" [ngClass]="activeTabClass('dtmf')"><a (click)="showTab('dtmf')">DTMF</a></li>
+                              <li role="presentation" [ngClass]="activeTabClass('test')"><a (click)="showTab('test')">Test</a></li>
+                              <li role="presentation" [ngClass]="activeTabClass('operator-calls')"><a (click)="showTab('operator-calls')">Operator Calls</a></li>
+                              <li role="presentation" [ngClass]="activeTabClass('waiting-media')"><a (click)="showTab('waiting-media')">Waiting Media</a></li>
+                              <li role="presentation" [ngClass]="activeTabClass('handling-media')"><a (click)="showTab('handling-media')">Handling Media</a></li>
+                       </ul>
+                </div>      
+        </div>
+        <div class="row" [ngClass]= "visibilityClass('dtmf')" >
+                <div class="col-md-12">
+                    <app-dtmf-menu></app-dtmf-menu>
+                </div>
+        </div>
+        <div class="row" [ngClass]= "visibilityClass('test')" >
+                <div class="col-md-12">
+                    <div class="btn btn-primary" (click)="test()">test</div>
+                </div>
+        </div>
+
+        <div class="row" [ngClass]= "visibilityClass('main')" >            
+                <div class="col-md-12">
+                    <app-contacts></app-contacts>                    
+                    <!--<app-meeting-join></app-meeting-join>-->                    
+                </div>
+                <div class="col-md-12">
+                    <app-contact-search></app-contact-search>
+                </div>
+          </div>
+        
+          <div class="row" [ngClass]="visibilityClass('logs')">
+                <div class="col-md-12">
+                       <app-log-view></app-log-view>
+                </div>
+          </div>
+          <div class="row" [ngClass]="visibilityClass('operator-calls')">
+                <div class="col-md-12">
+                    <app-operator-calls></app-operator-calls>
+                </div>
+          </div>
+          <div class="row" [ngClass]="visibilityClass('waiting-media')">
+                <div class="col-md-12">
+                    <app-waiting-media></app-waiting-media>
+                </div>
+          </div>
+          <div class="row" [ngClass]="visibilityClass('handling-media')">
+                <div class="col-md-12">
+                    <app-handling-media></app-handling-media>
+                </div>
+          </div>
+
+  </div>    
+
+
+</div>

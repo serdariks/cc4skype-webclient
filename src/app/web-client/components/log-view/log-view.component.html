@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Logs</div>
+    <div class="panel-body">
+      <button class="btn btn-primary" (click)="onClear()">Clear logs</button>      
+      <div>
+          <label>Filter:</label>
+          <input type="text" class="form-control" #filter (input)="onFilterChange(filter.value)" [value]="lastFilterValue"/>          
+        </div>
+      </div>        
+      <div style="max-height:250px;overflow:auto;">
+          <ul class="list-group">
+              <li *ngFor="let log of filteredLogs" class="list-group-item">
+                  {{log}}
+              </li>
+            </ul>
+      </div>
+</div>

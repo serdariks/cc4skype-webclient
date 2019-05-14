@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Waiting Media</div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Queue</td>
+                <td colspan="2">Caller</td>                              
+                <td>Status</td>
+                <td>Media Type</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let call of list">
+                <td>{{call.QueueName}}</td>
+                <td>{{call.Source}}</td>
+                <td>{{call.SourceDisplayName}}</td>
+                <td>{{call.Status}}</td>
+                <td>{{call.MediaTypeAsString}}</td>                                
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+  

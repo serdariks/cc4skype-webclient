@@ -1,0 +1,11 @@
+.monitorButton{
+    height: 24px;
+    width: 24px;
+}
+
+.active{
+    border: 1px solid darkgreen;
+}
+img{
+    cursor: pointer;
+}

@@ -1,0 +1,10 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Meeting Join</div>
+  <div class="panel-body">
+      <div class="form-group">
+          <label for="txtMeetingUrl">Meeting url</label>
+          <input id="txtMeetingUrl" #meetingUrl type="text" class="form-control" placeholder="Enter meeting url"/>
+      </div>      
+      <button class="btn btn-primary" (click)="onEnterMeeting(meetingUrl.value)">Enter Meeting</button>
+  </div>  
+</div>
