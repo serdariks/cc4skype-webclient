@@ -5,11 +5,18 @@ import { LyncApiGlobals } from "../lync-api/lync-api-globals";
 import { LyncApiSignIn } from "../lync-api/lync-api-signin";
 import { WebSDKCache } from "./web-sdk-cache";
 import { Person } from "../lync-api/lync-api-person";
+import { ConfigService } from "../services/config-service";
+import { Configuration } from "../services/configuration";
 
 @Injectable()
 export class WebSDKSignIn implements LyncApiSignIn{      
 
-    constructor(private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache){}
+    private config:Configuration;
+    
+    constructor(private configService:ConfigService,private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache){
+
+        this.config = this.configService.Config;
+    }
 
     userSignedIn= new Subject<string>();
     userSignedOut = new Subject<string>();
@@ -37,13 +44,15 @@ export class WebSDKSignIn implements LyncApiSignIn{
 
             return; */
 
+            let autoDiscoverRootUrl:string = `${this.config.lyncServerFQDN}/autodiscover/autodiscoverservice.svc/root`;
+
             this.globals.client.signInManager.signIn({
                 //version: version,
                 username: username,
                 password: password,
                 origins: [
-                    "https://b1b8cd13.ngrok.io/autodiscover/autodiscoverservice.svc/root",
-                    "https://b1b8cd13.ngrok.io/autodiscover/autodiscoverservice.svc/root"
+                    autoDiscoverRootUrl,
+                    autoDiscoverRootUrl
                   ]
             }).then((response)=> {
         
