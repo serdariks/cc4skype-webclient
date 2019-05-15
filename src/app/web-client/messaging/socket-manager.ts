@@ -50,11 +50,11 @@ export class SocketManager{
 
         if(this.config.socketServerPort && this.config.socketServerPort !='')
         {
-            address = `http://${socketServerDomain}:${this.config.socketServerPort}`; 
+            address = `${socketServerDomain}:${this.config.socketServerPort}`; 
         }
         else
         {
-            address = `https://${socketServerDomain}`;
+            address = `${socketServerDomain}`;
         }
 
         return address;

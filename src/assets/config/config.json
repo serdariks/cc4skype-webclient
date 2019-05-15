@@ -1,5 +1,5 @@
 {
     "socketServerIsOnTheSameDomain" : false,
-    "socketServerDomain": "f83209bf.ngrok.io",
-    "socketServerPort":""
+    "socketServerDomain": "http://ec2-52-49-251-18.eu-west-1.compute.amazonaws.com",
+    "socketServerPort":"8085"
 }
