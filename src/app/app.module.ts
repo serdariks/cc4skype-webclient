@@ -67,6 +67,7 @@ import { UserInitializeData } from './web-client/services/user-initialize-data';
 import { ConfigService } from './web-client/services/config-service';
 import { environment } from '../environments/environment';
 import { HttpModule } from '@angular/http';
+import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 
 const appRoutes: Routes =
   [
@@ -110,7 +111,7 @@ const appRoutes: Routes =
     LyncSDKApi, CallSessionStateChangeListener, ActiveCallSession, CallSessionRequests, WebClientHostAddress,
     RecordingStateChangeListener, CallViewStateMachine, OutBoundCallStateMachine, XHRHook, CookiesService, InitializeData,
     OutboundCall, IconPathsService, UserInitializeData,
-    ConfigService,
+    ConfigService,DynamicsChannelIntegration,
     { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi: true }
   ]
   ,

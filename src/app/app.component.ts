@@ -13,6 +13,7 @@ import { SocketManager } from './web-client/messaging/socket-manager';
 import { XHRHook } from './web-client/services/xhr-hook';
 import { LyncApi } from './web-client/lync-api/lync-api';
 import { InitializeData } from './web-client/services/initialize-data';
+import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
     private logger: LoggingService, private lyncApiGlobals: LyncApiGlobals, private apiContainer: LyncApiContainer
     , private lyncSDKApi: LyncSDKApi, private activatedRoute: ActivatedRoute, private socketManager: SocketManager, 
     private xhrHook: XHRHook,
-    private initializeData: InitializeData) {
+    private initializeData: InitializeData,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
 
     //xhrHook.addHooks();
 
