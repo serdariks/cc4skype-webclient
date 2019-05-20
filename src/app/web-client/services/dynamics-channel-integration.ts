@@ -16,7 +16,7 @@ export class DynamicsChannelIntegration{
         if(ciLoaded){
             this.init();
         }else{
-            window.setTimeout(this.init,200);
+            window.setTimeout(this.tryInit,200);
         }
 
     }
