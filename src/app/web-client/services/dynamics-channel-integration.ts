@@ -225,11 +225,16 @@ openCase(req:openCaseRequest) {
 
 searchContacts(){
     
+    let entityLogicalName:string = "contact";
+    let queryStr:string = "";
+    let searchOnly:boolean = true;
+
     // retrieve contact record
-    Microsoft.CIFramework.searchAndOpenRecords("contact", "?$select=fullname,telephone1", false ).then(
+    Microsoft.CIFramework.searchAndOpenRecords(entityLogicalName, queryStr, searchOnly ).then(
     function success(result) { 
-        var res=JSON.parse(result);
-        console.log(`Record values: Full Name: ${res[0].fullname}, Telephone Number: ${res[0].telephone1}`);
+        console.log(result);
+        //var res=JSON.parse(result);
+        //console.log(`Record values: Full Name: ${res[0].fullname}, Telephone Number: ${res[0].telephone1}`);
         // perform operations on record retrieval and opening
     },
     function (error) {
