@@ -98,8 +98,7 @@ export class DynamicsChannelIntegration{
             }
             //log("Couldn't retrieve caller name because " + reason.toString());
         });
-    }
-
+    }    
      /* Create a new activity record for this phone call using appropriate CIF APIs. */
      createCallActivity(callActivity:CallActivity,onCallActivityCreated:(CreateCallActivityResult)=>void) {
         var phActivity :any = {};
@@ -141,14 +140,19 @@ export class DynamicsChannelIntegration{
         } else if(callActivity.contactId) {
             phActivity["regardingobjectid_contact@odata.bind"] = "/contacts(" + callActivity.contactId + ")";
         }
+        
+        console.log("will save call activity");
 
         //Now invoke CIF to create the phonecall activcity
         Microsoft.CIFramework.createRecord("phonecall", JSON.stringify(phActivity)).then(function (newActivityStr) {
+            console.log("NewActivityString:" + newActivityStr);
             let newActivity = JSON.parse(newActivityStr);
             onCallActivityCreated({activityId:newActivity.id});
             //this._activityId = newActivity.id;
             //$("#activityLink").show();
         });
+
+        console.log("saved call activity");
     }
 
 
