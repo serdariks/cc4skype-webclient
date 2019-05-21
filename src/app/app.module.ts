@@ -153,7 +153,7 @@ const appRoutes: Routes =
       { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi: true }
   ]
   ,
-  bootstrap: [AppEntryComponent]
+  bootstrap: [DynamicsTestComponent]
 })
 export class AppModule {
 
