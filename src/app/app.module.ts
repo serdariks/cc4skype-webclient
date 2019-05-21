@@ -150,12 +150,10 @@ const appRoutes: Routes =
       UserInitializeData,
       ConfigService,
       DynamicsChannelIntegration,
-      provide
-   ],
-   multi: [
-      true,
-      bootstrap
-   ]
+      { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi: true }
+  ]
+  ,
+  bootstrap: [AppEntryComponent]
 })
 export class AppModule {
 
