@@ -20,12 +20,17 @@ export class DynamicsTestComponent implements OnInit {
         description:"description1",
         direction : CallDirection.Incoming,
         name : "Name1",
-        number : "123456",
+        number : "555-0109",
         userId : "userId1"
       },
       r=>{
           
       });
+  }
+
+  searchContactsTest()
+  {
+    this.dynamicsChannelIntegration.searchContacts();
   }
 
 }

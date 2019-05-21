@@ -221,6 +221,23 @@ openCase(req:openCaseRequest) {
     }
     Microsoft.CIFramework.openForm(JSON.stringify(ef));
 }
+
+
+searchContacts(){
+    
+    // retrieve contact record
+    Microsoft.CIFramework.searchAndOpenRecords("contact", "?$select=fullname,telephone1", false ).then(
+    function success(result) { 
+        var res=JSON.parse(result);
+        console.log(`Record values: Full Name: ${res[0].fullname}, Telephone Number: ${res[0].telephone1}`);
+        // perform operations on record retrieval and opening
+    },
+    function (error) {
+        console.log(error.message);
+        // handle error conditions
+    }
+);
+}
   
 }
 
