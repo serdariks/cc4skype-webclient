@@ -21,6 +21,9 @@ export class DynamicsChannelIntegration{
 
     }
     init() {
+
+        console.log("dci. in init()");
+
         Microsoft.CIFramework.setClickToAct(true);
         Microsoft.CIFramework.addHandler("onclicktoact", this.clickToActHandler);
         Microsoft.CIFramework.addHandler("onmodechanged", this.modeChangedHandler);
@@ -29,9 +32,14 @@ export class DynamicsChannelIntegration{
         //phone = new Phone(DisplayMode.Minimized);
         //log("Added handlers for the panel");
 
+        console.log("dci. after handlers");
+
         Microsoft.CIFramework.getEnvironment().then(function (res) {
+            console.log("dci. environment result" + res);
             this.environment = JSON.parse(res);
         });
+
+        console.log("dci. after get environment");
 
     }
 

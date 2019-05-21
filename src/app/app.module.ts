@@ -68,6 +68,7 @@ import { ConfigService } from './web-client/services/config-service';
 import { environment } from '../environments/environment';
 import { HttpModule } from '@angular/http';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
+import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
 
 const appRoutes: Routes =
   [
@@ -76,46 +77,85 @@ const appRoutes: Routes =
   ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ServerComponent,
-    ApplesComponent,
-    ServersComponent,
-    CockpitComponent,
-    ContactsComponent,
-    LoginViewComponent,
-    CallViewComponent,
-    LogViewComponent,
-    PresenceSelectComponent,
-    ContactSearchComponent,
-    MeetingJoinComponent,
-    DtmfMenuComponent,
-    CallCenterCallViewComponent,
-    AppEntryComponent,
-    OperatorCallsComponent,
-    WaitingMediaComponent,
-    HandlingMediaComponent,
-    OutboundCallViewComponent
-  ],
-  imports: [
-    HttpModule,
-    BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [LoggingService, AnotherService, SubjectTestService, SocketManager,
-    ServiceCall, IncomingRequests, Messaging, Listeners, WebSDKInitializer, WebSDKGlobals,
-    WebSDKSignIn, WebSDKContacts, ContactsService, WebSDKAudioService,
-    WebSDKPresence, WebSDKNote, Globals, CacheService, LyncApiGlobals, WebSDKApi, LyncApiContainer, WebSDKCache,
-    LyncSDKInitializer, LyncSDKSignIn, LyncSDKContacts, LyncSDKAudioService, LyncSDKPresence, LyncSDKNote,
-    LyncSDKApi, CallSessionStateChangeListener, ActiveCallSession, CallSessionRequests, WebClientHostAddress,
-    RecordingStateChangeListener, CallViewStateMachine, OutBoundCallStateMachine, XHRHook, CookiesService, InitializeData,
-    OutboundCall, IconPathsService, UserInitializeData,
-    ConfigService,DynamicsChannelIntegration,
-    { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi: true }
-  ]
-  ,
-  bootstrap: [AppEntryComponent]
+   declarations: [
+      AppComponent,
+      ServerComponent,
+      ApplesComponent,
+      ServersComponent,
+      CockpitComponent,
+      ContactsComponent,
+      LoginViewComponent,
+      CallViewComponent,
+      LogViewComponent,
+      PresenceSelectComponent,
+      ContactSearchComponent,
+      MeetingJoinComponent,
+      DtmfMenuComponent,
+      CallCenterCallViewComponent,
+      AppEntryComponent,
+      OperatorCallsComponent,
+      WaitingMediaComponent,
+      HandlingMediaComponent,
+      OutboundCallViewComponent,
+      DynamicsTestComponent
+   ],
+   imports: [
+      HttpModule,
+      BrowserModule,
+      FormsModule,
+      RouterModule.forRoot(appRoutes)
+   ],
+   providers: [
+      LoggingService,
+      AnotherService,
+      SubjectTestService,
+      SocketManager,
+      ServiceCall,
+      IncomingRequests,
+      Messaging,
+      Listeners,
+      WebSDKInitializer,
+      WebSDKGlobals,
+      WebSDKSignIn,
+      WebSDKContacts,
+      ContactsService,
+      WebSDKAudioService,
+      WebSDKPresence,
+      WebSDKNote,
+      Globals,
+      CacheService,
+      LyncApiGlobals,
+      WebSDKApi,
+      LyncApiContainer,
+      WebSDKCache,
+      LyncSDKInitializer,
+      LyncSDKSignIn,
+      LyncSDKContacts,
+      LyncSDKAudioService,
+      LyncSDKPresence,
+      LyncSDKNote,
+      LyncSDKApi,
+      CallSessionStateChangeListener,
+      ActiveCallSession,
+      CallSessionRequests,
+      WebClientHostAddress,
+      RecordingStateChangeListener,
+      CallViewStateMachine,
+      OutBoundCallStateMachine,
+      XHRHook,
+      CookiesService,
+      InitializeData,
+      OutboundCall,
+      IconPathsService,
+      UserInitializeData,
+      ConfigService,
+      DynamicsChannelIntegration,
+      provide
+   ],
+   multi: [
+      true,
+      bootstrap
+   ]
 })
 export class AppModule {
 
