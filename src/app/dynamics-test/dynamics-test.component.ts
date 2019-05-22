@@ -13,6 +13,7 @@ export class DynamicsTestComponent implements OnInit {
   ngOnInit() {
   }
 
+  private currentActivityId:any;
   addActivityTest(){
 
       let activity = {
@@ -27,8 +28,13 @@ export class DynamicsTestComponent implements OnInit {
 
       this.dynamicsChannelIntegration.createCallActivity(activity,
       r=>{
-          
+          this.currentActivityId = r.activityId;
       });
+  }
+
+  openCurrentActivity()
+  {
+      this.dynamicsChannelIntegration.openActivity(this.currentActivityId);
   }
 
   createCaseTest(){
