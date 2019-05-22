@@ -87,7 +87,7 @@ export class DynamicsChannelIntegration {
         }
         //In this sample, we search all 'contact' records
         Microsoft.CIFramework.searchAndOpenRecords("contact", query, searchOnly).then(
-            (valStr)=>{    //We got the CRM contact record for our search query
+            function(valStr){    //We got the CRM contact record for our search query
                 try {
                     let val = JSON.parse(valStr);
 
@@ -103,13 +103,13 @@ export class DynamicsChannelIntegration {
                     onCallerDetailsReceived(null);
                     //log("Unable to find caller name- Exception: " + e);
                 }
-            }//.bind(this)
-        ).catch((reason)=>{
+            }.bind(this)
+        ).catch(function(reason){
             if (!reason) {
                 reason = "Unknown Reason";
             }
             //log("Couldn't retrieve caller name because " + reason.toString());
-        });
+        }.bind(this));
     }
     /* Create a new activity record for this phone call using appropriate CIF APIs. */
     createCallActivity(callActivity: CallActivity, onCallActivityCreated: (CreateCallActivityResult) => void) {
@@ -140,7 +140,7 @@ export class DynamicsChannelIntegration {
             parties[0] = us;
         }
 
-        this.searchContactByNumber(callActivity.number).then(c => {
+        this.searchContactByNumber(callActivity.number).then( c => {
 
             if (c != null) {
                 callActivity.contactId = this.stripParens(c.contactId);
@@ -171,13 +171,13 @@ export class DynamicsChannelIntegration {
             console.log("will save call activity");
 
             //Now invoke CIF to create the phonecall activcity
-            Microsoft.CIFramework.createRecord("phonecall", JSON.stringify(phActivity)).then((newActivityStr)=>{
+            Microsoft.CIFramework.createRecord("phonecall", JSON.stringify(phActivity)).then(function(newActivityStr){
                 console.log("NewActivityString:" + newActivityStr);
                 let newActivity = JSON.parse(newActivityStr);
                 onCallActivityCreated({ activityId: newActivity.id });
                 //this._activityId = newActivity.id;
                 //$("#activityLink").show();
-            });
+            }.bind(this));
 
             console.log("saved call activity");
 
@@ -204,9 +204,9 @@ export class DynamicsChannelIntegration {
         }
         var data = {};
         data["description"] = req.callNotes;
-        Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then((ret)=>{
+        Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then(function(ret){
             this.openActivity(req.activityId);
-        });
+        }.bind(this));
     }
 
     /* Event handler. When clicked, opens the activity record created for this phone call */
@@ -231,7 +231,7 @@ export class DynamicsChannelIntegration {
         fp["caseorigincode"] = 1;
         fp["description"] = req.callNotes;
         //Now invoke CIF API
-        Microsoft.CIFramework.openForm(JSON.stringify(ef), JSON.stringify(fp)).then((resultStr)=>{
+        Microsoft.CIFramework.openForm(JSON.stringify(ef), JSON.stringify(fp)).then(function(resultStr){
             let result = JSON.parse(resultStr);
             //Once the form is opened and saved, CIF will return the newly created recordId. Save it for later use
             result["savedEntityReference"].forEach(function (elem) {
@@ -244,7 +244,7 @@ export class DynamicsChannelIntegration {
                     return;
                 }
             });
-        });
+        }.bind(this));
     }
 
     /* Event handler. When clicked, opens the case record created for this phone call */
@@ -266,16 +266,16 @@ export class DynamicsChannelIntegration {
 
         // retrieve contact record
         Microsoft.CIFramework.searchAndOpenRecords(entityLogicalName, queryStr, searchOnly).then(
-            (result)=>{
+            function(result){
                 console.log(result);
                 //var res=JSON.parse(result);
                 //console.log(`Record values: Full Name: ${res[0].fullname}, Telephone Number: ${res[0].telephone1}`);
                 // perform operations on record retrieval and opening
-            },
-            (error)=>{
+            }.bind(this),
+            function(error){
                 console.log(error.message);
                 // handle error conditions
-            }
+            }.bind(this)
         );
     }
 
