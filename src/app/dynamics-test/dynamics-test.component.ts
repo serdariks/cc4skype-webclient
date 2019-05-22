@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicsChannelIntegration, CallActivity, CallDirection } from '../web-client/services/dynamics-channel-integration';
+import { DynamicsChannelIntegration, CallActivity, CallDirection, CreateCaseRequest } from '../web-client/services/dynamics-channel-integration';
 
 @Component({
   selector: 'app-dynamics-test',
@@ -29,6 +29,25 @@ export class DynamicsTestComponent implements OnInit {
       r=>{
           
       });
+  }
+
+  createCaseTest(){
+
+    this.dynamicsChannelIntegration.searchContactByNumber("05332414505").then(c=>{
+    
+      let caseRequest:CreateCaseRequest = {
+        contactId:c.contactId,
+        callNotes:"I have a few call notes about this caller"
+      };
+
+      this.dynamicsChannelIntegration.createCase(caseRequest,(result)=>{
+        console.log("Case created:" + result.id + "," + result.name);
+      });
+
+    });    
+
+    
+
   }
 
   searchContactsTest()
