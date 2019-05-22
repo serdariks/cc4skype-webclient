@@ -14,15 +14,18 @@ export class DynamicsTestComponent implements OnInit {
   }
 
   addActivityTest(){
-      this.dynamicsChannelIntegration.createCallActivity({
-        contactId:"contactId1",
-        currentCase:"caseId1",
-        description:"description1",
+
+      let activity = {
+        contactId:null,
+        currentCase:null,
+        description:"this activity added from test code",
         direction : CallDirection.Incoming,
-        name : "Name1",
-        number : "555-0109",
-        userId : "userId1"
-      },
+        name : null,
+        number : "05332414505",
+        userId : null
+      };
+
+      this.dynamicsChannelIntegration.createCallActivity(activity,
       r=>{
           
       });
