@@ -14,6 +14,8 @@ export class DynamicsTestComponent implements OnInit {
   }
 
   private currentActivityId:any;
+  private currentCaseId:any;
+
   addActivityTest(){
 
       let activity = {
@@ -37,6 +39,11 @@ export class DynamicsTestComponent implements OnInit {
       this.dynamicsChannelIntegration.openActivity(this.currentActivityId);
   }
 
+  openCurrentCase()
+  {
+      this.dynamicsChannelIntegration.openCase({currentCase:this.currentCaseId});
+  }
+
   createCaseTest(){
 
     this.dynamicsChannelIntegration.searchContactByNumber("05332414505").then(c=>{
@@ -48,6 +55,7 @@ export class DynamicsTestComponent implements OnInit {
 
       this.dynamicsChannelIntegration.createCase(caseRequest,(result)=>{
         console.log("Case created:" + result.id + "," + result.name);
+        this.currentCaseId = result.id;
       });
 
     });    
