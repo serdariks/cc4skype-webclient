@@ -34,10 +34,10 @@ export class DynamicsChannelIntegration {
 
         console.log("dci. after handlers");
 
-        Microsoft.CIFramework.getEnvironment().then((res)=>{
+        Microsoft.CIFramework.getEnvironment().then(function(res){
             console.log("dci. environment result" + res);
             this.environment = JSON.parse(res);
-        });
+        }.bind(this));
 
         console.log("dci. after get environment");
 
