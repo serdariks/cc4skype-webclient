@@ -34,10 +34,10 @@ export class DynamicsChannelIntegration {
 
         console.log("dci. after handlers");
 
-        Microsoft.CIFramework.getEnvironment().then(function (res) {
+        Microsoft.CIFramework.getEnvironment().then((res)=>{
             console.log("dci. environment result" + res);
             this.environment = JSON.parse(res);
-        }).bind(this);
+        });
 
         console.log("dci. after get environment");
 
@@ -87,7 +87,7 @@ export class DynamicsChannelIntegration {
         }
         //In this sample, we search all 'contact' records
         Microsoft.CIFramework.searchAndOpenRecords("contact", query, searchOnly).then(
-            function (valStr) {    //We got the CRM contact record for our search query
+            (valStr)=>{    //We got the CRM contact record for our search query
                 try {
                     let val = JSON.parse(valStr);
 
@@ -104,7 +104,7 @@ export class DynamicsChannelIntegration {
                     //log("Unable to find caller name- Exception: " + e);
                 }
             }//.bind(this)
-        ).catch(function (reason) {
+        ).catch((reason)=>{
             if (!reason) {
                 reason = "Unknown Reason";
             }
@@ -171,7 +171,7 @@ export class DynamicsChannelIntegration {
             console.log("will save call activity");
 
             //Now invoke CIF to create the phonecall activcity
-            Microsoft.CIFramework.createRecord("phonecall", JSON.stringify(phActivity)).then(function (newActivityStr) {
+            Microsoft.CIFramework.createRecord("phonecall", JSON.stringify(phActivity)).then((newActivityStr)=>{
                 console.log("NewActivityString:" + newActivityStr);
                 let newActivity = JSON.parse(newActivityStr);
                 onCallActivityCreated({ activityId: newActivity.id });
@@ -204,7 +204,7 @@ export class DynamicsChannelIntegration {
         }
         var data = {};
         data["description"] = req.callNotes;
-        Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then(function (ret) {
+        Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then((ret)=>{
             this.openActivity(req.activityId);
         });
     }
@@ -231,7 +231,7 @@ export class DynamicsChannelIntegration {
         fp["caseorigincode"] = 1;
         fp["description"] = req.callNotes;
         //Now invoke CIF API
-        Microsoft.CIFramework.openForm(JSON.stringify(ef), JSON.stringify(fp)).then(function (resultStr) {
+        Microsoft.CIFramework.openForm(JSON.stringify(ef), JSON.stringify(fp)).then((resultStr)=>{
             let result = JSON.parse(resultStr);
             //Once the form is opened and saved, CIF will return the newly created recordId. Save it for later use
             result["savedEntityReference"].forEach(function (elem) {
@@ -266,13 +266,13 @@ export class DynamicsChannelIntegration {
 
         // retrieve contact record
         Microsoft.CIFramework.searchAndOpenRecords(entityLogicalName, queryStr, searchOnly).then(
-            function success(result) {
+            (result)=>{
                 console.log(result);
                 //var res=JSON.parse(result);
                 //console.log(`Record values: Full Name: ${res[0].fullname}, Telephone Number: ${res[0].telephone1}`);
                 // perform operations on record retrieval and opening
             },
-            function (error) {
+            (error)=>{
                 console.log(error.message);
                 // handle error conditions
             }
