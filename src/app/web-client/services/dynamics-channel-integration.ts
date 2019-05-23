@@ -67,6 +67,17 @@ export class DynamicsChannelIntegration {
 
     }
 
+    searchContactByNumberAndOpen(number: string): Promise<{ name: string, contactId: string }> {
+
+        return new Promise<{ name: string, contactId: string }>((resolve, reject) => {
+            this.updateCallerDetailsFromCRM(number, false, null, (contact) => {
+                resolve(contact);
+            });
+
+        });
+
+    }
+
     /* Search, and optionally open the record using CIF API searchAndOpenRecords()
      * searchOnly - when 'true', search but do not open the record, when 'false', also open the record
      * recordid - An optional CRM record Id to open. If not passed a search based on current phone number will be performed */

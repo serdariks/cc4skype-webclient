@@ -130,6 +130,7 @@ export class CallCenterCallViewComponent implements OnInit {
      this.setCurrentMonitoringType(this.mediaModel);    
 
      this.addCRMActivityRecord();
+     this.showContact();
 
     });
 
@@ -159,6 +160,18 @@ export class CallCenterCallViewComponent implements OnInit {
       });
     }
 
+  }
+
+  showContact(){
+    
+    let agentAnswered:boolean = this.currentState.toString() !=StateName[StateName.FirstNormalAgentConnected];
+
+    if(agentAnswered){
+     this.dynamicsChannelIntegration.searchContactByNumber("05332414505").then(c=>{
+          
+
+      });
+    }
   }
 
   setOtherAgent(){
