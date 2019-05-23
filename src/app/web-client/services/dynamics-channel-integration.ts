@@ -43,7 +43,20 @@ export class DynamicsChannelIntegration {
 
     }
 
-    private clickToActHandler() {
+    clickToActHandler(paramStr) {
+        return new Promise(function (resolve, reject) {
+            try {
+                let params = JSON.parse(paramStr);
+                //var phNo = params.value;   //Retrieve the phone number to dial from parameters passed by CIF
+                console.log("Click To Act placing a phone call to " + paramStr);
+               
+                resolve(true);
+            }
+            catch (error) {
+                console.log("Error on Click To Act" + error);
+                reject(error);
+            }
+        });
 
     }
     private modeChangedHandler() {
