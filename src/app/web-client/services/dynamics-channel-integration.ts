@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { OutboundCall } from "./outbound-call";
 
 declare var Microsoft: any;
 declare var ciLoaded: any;
@@ -7,7 +8,7 @@ export class DynamicsChannelIntegration {
 
     environment: any;
 
-    constructor() {
+    constructor(private outBoundCall:OutboundCall) {
         this.tryInit();
     }
 
@@ -49,6 +50,11 @@ export class DynamicsChannelIntegration {
                 let params = JSON.parse(paramStr);
                 //var phNo = params.value;   //Retrieve the phone number to dial from parameters passed by CIF
                 console.log("Click To Act placing a phone call to " + paramStr);
+
+                this.outBoundCall.start(params.value).then((result)=>{
+          
+                    this.logger.log(`click-to-act. outbound-call result: ${result}`);
+                });
                
                 resolve(true);
             }
