@@ -26,7 +26,7 @@ export class DynamicsChannelIntegration {
         console.log("dci. in init()");
 
         Microsoft.CIFramework.setClickToAct(true);
-        Microsoft.CIFramework.addHandler("onclicktoact", this.clickToActHandler);
+        Microsoft.CIFramework.addHandler("onclicktoact", this.clickToActHandler.bind(this));
         Microsoft.CIFramework.addHandler("onmodechanged", this.modeChangedHandler);
         Microsoft.CIFramework.addHandler("onpagenavigate", this.pageNavigateHandler);
         Microsoft.CIFramework.addHandler("onsendkbarticle", this.sendKBArticleHandler);
