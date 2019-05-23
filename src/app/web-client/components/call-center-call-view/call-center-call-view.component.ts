@@ -12,6 +12,7 @@ import { RecordingStateChangeListener } from '../../services/recording-state-cha
 import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
 import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
+import { DynamicsChannelIntegration, CallDirection } from '../../services/dynamics-channel-integration';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class CallCenterCallViewComponent implements OnInit {
     private cdRef: ChangeDetectorRef,private callSessionRequests:CallSessionRequests,
     private activeCallSession:ActiveCallSession,private apiContainer:LyncApiContainer,
     private recordingStateChangedListener:RecordingStateChangeListener,private callViewStateMachine:CallViewStateMachine,
-    private listeners:Listeners,private iconPathsService:IconPathsService) {
+    private listeners:Listeners,private iconPathsService:IconPathsService,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
 
       this.lyncApiAudioService = apiContainer.currentApi.audioService;  
 
@@ -129,6 +130,32 @@ export class CallCenterCallViewComponent implements OnInit {
      this.setCurrentMonitoringType(this.mediaModel);    
 
     });
+
+  }
+
+  private currentActivityId:any;
+
+  addCRMActivityRecord(){
+    
+    let hasIncomingCall:boolean = this.currentState.toString() !=StateName[StateName.FirstAgentCallRinging];
+
+    if(hasIncomingCall){        
+
+         let activity = {
+        contactId:null,
+        currentCase:null,
+        description:"this activity added from test code for caller " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
+        direction : CallDirection.Incoming,
+        name : null,
+        number : "05332414505",
+        userId : null
+      };
+
+      this.dynamicsChannelIntegration.createCallActivity(activity,
+      r=>{
+          this.currentActivityId = r.activityId;
+      });
+    }
 
   }
 
