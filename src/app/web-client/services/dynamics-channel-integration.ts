@@ -45,15 +45,18 @@ export class DynamicsChannelIntegration {
     }
 
     clickToActHandler(paramStr) {
+
+        let keepThis = this;
+
         return new Promise(function (resolve, reject) {
             try {
                 let params = JSON.parse(paramStr);
                 //var phNo = params.value;   //Retrieve the phone number to dial from parameters passed by CIF
                 console.log("Click To Act placing a phone call to " + paramStr);
 
-                this.outBoundCall.start(params.value).then((result)=>{
+                keepThis.outBoundCall.start(params.value).then((result)=>{
           
-                    this.logger.log(`click-to-act. outbound-call result: ${result}`);
+                    console.log(`click-to-act. outbound-call result: ${result}`);
                 });
                
                 resolve(true);
