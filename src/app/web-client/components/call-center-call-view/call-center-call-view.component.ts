@@ -129,6 +129,8 @@ export class CallCenterCallViewComponent implements OnInit {
     
      this.setCurrentMonitoringType(this.mediaModel);    
 
+     this.addCRMActivityRecord();
+
     });
 
   }
