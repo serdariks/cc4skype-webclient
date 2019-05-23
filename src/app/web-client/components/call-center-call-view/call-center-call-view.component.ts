@@ -140,7 +140,7 @@ export class CallCenterCallViewComponent implements OnInit {
 
   addCRMActivityRecord(){
     
-    let hasIncomingCall:boolean = this.currentState.toString() !=StateName[StateName.FirstAgentCallRinging];
+    let hasIncomingCall:boolean = this.currentState.toString() ==StateName[StateName.FirstAgentCallRinging];
 
     if(hasIncomingCall){        
 
@@ -162,13 +162,12 @@ export class CallCenterCallViewComponent implements OnInit {
 
   }
 
-  showContact(){
-    
-    let agentAnswered:boolean = this.currentState.toString() !=StateName[StateName.FirstNormalAgentConnected];
+  showContact() {
 
-    if(agentAnswered){
-     this.dynamicsChannelIntegration.searchContactByNumber("05332414505").then(c=>{
-          
+    let agentAnswered: boolean = this.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];
+
+    if (agentAnswered) {
+      this.dynamicsChannelIntegration.searchContactByNumberAndOpen("05332414505").then(c => {
 
       });
     }
