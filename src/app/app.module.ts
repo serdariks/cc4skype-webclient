@@ -69,11 +69,13 @@ import { environment } from '../environments/environment';
 import { HttpModule } from '@angular/http';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
+import { DynamicsAppComponent } from './web-client/components/dynamics-app/dynamics-app.component';
 
 const appRoutes: Routes =
   [
     { path: 'with-user-id/:id', component: AppComponent },
-    { path: '', component: AppComponent }
+    { path:'dynamics',component:DynamicsAppComponent},
+    { path: '', component: AppComponent }    
   ];
 
 @NgModule({
@@ -97,7 +99,8 @@ const appRoutes: Routes =
       WaitingMediaComponent,
       HandlingMediaComponent,
       OutboundCallViewComponent,
-      DynamicsTestComponent
+      DynamicsTestComponent,
+      DynamicsAppComponent,
    ],
    imports: [
       HttpModule,

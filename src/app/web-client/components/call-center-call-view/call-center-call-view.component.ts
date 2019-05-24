@@ -10,7 +10,6 @@ import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { RecordingStateChangeListener } from '../../services/recording-state-change-listener';
 import { Listeners } from '../../services/listeners';
-import { Listener } from '../../services/listener';
 import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
 import { DynamicsChannelIntegration, CallDirection } from '../../services/dynamics-channel-integration';
 
