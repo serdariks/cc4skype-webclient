@@ -34,9 +34,6 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         recordingStateChangedListener,callViewStateMachine,
         listeners,iconPathsService,dynamicsChannelIntegration);     
 
-  }  
-
-  ngOnInit() {
-  }
+  }    
 
 }
