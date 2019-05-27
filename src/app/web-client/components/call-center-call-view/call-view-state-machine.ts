@@ -4,6 +4,7 @@ import { CallCenterCallViewComponent } from "./call-center-call-view.component";
 import { Subject } from "rxjs";
 import { LoggingService } from "../../../logging-service";
 import { Injectable } from "@angular/core";
+import { CallCenterCallViewBase } from "../component-base/callcenter-callview-base";
 
 @Injectable()
 export class CallViewStateMachine {
@@ -51,7 +52,7 @@ export class CallViewStateMachine {
         }
     }
 
-    init(cw: CallCenterCallViewComponent) {
+    init(cw: CallCenterCallViewBase) {
 
 
         for (let sName in StateName) {

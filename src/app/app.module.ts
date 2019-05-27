@@ -70,6 +70,7 @@ import { HttpModule } from '@angular/http';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
 import { DynamicsAppComponent } from './web-client/components/dynamics-app/dynamics-app.component';
+import { DynamicsCallViewComponent } from './web-client/components/dynamics-call-view/dynamics-call-view.component';
 
 const appRoutes: Routes =
   [
@@ -101,6 +102,7 @@ const appRoutes: Routes =
       OutboundCallViewComponent,
       DynamicsTestComponent,
       DynamicsAppComponent,
+      DynamicsCallViewComponent
    ],
    imports: [
       HttpModule,

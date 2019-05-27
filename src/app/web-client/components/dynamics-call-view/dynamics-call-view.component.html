@@ -1,0 +1,56 @@
+<div *ngIf="hasActiveCall" class="panel panel-default">
+  <div class="panel-body">
+     {{currentState.toString()}}
+     <div>
+          Caller: {{mediaModel.QueueName}}-{{mediaModel.CallerName}}
+     </div>            
+     <div *ngIf="hasOtherAgent">
+         {{otherAgentFormattedString}}
+     </div>
+     <div *ngIf="isFirstAgentCallRinging">
+        <img [src]="iconPaths['answerImg']" (click)="onAcceptCall()">
+        <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()">
+     </div>
+     <div *ngIf="isFirstNormalAgentConnected">
+          <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()">
+          <img *ngIf="onHoldButtonVisible" [src]="iconPaths['holdImg']" (click)="onAgentPutOnHold()">
+          <img *ngIf="resumeButtonVisible" [src]="iconPaths['resumeImg']" (click)="onAgentResumed()">
+          <img [src]="iconPaths['warmTransferStartImg']" (click)="onWarmTransferStart()">
+          <img [src]="iconPaths['disconnectImg']" (click)="onHangupCall()">
+     </div>
+     <div *ngIf="isFirstOperatorAgentConnected">
+        <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">
+        <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()">
+        <img *ngIf="onHoldButtonVisible" [src]="iconPaths['holdImg']" (click)="onAgentPutOnHold()">
+        <img *ngIf="resumeButtonVisible" [src]="iconPaths['resumeImg']" (click)="onAgentResumed()">
+        <img [src]="iconPaths['parkImg']" (click)="onParkCall()">
+        <img [src]="iconPaths['disconnectImg']" (click)="onHangupCall()">
+     </div>
+     <div *ngIf="isWarmTransferInviteRinging">
+        <img *ngIf="isSecondAgent" [src]="iconPaths['answerImg']" (click)="onAcceptCall()">          
+        <img *ngIf="isFirstAgent" [src]="iconPaths['ignoreImg']" (click)="onCancelWarmTransferRinging()">
+        <img *ngIf="isSecondAgent" [src]="iconPaths['ignoreImg']" (click)="onRejectWarmTransferInvite()">
+     </div>  
+     <div *ngIf="isColdTransferInviteRinging">
+          <img [src]="iconPaths['answerImg']" (click)="onAcceptColdTransferInvite()">                      
+          <img [src]="iconPaths['ignoreImg']" (click)="onRejectColdTransferInvite()">
+     </div>      
+     <div *ngIf="isWarmInviteAcceptedFirstAgent">
+        <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">
+        <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()">
+        <img *ngIf="!warmSwitchedToCaller" [src]="iconPaths['switchToCallerImg']" (click)="onSwitchToCaller()">
+        <img *ngIf="warmSwitchedToCaller" [src]="iconPaths['switchToAgentImg']" (click)="onSwitchToAgent()">
+        <img [src]="iconPaths['warmTransferCommitImg']" (click)="onWarmTransferCommit()">
+        <img [src]="iconPaths['ignoreImg']" (click)="onCancelWarmTransferSession()">
+     </div>
+     <div *ngIf="isWarmTransfer2ndAgentAnswered">
+        <img [src]="iconPaths['ignoreImg']" (click)="onRejectWarmTransfer()">
+     </div>
+     <div *ngIf="isMonitoring">
+          <img [ngClass]="getMonitoringClass('Silent')" [src]="iconPaths['silentMonitorImg']" (click)="onToggleMonitor('Silent')" title="Silent monitor">
+          <img [ngClass]="getMonitoringClass('Whisper')" [src]="iconPaths['whisperImg']" (click)="onToggleMonitor('Whisper')" title="Whisper">
+          <img [ngClass]="getMonitoringClass('BargeIn')" [src]="iconPaths['bargeInImg']" (click)="onToggleMonitor('BargeIn')" title="Barge in">
+       </div>
+  </div>    
+</div>

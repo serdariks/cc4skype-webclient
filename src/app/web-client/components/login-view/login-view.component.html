@@ -3,7 +3,7 @@
   <div class="panel-body">
           
           <div class="floatLeft">
-              Current user:{{personLoggedIn.displayName}}
+              {{personLoggedIn.displayName}}
           </div>
           <div class="floatLeft">
               <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
