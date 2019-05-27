@@ -1,4 +1,4 @@
-<div class="container" style="width:350px;">
+<div class="container" style="max-width:350px;">
   <div class="row">  
     <div class="col-sd-12">
         <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
@@ -6,7 +6,7 @@
   </div>
   <div *ngIf="userSignedIn==true">
     <div class="row">
-      <div class="col-md-12">                                
+      <div class="col-sd-12">                                
           <app-dynamics-call-view></app-dynamics-call-view>   
           <app-outbound-call-view></app-outbound-call-view>                             
       </div>
