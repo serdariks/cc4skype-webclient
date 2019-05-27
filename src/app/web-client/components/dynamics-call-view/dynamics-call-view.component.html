@@ -1,15 +1,14 @@
 <div *ngIf="hasActiveCall" class="panel panel-default">
-  <div class="panel-body">
-     {{currentState.toString()}}
+  <div class="panel-body">     
      <div>
-          Caller: {{mediaModel.QueueName}}-{{mediaModel.CallerName}}
+          {{mediaModel.QueueName}}-{{mediaModel.CallerName}}
      </div>            
      <div *ngIf="hasOtherAgent">
          {{otherAgentFormattedString}}
      </div>
      <div *ngIf="isFirstAgentCallRinging">
-        <img [src]="iconPaths['answerImg']" (click)="onAcceptCall()">
-        <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()">
+        <img [src]="iconPaths['answerImg']" (click)="onAcceptCall()" title="Answer">
+        <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()" title="Ignore">
      </div>
      <div *ngIf="isFirstNormalAgentConnected">
           <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()">

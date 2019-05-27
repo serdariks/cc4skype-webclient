@@ -1,0 +1,10 @@
+.active-monitoring{
+    border: 1px solid darkgreen;
+}
+img{
+    cursor: pointer;
+}
+
+.panel-body img{
+    width:8px;
+}
