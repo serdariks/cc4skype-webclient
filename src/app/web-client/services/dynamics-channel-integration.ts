@@ -9,7 +9,7 @@ export class DynamicsChannelIntegration {
     environment: any;
 
     constructor(private outBoundCall:OutboundCall) {
-        this.tryInit();
+        //this.tryInit();
     }
 
     tryInit() {
