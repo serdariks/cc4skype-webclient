@@ -103,4 +103,8 @@ export class AppComponentBase implements OnInit {
     this.dialpadIsOpen = !this.dialpadIsOpen;
   }
 
+  onOutboundCallStarted(){
+    this.dialpadIsOpen = false;
+  }
+
 }

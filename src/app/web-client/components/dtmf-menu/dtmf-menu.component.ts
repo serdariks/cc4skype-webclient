@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { OutboundCall } from '../../services/outbound-call';
 import { LoggingService } from '../../../logging-service';
+
 
 @Component({
   selector: 'app-dtmf-menu',
@@ -11,6 +12,7 @@ import { LoggingService } from '../../../logging-service';
 })
 export class DtmfMenuComponent implements OnInit {
 
+  @Output() outboundCallStarted = new EventEmitter<string>();
   private lyncApiAudioService:LyncApiAudioService;
 
   constructor(private apiContainer:LyncApiContainer,private outBoundCall:OutboundCall,private logger:LoggingService) { 
@@ -54,9 +56,12 @@ export class DtmfMenuComponent implements OnInit {
   digits:string='';
  
   startOutBoundCall(){
+    this.outboundCallStarted.next();
     this.outBoundCall.start(this.digits).then((result)=>{
           
       this.logger.log(`dtmf-menu. outbound-call result: ${result}`);
     });
+
+    this.digits = "";
   }
 }

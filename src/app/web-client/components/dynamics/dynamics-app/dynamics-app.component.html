@@ -9,8 +9,8 @@
       <div class="col-sd-12">                                
           <app-dynamics-call-view></app-dynamics-call-view>   
           <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>   
-          <img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()">
-          <app-dtmf-menu *ngIf="dialpadIsOpen"></app-dtmf-menu>                                  
+          <img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()" title="Outbound call">
+          <app-dtmf-menu *ngIf="dialpadIsOpen" (outboundCallStarted)="onOutboundCallStarted()"></app-dtmf-menu>                                  
       </div>
     </div>   
   </div>
