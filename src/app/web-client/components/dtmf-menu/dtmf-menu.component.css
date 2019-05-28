@@ -12,14 +12,20 @@
     /* cursor: pointer; */
 }
 
+.panel-body{
+    width: 50%;
+    margin: 0 auto;
+}
 .dtmfMenuContainer
 {
-    width:150px;
+   /*  width:50;
+    margin: 0 auto; */
 }
 
 .dtmfMenuHeader
 {
-    width:250px;
+    /* width: 50%;
+    margin: 0 auto; */
 }
 
 .floatLeft{
