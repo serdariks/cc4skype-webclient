@@ -25,9 +25,9 @@ export class AppComponent extends AppComponentBase {
     logger: LoggingService, lyncApiGlobals: LyncApiGlobals,apiContainer: LyncApiContainer
     , lyncSDKApi: LyncSDKApi, activatedRoute: ActivatedRoute, socketManager: SocketManager, 
     xhrHook: XHRHook,
-    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration){
+    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService){
     super(messaging,cacheService,serviceCall,logger,lyncApiGlobals,apiContainer,
-      lyncSDKApi,activatedRoute,socketManager,xhrHook,initializeData,dynamicsChannelIntegration);
+      lyncSDKApi,activatedRoute,socketManager,xhrHook,initializeData,dynamicsChannelIntegration,iconPathsService);
   }  
 
 }

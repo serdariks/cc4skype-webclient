@@ -13,17 +13,19 @@ import { SocketManager } from '../../messaging/socket-manager';
 import { XHRHook } from '../../services/xhr-hook';
 import { InitializeData } from '../../services/initialize-data';
 import { DynamicsChannelIntegration } from '../../services/dynamics-channel-integration';
+import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
 
 export class AppComponentBase implements OnInit {
 
   private lyncApiSignIn: LyncApiSignIn;
   private lyncApi: LyncApi;
+  iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   constructor(private messaging: Messaging, private cacheService: CacheService, private serviceCall: ServiceCall,
     private logger: LoggingService, private lyncApiGlobals: LyncApiGlobals, private apiContainer: LyncApiContainer
     , private lyncSDKApi: LyncSDKApi, private activatedRoute: ActivatedRoute, private socketManager: SocketManager, 
     private xhrHook: XHRHook,
-    private initializeData: InitializeData,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    private initializeData: InitializeData,private dynamicsChannelIntegration:DynamicsChannelIntegration, private iconPathsService:IconPathsService) {
 
     //xhrHook.addHooks();
 
@@ -93,6 +95,12 @@ export class AppComponentBase implements OnInit {
 
   afterMessagingInitialize() {
     this.initializeData.initialize();
-  }   
+  }  
+  
+  dialpadIsOpen:boolean = false;
+
+  onDialpadClick(){
+    this.dialpadIsOpen = !this.dialpadIsOpen;
+  }
 
 }
