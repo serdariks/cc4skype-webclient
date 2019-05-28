@@ -5,3 +5,7 @@
 img{
     cursor: pointer;
 }
+
+.panel-body img{
+    width:40px;
+}
