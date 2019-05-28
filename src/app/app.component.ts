@@ -12,6 +12,7 @@ import { XHRHook } from './web-client/services/xhr-hook';
 import { InitializeData } from './web-client/services/initialize-data';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 import { AppComponentBase } from './web-client/components/component-base/app-component-base';
+import { IconPathsService } from './web-client/services/icon-paths-service';
 
 @Component({
   selector: 'app-root',
