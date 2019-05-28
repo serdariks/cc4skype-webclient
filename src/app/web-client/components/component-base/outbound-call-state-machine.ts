@@ -1,8 +1,9 @@
 import { StateMachine, State } from "../call-center-call-view/state-machine";
 import { ConferenceStatusAction } from "../call-center-call-view/enums";
 import { Subject } from "rxjs";
-import { OutboundCallViewComponent } from "./outbound-call-view.component";
+import { OutboundCallViewComponent } from "../outbound-call-view/outbound-call-view.component";
 import { Injectable } from "@angular/core";
+import { OutboundCallViewBase } from "./outbound-callview-base";
 
 @Injectable()
 export class OutBoundCallStateMachine{
@@ -35,7 +36,7 @@ export class OutBoundCallStateMachine{
         });
     }
 
-    init(cw:OutboundCallViewComponent){
+    init(cw:OutboundCallViewBase){
 
         for (let sName in OutBoundCallStateName) {
 

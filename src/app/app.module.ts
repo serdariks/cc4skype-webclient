@@ -61,7 +61,7 @@ import { LyncSDKNote } from './web-client/lync-sdk/lync-sdk-note';
 import { InitializeData } from './web-client/services/initialize-data';
 import { OutboundCall } from './web-client/services/outbound-call';
 import { OutboundCallViewComponent } from './web-client/components/outbound-call-view/outbound-call-view.component';
-import { OutBoundCallStateMachine } from './web-client/components/outbound-call-view/outbound-call-state-machine';
+import { OutBoundCallStateMachine } from './web-client/components/component-base/outbound-call-state-machine';
 import { IconPathsService } from './web-client/services/icon-paths-service';
 import { UserInitializeData } from './web-client/services/user-initialize-data';
 import { ConfigService } from './web-client/services/config-service';
@@ -69,8 +69,9 @@ import { environment } from '../environments/environment';
 import { HttpModule } from '@angular/http';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
-import { DynamicsAppComponent } from './web-client/components/dynamics-app/dynamics-app.component';
-import { DynamicsCallViewComponent } from './web-client/components/dynamics-call-view/dynamics-call-view.component';
+import { DynamicsAppComponent } from './web-client/components/dynamics/dynamics-app/dynamics-app.component';
+import { DynamicsCallViewComponent } from './web-client/components/dynamics/dynamics-call-view/dynamics-call-view.component';
+import { DynamicsOutboundCallViewComponent } from './web-client/components/dynamics/dynamics-outbound-call-view/dynamics-outbound-call-view.component';
 
 const appRoutes: Routes =
   [
@@ -102,7 +103,8 @@ const appRoutes: Routes =
       OutboundCallViewComponent,
       DynamicsTestComponent,
       DynamicsAppComponent,
-      DynamicsCallViewComponent
+      DynamicsCallViewComponent,
+      DynamicsOutboundCallViewComponent,
    ],
    imports: [
       HttpModule,

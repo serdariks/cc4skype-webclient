@@ -15,7 +15,7 @@ import { CallSessionStateChangeListener } from '../../services/call-session-stat
 import { LyncApiContacts } from '../../lync-api/lync-api-contacts';
 import { Person } from '../../lync-api/lync-api-person';
 import { LyncApiNote } from '../../lync-api/lync-api-note';
-import { OutBoundCallStateMachine, OutBoundCallStateName } from '../outbound-call-view/outbound-call-state-machine';
+import { OutBoundCallStateMachine, OutBoundCallStateName } from '../component-base/outbound-call-state-machine';
 import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
 import { UserInitializeData, UserData, Roles, UserRole } from '../../services/user-initialize-data';

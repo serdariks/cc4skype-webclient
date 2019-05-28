@@ -23,6 +23,7 @@ export class IconPathsService {
             { key: 'silentMonitorImg', path: 'assets/img/cc4s/Monitor.png' },
             { key: 'whisperImg', path: 'assets/img/cc4s/Whisper.png' },
             { key: 'bargeInImg', path: 'assets/img/cc4s/BargeIn.png' },
+            { key: 'dialpadImg', path: 'assets/img/cc4s/Dialpad.png' },
 
         ];
 
