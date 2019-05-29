@@ -30,6 +30,7 @@ export class DynamicsContactSearchComponent implements OnInit {
 
   onDialClick(mobilePhone:string){
     console.log('calling ' + mobilePhone);
+    this.startOutBoundCall(mobilePhone);
   }
 
   startOutBoundCall(mobilePhone:string){
