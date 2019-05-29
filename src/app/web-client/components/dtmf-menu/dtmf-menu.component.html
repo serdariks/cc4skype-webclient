@@ -1,21 +1,21 @@
-<div class="container">
-<div class="panel panel-default" *ngIf="isOutboundCallAvailable" >
-  <!--<div class="panel-heading">DTMF Menu</div>-->
-  <div class="panel-body">
-    <div class="dtmfMenuHeader row" >
-        <div class="col-sd-9">
-            <input type="text" [(ngModel)]="digits" class="form-control">
-        </div>        
-        <div class="col-sd-3">
-            <button class="btn btn-primary" (click)="startOutBoundCall()">Call</button>
-        </div>                
-    </div>    
-    <br>
-    <div class="dtmfMenuContainer">                 
-      <button class="dtmfMenuItem btn btn-success" *ngFor="let menuItem of dtmfMenuItems"
-        (click)="onToneClick(menuItem)">{{menuItem}}
-    </button>
+<div class="panel panel-default">
+    <div class="panel-body" *ngIf="isOutboundCallAvailable" >
+        <div class="row" >
+            <div class="col-md-10">
+                <input type="text" [(ngModel)]="digits" class="form-control">
+            </div>        
+            <div class="col-md-2">                
+                <img [src]="iconPaths['dialImg']" (click)="startOutBoundCall()" title="Dial"/>
+            </div>             
+        </div>    
+        
+        <div class="row" style="margin-top: 10px;">                 
+            <div class="col-md-offset-1 col-md-10" >
+              <button class="dtmfMenuItem btn btn-default" *ngFor="let menuItem of dtmfMenuItems"
+              (click)="onToneClick(menuItem)">{{menuItem}} 
+            </button>
+          </div>
+        </div>  
     </div>
-  </div>
 </div>
-</div>
+

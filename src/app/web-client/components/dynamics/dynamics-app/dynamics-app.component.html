@@ -1,12 +1,12 @@
-<div class="container" style="max-width:350px;">
+<div class="container" style="max-width:350px;margin-top: 20px;">
   <div class="row">  
-    <div class="col-sd-12">
+    <div class="col-md-12">
         <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
     </div>    
   </div>
   <div *ngIf="userSignedIn==true">
     <div class="row">
-      <div class="col-sd-12">                                
+      <div class="col-md-12">                                
           <app-dynamics-call-view></app-dynamics-call-view>   
           <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>   
           <img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()" title="Outbound call">
@@ -15,3 +15,6 @@
     </div>   
   </div>
 </div>
+
+
+ 

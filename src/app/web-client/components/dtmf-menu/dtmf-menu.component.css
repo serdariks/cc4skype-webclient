@@ -1,6 +1,6 @@
 .dtmfMenuItem{
     float: left;
-    width: 40px;
+    width: 60px;
     height: 40px;
     /* border:solid darkgreen 1px; */
     /* text-align: center; */
@@ -12,10 +12,10 @@
     /* cursor: pointer; */
 }
 
-.panel-body{
+/* .panel-body{
     width: 50%;
     margin: 0 auto;
-}
+} */
 .dtmfMenuContainer
 {
    /*  width:50;
@@ -32,4 +32,8 @@
     /* float: left; */
     display: inline-block;
     margin-left: 20px;
+}
+img{
+    width: 34px;
+    cursor: pointer;    
 }

@@ -1,14 +1,14 @@
 <div class="panel panel-default" *ngIf="personLoggedIn">
   
-  <div class="panel-body">
-          
-          <div class="floatLeft">
+  <div class="panel-body">          
+
+          <div class="col-md-3">
               {{personLoggedIn.displayName}}
           </div>
-          <div class="floatLeft">
+          <div class="col-md-5">
               <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
           </div>
-          <div class="floatLeft">
+          <div class="col-md-4">
               <button class="btn btn-primary" (click)="onSignOut()">Sign out</button> 
           </div>
       

@@ -3,6 +3,7 @@ import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { OutboundCall } from '../../services/outbound-call';
 import { LoggingService } from '../../../logging-service';
+import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class DtmfMenuComponent implements OnInit {
   @Output() outboundCallStarted = new EventEmitter<string>();
   private lyncApiAudioService:LyncApiAudioService;
 
-  constructor(private apiContainer:LyncApiContainer,private outBoundCall:OutboundCall,private logger:LoggingService) { 
+  constructor(private apiContainer:LyncApiContainer,private outBoundCall:OutboundCall,private logger:LoggingService,private iconPathsService:IconPathsService) { 
 
     this.lyncApiAudioService = apiContainer.currentApi.audioService;
   }
@@ -23,6 +24,8 @@ export class DtmfMenuComponent implements OnInit {
   dtmfMenuItems:string[] = new Array<string>();
 
   isOutboundCallAvailable:boolean=true;
+
+  iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   ngOnInit() {
      for(let i:number =0;i<10;i++){
