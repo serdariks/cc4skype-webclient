@@ -17,6 +17,7 @@ import { Listener } from '../../services/listener';
 import { Globals } from '../../services/globals';
 import { CookiesService } from '../../services/cookies-service';
 import { LyncApiNote } from '../../lync-api/lync-api-note';
+import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class LoginViewComponent implements OnInit, OnDestroy {
     private contactsService: ContactsService,
     private loggingService: LoggingService,
     private socketManager: SocketManager, private apiContainer: LyncApiContainer
-    , private messaging: Messaging, private listeners: Listeners, private globals: Globals, private cookies: CookiesService
+    , private messaging: Messaging, private listeners: Listeners, private globals: Globals, private cookies: CookiesService,private iconPathsService:IconPathsService
   ) {
     let currentApi = apiContainer.currentApi;
 
@@ -55,6 +56,8 @@ export class LoginViewComponent implements OnInit, OnDestroy {
   }
 
   @Input() personLoggedIn: Person;
+
+  iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   presenceChangeSubscription: Subscription;
 

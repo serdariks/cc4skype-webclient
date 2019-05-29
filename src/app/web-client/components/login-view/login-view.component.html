@@ -2,15 +2,23 @@
   
   <div class="panel-body">          
 
-          <div class="col-md-3">
-              {{personLoggedIn.displayName}}
+          <div class="row">
+              <div class="col-md-12">
+                  {{personLoggedIn.displayName}}
+              </div>
           </div>
-          <div class="col-md-5">
-              <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
-          </div>
-          <div class="col-md-4">
-              <button class="btn btn-primary" (click)="onSignOut()">Sign out</button> 
-          </div>
+          
+          <div class="row">
+
+              <div class="col-md-6">
+                  <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
+              </div>
+              <div class="col-md-6">
+                  <!--<button class="btn btn-primary" (click)="onSignOut()">Sign out</button>-->
+                  <img [src]="iconPaths['logoutImg']" (click)="onSignOut()" title="Sign out"/> 
+              </div>
+
+          </div>          
       
 
   </div>         
