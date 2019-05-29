@@ -106,7 +106,7 @@ export class DynamicsChannelIntegration {
     updateCallerDetailsFromCRM(keyword: string, searchOnly: boolean, recordId: string,
         onCallerDetailsReceived: (details: DynamicsContact[]) => void) {
 
-        if (!keyword) {
+        if (!keyword && keyword !='') {
             return; //Not a phone number or another search in progress
         }
         //log("Trying to find name of caller " + this.number + " with searchOnly=" + searchOnly);
