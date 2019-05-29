@@ -1,7 +1,7 @@
 <button class="btn btn-primary" (click)="searchContacts('')">Search contacts</button>
 <div class="list-group" *ngFor="let contact of contacts">
-  <div class="list-group-item">
-    <h5 class="list-group-item-heading">{{contact.fullName}}</h5>  
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">{{contact.fullName}}</h4>  
     <p class="list-group-item-text">{{contact.mobilePhone}}</p>      
-  </div>        
+  </a>        
 </div>
