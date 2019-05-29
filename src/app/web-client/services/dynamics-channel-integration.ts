@@ -129,9 +129,21 @@ export class DynamicsChannelIntegration {
 
                     //Record the fullname and CRM record id
 
-                    let contacts:DynamicsContact[] = val.map(v=>{return <DynamicsContact>{
+                    let contacts: DynamicsContact[] = [];
+                    
+                    for(var index in val){
+                        let v = val[index];
+                        
+                        let contact:DynamicsContact = <DynamicsContact>{
+                            fullName:v.fullname,contactId:v.contactid,mobilePhone:v.mobilephone
+                        }
+
+                        contacts.push(contact);
+                    }
+
+                 /*    let contacts1:DynamicsContact[] = val.map(v=>{return <DynamicsContact>{
                         fullName:v.fullname,contactId:v.contactid,mobilePhone:v.mobilephone
-                    };});
+                    };}); */
                     
                     onCallerDetailsReceived(contacts);
                     //this._name = val[0].fullname;
