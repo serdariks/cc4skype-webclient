@@ -119,7 +119,7 @@ export class DynamicsChannelIntegration {
             query += "contains(mobilephone, '" + keyword.substring(1) + 
             "') or contains(mobilephone, '" + keyword.substring(2) + 
             "') or contains(mobilephone, '" + keyword.substring(3) + 
-            "') or contains(fullname, '" + keyword;
+            "') or contains(fullname, '" + keyword + "')";
         }
         //In this sample, we search all 'contact' records
         Microsoft.CIFramework.searchAndOpenRecords("contact", query, searchOnly).then(
