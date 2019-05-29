@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsContact } from 'src/app/web-client/services/dynamics-channel-integration';
+import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
 
 @Component({
   selector: 'app-dynamics-contact-search',
@@ -8,9 +9,11 @@ import { DynamicsChannelIntegration, DynamicsContact } from 'src/app/web-client/
 })
 export class DynamicsContactSearchComponent implements OnInit {
 
-  constructor(private dynamicsService:DynamicsChannelIntegration) {
+  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService) {
 
   }
+
+  iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   ngOnInit() {
     
@@ -22,6 +25,10 @@ export class DynamicsContactSearchComponent implements OnInit {
     this.dynamicsService.searchContacts(keyword).then(contacts=>{
       this.contacts = contacts;
     });
+  }
+
+  onDialClick(mobilePhone:string){
+    console.log('calling ' + mobilePhone);
   }
 
 }

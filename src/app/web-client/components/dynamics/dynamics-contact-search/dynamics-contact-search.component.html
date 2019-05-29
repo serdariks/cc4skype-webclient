@@ -2,6 +2,9 @@
 <div class="list-group">
   <a href="#" class="list-group-item" *ngFor="let contact of contacts">
     <h4 class="list-group-item-heading">{{contact.fullName}}</h4>  
-    <p class="list-group-item-text">{{contact.mobilePhone}}</p>      
+    <p class="list-group-item-text">
+      {{contact.mobilePhone}}
+      <img [src]="iconPaths['dialImg']" (click)="onDialClick(contact.mobilePhone)" title="Dial"/>
+    </p>      
   </a>        
 </div>
