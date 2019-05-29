@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsContact } from 'src/app/web-client/services/dynamics-channel-integration';
 import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
+import { OutboundCall } from 'src/app/web-client/services/outbound-call';
 
 @Component({
   selector: 'app-dynamics-contact-search',
@@ -9,7 +10,7 @@ import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-pa
 })
 export class DynamicsContactSearchComponent implements OnInit {
 
-  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService) {
+  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outBoundCall:OutboundCall) {
 
   }
 
@@ -29,6 +30,15 @@ export class DynamicsContactSearchComponent implements OnInit {
 
   onDialClick(mobilePhone:string){
     console.log('calling ' + mobilePhone);
+  }
+
+  startOutBoundCall(mobilePhone:string){
+   
+    this.outBoundCall.start(mobilePhone).then((result)=>{
+          
+      //this.logger.log(`dtmf-menu. outbound-call result: ${result}`);
+    });
+    
   }
 
 }
