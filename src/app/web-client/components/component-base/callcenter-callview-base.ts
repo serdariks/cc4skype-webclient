@@ -161,7 +161,7 @@ export class CallCenterCallViewBase implements OnInit {
     let agentAnswered: boolean = this.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];
 
     if (agentAnswered) {
-      this.dynamicsChannelIntegration.searchContactByNumberAndOpen("05332414505").then(c => {
+      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => {
 
       });
     }

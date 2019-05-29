@@ -46,10 +46,13 @@ export class DynamicsTestComponent implements OnInit {
 
   createCaseTest(){
 
-    this.dynamicsChannelIntegration.searchContactByNumber("05332414505").then(c=>{
+    this.dynamicsChannelIntegration.searchContacts("05332414505").then(contacts=>{
     
+    
+      if(contacts.length == 0) return;
+
       let caseRequest:CreateCaseRequest = {
-        contactId:c.contactId,
+        contactId:contacts[0].contactId,
         callNotes:"I have a few call notes about this caller"
       };
 
@@ -66,7 +69,7 @@ export class DynamicsTestComponent implements OnInit {
 
   searchContactsTest()
   {
-    this.dynamicsChannelIntegration.searchContacts();
+    this.dynamicsChannelIntegration.searchContacts('');
   }
 
 }

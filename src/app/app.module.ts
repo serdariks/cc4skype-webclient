@@ -72,6 +72,7 @@ import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
 import { DynamicsAppComponent } from './web-client/components/dynamics/dynamics-app/dynamics-app.component';
 import { DynamicsCallViewComponent } from './web-client/components/dynamics/dynamics-call-view/dynamics-call-view.component';
 import { DynamicsOutboundCallViewComponent } from './web-client/components/dynamics/dynamics-outbound-call-view/dynamics-outbound-call-view.component';
+import { DynamicsContactSearchComponent } from './web-client/components/dynamics/dynamics-contact-search/dynamics-contact-search.component';
 
 const appRoutes: Routes =
   [
@@ -105,6 +106,7 @@ const appRoutes: Routes =
       DynamicsAppComponent,
       DynamicsCallViewComponent,
       DynamicsOutboundCallViewComponent,
+      DynamicsContactSearchComponent,
    ],
    imports: [
       HttpModule,

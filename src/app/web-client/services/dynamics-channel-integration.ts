@@ -9,7 +9,7 @@ export class DynamicsChannelIntegration {
     environment: any;
 
     constructor(private outBoundCall:OutboundCall) {
-        //this.tryInit();
+        this.tryInit();
     }
 
     tryInit() {
@@ -78,22 +78,22 @@ export class DynamicsChannelIntegration {
 
     }
 
-    searchContactByNumber(number: string): Promise<{ name: string, contactId: string }> {
+    searchContacts(keyword: string): Promise<DynamicsContact[]> {
 
-        return new Promise<{ name: string, contactId: string }>((resolve, reject) => {
-            this.updateCallerDetailsFromCRM(number, true, null, (contact) => {
-                resolve(contact);
+        return new Promise<DynamicsContact[]>((resolve, reject) => {
+            this.updateCallerDetailsFromCRM(keyword, true, null, (contacts) => {
+                resolve(contacts);
             });
 
         });
 
     }
 
-    searchContactByNumberAndOpen(number: string): Promise<{ name: string, contactId: string }> {
+    searchContactsAndOpen(keyword: string): Promise<DynamicsContact[]> {
 
-        return new Promise<{ name: string, contactId: string }>((resolve, reject) => {
-            this.updateCallerDetailsFromCRM(number, false, null, (contact) => {
-                resolve(contact);
+        return new Promise<DynamicsContact[]>((resolve, reject) => {
+            this.updateCallerDetailsFromCRM(keyword, false, null, (contacts) => {
+                resolve(contacts);
             });
 
         });
@@ -103,29 +103,37 @@ export class DynamicsChannelIntegration {
     /* Search, and optionally open the record using CIF API searchAndOpenRecords()
      * searchOnly - when 'true', search but do not open the record, when 'false', also open the record
      * recordid - An optional CRM record Id to open. If not passed a search based on current phone number will be performed */
-    updateCallerDetailsFromCRM(number: string, searchOnly: boolean, recordId: string,
-        onCallerDetailsReceived: (details: { name: string, contactId: string }) => void) {
+    updateCallerDetailsFromCRM(keyword: string, searchOnly: boolean, recordId: string,
+        onCallerDetailsReceived: (details: DynamicsContact[]) => void) {
 
-        if (!number) {
+        if (!keyword) {
             return; //Not a phone number or another search in progress
         }
         //log("Trying to find name of caller " + this.number + " with searchOnly=" + searchOnly);
 
-        var query = "?$select=fullname&$filter=";   //In this sample, we are retrieving the 'fullname' attribute of the record
+        var query = "?$select=fullname,mobilephone&$filter=";   //In this sample, we are retrieving the 'fullname' attribute of the record
         if (recordId) { //oData query to retrieve a specific record
             query += "contactid eq " + recordId;
         }
         else {  //oData query to search all records for current phone number
-            query += "contains(mobilephone, '" + number.substring(1) + "') or contains(mobilephone, '" + number.substring(2) + "') or contains(mobilephone, '" + number.substring(3) + "')";
+            query += "contains(mobilephone, '" + keyword.substring(1) + 
+            "') or contains(mobilephone, '" + keyword.substring(2) + 
+            "') or contains(mobilephone, '" + keyword.substring(3) + 
+            "') or contains(fullname, '" + keyword;
         }
         //In this sample, we search all 'contact' records
         Microsoft.CIFramework.searchAndOpenRecords("contact", query, searchOnly).then(
             function(valStr){    //We got the CRM contact record for our search query
                 try {
-                    let val = JSON.parse(valStr);
+                    let val:[any] = <[any]>JSON.parse(valStr);
 
                     //Record the fullname and CRM record id
-                    onCallerDetailsReceived({ name: val[0].fullname, contactId: val[0].contactid });
+
+                    let contacts:DynamicsContact[] = val.map(v=>{return <DynamicsContact>{
+                        fullName:v.fullname,contactId:v.contactid,mobilePhone:v.mobilephone
+                    };});
+                    
+                    onCallerDetailsReceived(contacts);
                     //this._name = val[0].fullname;
                     //this._contactid = val[0].contactid;
                     //log("The caller name is " + val[0].fullname);
@@ -173,10 +181,11 @@ export class DynamicsChannelIntegration {
             parties[0] = us;
         }
 
-        this.searchContactByNumber(callActivity.number).then( c => {
+        this.searchContacts(callActivity.number).then( contacts => {
+            
 
-            if (c != null) {
-                callActivity.contactId = this.stripParens(c.contactId);
+            if (contacts.length > 0) {
+                callActivity.contactId = this.stripParens(contacts[0].contactId);
             }
             
 
@@ -291,7 +300,7 @@ export class DynamicsChannelIntegration {
     }
 
 
-    searchContacts() {
+    testsearchContacts() {
 
         let entityLogicalName: string = "contact";
         let queryStr: string = "";
@@ -354,4 +363,11 @@ export class CaseCreatedResult {
 
 export class openCaseRequest {
     currentCase: string;
+}
+
+export class DynamicsContact{
+    fullName:string;
+    contactId:string;
+    mobilePhone:string;
+
 }
