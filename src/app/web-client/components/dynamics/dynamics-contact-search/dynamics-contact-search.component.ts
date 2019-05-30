@@ -33,13 +33,13 @@ export class DynamicsContactSearchComponent implements OnInit {
 
   searchContacts(keyword:string){
 
-    this.contacts = this.testContacts.filter(c=>
+    /*this.contacts = this.testContacts.filter(c=>
       c.fullName.toLocaleLowerCase().indexOf(keyword.toLowerCase())>=0 || 
-      c.mobilePhone.indexOf(keyword)>=0);
+      c.mobilePhone.indexOf(keyword)>=0);*/
 
-    /* this.dynamicsService.searchContacts(keyword).then(contacts=>{
+    this.dynamicsService.searchContacts(keyword).then(contacts=>{
       this.contacts = contacts;
-    }); */
+    });
   }
 
   onDialClick(mobilePhone:string){
