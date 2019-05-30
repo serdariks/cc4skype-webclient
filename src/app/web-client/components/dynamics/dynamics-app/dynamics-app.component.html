@@ -1,21 +1,46 @@
 <div class="container" style="max-width:350px;margin-top: 20px;">
-  <div class="row">  
-    <div class="col-md-12">
-        <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
-    </div>    
+  <div class="row">
+    <div class="col-xs-12">
+      <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
+    </div>
   </div>
   <div *ngIf="userSignedIn==true">
     <div class="row">
-      <div class="col-md-12">                                
-          <app-dynamics-call-view></app-dynamics-call-view>   
-          <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>   
-          <img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()" title="Outbound call">
-          <app-dtmf-menu *ngIf="dialpadIsOpen" (outboundCallStarted)="onOutboundCallStarted()"></app-dtmf-menu>                                  
-          <app-dynamics-contact-search></app-dynamics-contact-search>
+      <div class="col-xs-12">
+        <app-dynamics-call-view></app-dynamics-call-view>
+        <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>
+        <!--<img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()" title="Outbound call">-->        
+        
+        <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+          <li role="presentation" [ngClass]="activeTabClass('dialpad')">
+            <a (click)="showTab('dialpad')">
+              <img class="navtab-icon" [src]="iconPaths['dialpadImg']" title="Outbound call">
+            </a>
+          </li>
+          <li role="presentation" [ngClass]="activeTabClass('contacts')">
+            <a (click)="showTab('contacts')">            
+                <img class="navtab-icon" [src]="iconPaths['contactsImg']" title="Contacts">
+            </a>
+          </li>
+        </ul>
+        <app-dtmf-menu [ngClass]="visibilityClass('dialpad')" (outboundCallStarted)="onOutboundCallStarted()"></app-dtmf-menu>
+        <div [ngClass]="visibilityClass('contacts')" class="panel panel-default group-panel">   
+            <input type="text" #searchText (input)="searchContacts(searchText.value)" class="form-control" placeholder="Find contacts">
+
+            <div class="panel-heading" role="button" data-toggle="collapse" data-target="#dynamics-contacts">Dynamics</div>                   
+            <div class="panel-collapse" id="dynamics-contacts">
+                <div class="panel-body">
+                    <app-dynamics-contact-search #dynamicsContactSearch></app-dynamics-contact-search>
+                </div>
+            </div>                        
+            <div class="panel-heading collapsed" role="button" data-toggle="collapse" data-target="#cc4skype-contacts">CC4Skype</div>
+            <div class="panel-collapse collapse" id="cc4skype-contacts">
+                <div class="panel-body" >
+                    <app-dynamics-cc4skype-contact-search #dynamicsCC4SkypeContactSearch></app-dynamics-cc4skype-contact-search>
+                </div>
+            </div>                        
+        </div>        
       </div>
-    </div>   
+    </div>
   </div>
 </div>
-
-
- 

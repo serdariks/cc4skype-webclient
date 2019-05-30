@@ -73,6 +73,7 @@ import { DynamicsAppComponent } from './web-client/components/dynamics/dynamics-
 import { DynamicsCallViewComponent } from './web-client/components/dynamics/dynamics-call-view/dynamics-call-view.component';
 import { DynamicsOutboundCallViewComponent } from './web-client/components/dynamics/dynamics-outbound-call-view/dynamics-outbound-call-view.component';
 import { DynamicsContactSearchComponent } from './web-client/components/dynamics/dynamics-contact-search/dynamics-contact-search.component';
+import { DynamicsCc4skypeContactSearchComponent } from './web-client/components/dynamics/dynamics-cc4skype-contact-search/dynamics-cc4skype-contact-search.component';
 
 const appRoutes: Routes =
   [
@@ -107,6 +108,7 @@ const appRoutes: Routes =
       DynamicsCallViewComponent,
       DynamicsOutboundCallViewComponent,
       DynamicsContactSearchComponent,
+      DynamicsCc4skypeContactSearchComponent,
    ],
    imports: [
       HttpModule,

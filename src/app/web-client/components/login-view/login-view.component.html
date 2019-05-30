@@ -3,23 +3,18 @@
   <div class="panel-body">          
 
           <div class="row">
-              <div class="col-md-12">
+              <div class="col-xs-6">
                   {{personLoggedIn.displayName}}
               </div>
-          </div>
-          
-          <div class="row">
-
-              <div class="col-md-6">
+              <div class="col-xs-4">
                   <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
+              
               </div>
-              <div class="col-md-6">
+              <div class="col-xs-2">
                   <!--<button class="btn btn-primary" (click)="onSignOut()">Sign out</button>-->
                   <img [src]="iconPaths['logoutImg']" (click)="onSignOut()" title="Sign out"/> 
               </div>
-
-          </div>          
-      
+          </div>                                   
 
   </div>         
        
@@ -37,7 +32,7 @@
             <label for="txtPassword">Password</label>
             <input id="txtPassword" type="password" #password class="form-control" placeholder="password"/>
           </div>
-          <button class="btn btn-primary pull-right col-md-12" (click)="onSignIn(userName.value,password.value)">Sign in</button>      
+          <button class="btn btn-primary pull-right col-xs-12" (click)="onSignIn(userName.value,password.value)">Sign in</button>      
       </div>  
      
     </div>  

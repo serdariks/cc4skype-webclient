@@ -1,0 +1,29 @@
+
+<div class="list-group" style="margin-top:10px;">
+  <div class="list-group-item" *ngFor="let result of resultList">
+    
+    <div class="row">
+      <div class="col-xs-12">
+          <img [src]="result.lastPresenceItemPath" /> {{result.lastPresence}}
+          <h4 class="list-group-item-heading">{{result.DisplayName}}</h4>
+          <p class="list-group-item-text">
+            {{result.SipAddress}}
+          </p>
+      </div>      
+    </div>
+
+    <div class="row">
+        <div class="col-xs-offset-9 col-xs-3">
+            <img *ngIf="shouldShowWarmTransfer(result)" [src]="warmTransferIconPath"
+            (click)="onStartWarmTransfer(result.SipAddress)" />
+          <img *ngIf="shouldShowColdTransfer(result)" [src]="coldTransferIconPath"
+            (click)="onColdTransfer(result.SipAddress)" />
+          <img *ngIf="shouldShowPersonalPark(result)" [src]="personalParkIconPath"
+            (click)="onColdTransfer(result.SipAddress)" />
+
+        </div>        
+  
+      </div>
+
+  </div>
+</div>

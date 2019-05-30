@@ -17,15 +17,29 @@ export class DynamicsContactSearchComponent implements OnInit {
   iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   ngOnInit() {
-    
+    this.addTestContacts();
+    this.searchContacts('');
   }
 
-  contacts:DynamicsContact[];
+  contacts:DynamicsContact[] = [];
+  testContacts:DynamicsContact[] = [];
+
+  private addTestContacts(){  
+    
+    this.testContacts.push({fullName:'Mathieu Van Heijs',mobilePhone:'05372414505',contactId:'1'});
+    this.testContacts.push({fullName:'Sahin Deligöz',mobilePhone:'05332434303',contactId:'2'});
+    this.testContacts.push({fullName:'Gertjan Coolen',mobilePhone:'05331111111',contactId:'3'});
+  }
 
   searchContacts(keyword:string){
-    this.dynamicsService.searchContacts(keyword).then(contacts=>{
+
+    this.contacts = this.testContacts.filter(c=>
+      c.fullName.toLocaleLowerCase().indexOf(keyword.toLowerCase())>=0 || 
+      c.mobilePhone.indexOf(keyword)>=0);
+
+    /* this.dynamicsService.searchContacts(keyword).then(contacts=>{
       this.contacts = contacts;
-    });
+    }); */
   }
 
   onDialClick(mobilePhone:string){

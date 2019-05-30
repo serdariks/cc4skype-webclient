@@ -25,7 +25,8 @@ export class IconPathsService {
             { key: 'bargeInImg', path: 'assets/img/cc4s/BargeIn.png' },
             { key: 'dialpadImg', path: 'assets/img/cc4s/Dialpad.png' },
             { key: 'dialImg', path: 'assets/img/cc4s/Telephony_on.png' },
-            { key: 'logoutImg', path: 'assets/img/cc4s/log-out-icon-5.jpg' }                        
+            { key: 'logoutImg', path: 'assets/img/cc4s/log-out-icon-5.jpg' },
+            { key: 'contactsImg', path: 'assets/img/cc4s/contacts.png' }                          
 
         ];
 
