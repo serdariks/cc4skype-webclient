@@ -138,10 +138,12 @@ export class CallCenterCallViewBase implements OnInit {
 
     this.callViewStateMachine.stateChanged.subscribe(args=>{           
       
-       let isTerminated:boolean = args.currentState.toString() == StateName[StateName.OffHook];      
+       let isHandled:boolean = 
+        args.previousState.toString() == StateName[StateName.FirstNormalAgentConnected] &&
+        args.currentState.toString() == StateName[StateName.OffHook];      
 
-       if(isTerminated){
-         this.afterTerminate();
+       if(isHandled){
+         this.afterHandle();
          return;
        }
 
@@ -156,7 +158,7 @@ export class CallCenterCallViewBase implements OnInit {
 
   }
 
-  afterTerminate(){
+  afterHandle(){
     
   }
   afterAnswer(){

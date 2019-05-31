@@ -36,10 +36,10 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         listeners,iconPathsService,dynamicsChannelIntegration);     
 
   }    
-    
+
  
-  afterTerminate(){
-    super.afterTerminate();
+  afterHandle(){
+    super.afterHandle();
     this.addCRMActivityRecord();
   }
 
@@ -52,11 +52,8 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
   addCRMActivityRecord(){
     
-    let isCallSessionComplete:boolean = this.currentState.toString() ==StateName[StateName.OffHook];
-
-    if(isCallSessionComplete){        
-
-         let activity = {
+    
+     let activity = {
         contactId:null,
         currentCase:null,
         description:"this activity added from test code for caller " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
@@ -70,7 +67,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       r=>{
           this.currentActivityId = r.activityId;
       });
-    }
+    
 
   }
 
