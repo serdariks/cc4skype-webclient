@@ -45,10 +45,10 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
      let activity = {
         contactId:null,
         currentCase:null,
-        description:"Activity record for outgoing call: " + this.lastModel.QueueName + "->" + this.lastModel.CallerName,
+        description:"Activity record for outgoing call: " + this.lastModel.QueueName + "->" + this.lastModel.CalledAgentSIP,
         direction : CallDirection.Outgoing,
         name : null,
-        number : "05332414505",
+        number : this.lastModel.CalledAgentSIP,
         userId : null
       };
 
@@ -62,7 +62,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
   showContact() {
 
-      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => { });
+      this.dynamicsChannelIntegration.searchContactsAndOpen(this.lastModel.CalledAgentSIP).then(c => { });
     
   }
 
