@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { OutboundCall } from "./outbound-call";
+import { CallSessionTimer } from "./call-session-timer";
 
 declare var Microsoft: any;
 declare var ciLoaded: any;
@@ -8,7 +9,7 @@ export class DynamicsChannelIntegration {
 
     environment: any;
 
-    constructor(private outBoundCall:OutboundCall) {
+    constructor(private outBoundCall:OutboundCall,private callSessionTimer:CallSessionTimer) {
         this.tryInit();
     }
 
@@ -169,10 +170,9 @@ export class DynamicsChannelIntegration {
         var phActivity: any = {};
         //Setup basic details of the activity - subject, direction, duration
         phActivity["phonenumber"] = callActivity.number;
-        phActivity["subject"] = "Call with " + name + " at ";
-        //+ this._timer.startTime.toLocaleTimeString();
+        phActivity["subject"] = "Call with " + name + " at "+ this.callSessionTimer.startTime.toLocaleTimeString();
         phActivity["directioncode"] = callActivity.direction == CallDirection.Incoming ? false : true;
-        //phActivity["actualdurationminutes"] = Math.trunc(this._timer.duration / 60);
+        phActivity["actualdurationminutes"] = Math.trunc(this.callSessionTimer.duration / 60);
         //Capture any call notes as 'description' attribute of the activity
         phActivity["description"] = callActivity.description;
 
