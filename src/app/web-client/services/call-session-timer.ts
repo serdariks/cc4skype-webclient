@@ -12,7 +12,7 @@ export class CallSessionTimer {
     _duration:number;
     _refreshInterval:number;
 
-    onIntervalTick:Subject<string> ;
+    onIntervalTick:Subject<string> = new Subject<string>() ;
 
     constructor() {
         this._start = null;
