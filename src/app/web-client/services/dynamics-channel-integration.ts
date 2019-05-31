@@ -170,7 +170,7 @@ export class DynamicsChannelIntegration {
         var phActivity: any = {};
         //Setup basic details of the activity - subject, direction, duration
         phActivity["phonenumber"] = callActivity.number;
-        phActivity["subject"] = "Call with " + name + " at "+ this.callSessionTimer.startTime.toLocaleTimeString();
+        //phActivity["subject"] = "Call with " + callActivity.number + " at "+ this.callSessionTimer.startTime.toLocaleTimeString();
         phActivity["directioncode"] = callActivity.direction == CallDirection.Incoming ? false : true;
         phActivity["actualdurationminutes"] = Math.trunc(this.callSessionTimer.duration / 60);
         //Capture any call notes as 'description' attribute of the activity
@@ -213,6 +213,11 @@ export class DynamicsChannelIntegration {
             }
 
             phActivity.phonecall_activity_parties = parties;
+
+            let contactStr:string = callActivity.contactId ? contacts[0].fullName : callActivity.number; 
+
+            phActivity["subject"] = "Call with " + contactStr + " at "+ this.callSessionTimer.startTime.toLocaleTimeString();
+
 
             //If any case/incident was created, set it as the 'regarding' object; else just set the contact
             if (callActivity.currentCase) {
