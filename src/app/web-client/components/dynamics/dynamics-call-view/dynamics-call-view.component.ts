@@ -11,6 +11,7 @@ import { Listeners } from '../../../services/listeners';
 import { IconPathsService, IconPaths } from '../../../services/icon-paths-service';
 import { DynamicsChannelIntegration, CallDirection } from '../../../services/dynamics-channel-integration';
 import { CallCenterCallViewBase } from '../../component-base/callcenter-callview-base';
+import { StateName } from '../../call-center-call-view/enums';
 
 
 @Component({
@@ -35,5 +36,53 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         listeners,iconPathsService,dynamicsChannelIntegration);     
 
   }    
+  
+  afterCallSessionStateChangedHandled()
+  {
+    this.applyDynamicsOperations();
+  }
+
+  applyDynamicsOperations()
+  {
+    this.addCRMActivityRecord();
+    this.showContact();
+  }
+
+  private currentActivityId:any;
+
+  addCRMActivityRecord(){
+    
+    let isCallSessionComplete:boolean = this.currentState.toString() ==StateName[StateName.OffHook];
+
+    if(isCallSessionComplete){        
+
+         let activity = {
+        contactId:null,
+        currentCase:null,
+        description:"this activity added from test code for caller " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
+        direction : CallDirection.Incoming,
+        name : null,
+        number : "05332414505",
+        userId : null
+      };
+
+      this.dynamicsChannelIntegration.createCallActivity(activity,
+      r=>{
+          this.currentActivityId = r.activityId;
+      });
+    }
+
+  }
+
+  showContact() {
+
+    let agentAnswered: boolean = this.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];
+
+    if (agentAnswered) {
+      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => {
+
+      });
+    }
+  }
 
 }

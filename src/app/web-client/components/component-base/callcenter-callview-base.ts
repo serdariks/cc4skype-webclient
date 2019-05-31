@@ -23,7 +23,7 @@ export class CallCenterCallViewBase implements OnInit {
     private cdRef: ChangeDetectorRef,private callSessionRequests:CallSessionRequests,
     private activeCallSession:ActiveCallSession,private apiContainer:LyncApiContainer,
     private recordingStateChangedListener:RecordingStateChangeListener,private callViewStateMachine:CallViewStateMachine,
-    private listeners:Listeners,private iconPathsService:IconPathsService,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    private listeners:Listeners,private iconPathsService:IconPathsService,protected dynamicsChannelIntegration:DynamicsChannelIntegration) {
 
       this.lyncApiAudioService = apiContainer.currentApi.audioService;  
 
@@ -119,53 +119,21 @@ export class CallCenterCallViewBase implements OnInit {
      /*  this.cdRef.detectChanges(); */
 
      this.setActiveView();
-
     
-     this.setCurrentMonitoringType(this.mediaModel);    
+     this.setCurrentMonitoringType(this.mediaModel);         
 
-     this.addCRMActivityRecord();
-     this.showContact();
+     this.afterCallSessionStateChangedHandled();
 
     });
 
   }
 
-  private currentActivityId:any;
 
-  addCRMActivityRecord(){
-    
-    let hasIncomingCall:boolean = this.currentState.toString() ==StateName[StateName.FirstAgentCallRinging];
-
-    if(hasIncomingCall){        
-
-         let activity = {
-        contactId:null,
-        currentCase:null,
-        description:"this activity added from test code for caller " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
-        direction : CallDirection.Incoming,
-        name : null,
-        number : "05332414505",
-        userId : null
-      };
-
-      this.dynamicsChannelIntegration.createCallActivity(activity,
-      r=>{
-          this.currentActivityId = r.activityId;
-      });
-    }
+  afterCallSessionStateChangedHandled(){
 
   }
 
-  showContact() {
 
-    let agentAnswered: boolean = this.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];
-
-    if (agentAnswered) {
-      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => {
-
-      });
-    }
-  }
 
   setOtherAgent(){
 
