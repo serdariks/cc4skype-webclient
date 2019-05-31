@@ -36,15 +36,15 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         listeners,iconPathsService,dynamicsChannelIntegration);     
 
   }    
-  
-  afterCallSessionStateChangedHandled()
-  {
-    this.applyDynamicsOperations();
+    
+ 
+  afterTerminate(){
+    super.afterTerminate();
+    this.addCRMActivityRecord();
   }
 
-  applyDynamicsOperations()
-  {
-    this.addCRMActivityRecord();
+  afterAnswer(){
+    super.afterAnswer();
     this.showContact();
   }
 
@@ -76,13 +76,8 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
   showContact() {
 
-    let agentAnswered: boolean = this.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];
-
-    if (agentAnswered) {
-      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => {
-
-      });
-    }
+      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => { });
+    
   }
 
 }

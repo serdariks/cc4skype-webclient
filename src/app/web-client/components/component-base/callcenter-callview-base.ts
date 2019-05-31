@@ -52,6 +52,7 @@ export class CallCenterCallViewBase implements OnInit {
     
     this.bindCallSessionStateChanged();
     this.bindRecordingStateChanged();
+    this.bindCallViewStateChanged();
 
     this.callViewStateMachine.init(this);
     this.currentState = this.callViewStateMachine.currentState;
@@ -133,7 +134,34 @@ export class CallCenterCallViewBase implements OnInit {
 
   }
 
+  private bindCallViewStateChanged(){
 
+    this.callViewStateMachine.stateChanged.subscribe(args=>{           
+      
+       let isTerminated:boolean = args.currentState.toString() == StateName[StateName.OffHook];      
+
+       if(isTerminated){
+         this.afterTerminate();
+         return;
+       }
+
+       let isAnswered:boolean = args.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];      
+
+       if(isAnswered){
+         this.afterAnswer();
+       }
+       
+
+    });
+
+  }
+
+  afterTerminate(){
+    
+  }
+  afterAnswer(){
+
+  }
 
   setOtherAgent(){
 
