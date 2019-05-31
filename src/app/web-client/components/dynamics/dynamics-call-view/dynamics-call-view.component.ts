@@ -52,6 +52,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
     this.callSessionTimer.stop();  
     this.callSessionTimer.reset();
+    this.callDuration = '';
     
   }
 
