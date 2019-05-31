@@ -12,6 +12,7 @@ import { IconPathsService, IconPaths } from '../../../services/icon-paths-servic
 import { DynamicsChannelIntegration, CallDirection } from '../../../services/dynamics-channel-integration';
 import { CallCenterCallViewBase } from '../../component-base/callcenter-callview-base';
 import { StateName } from '../../call-center-call-view/enums';
+import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
     cdRef: ChangeDetectorRef,callSessionRequests:CallSessionRequests,
     activeCallSession:ActiveCallSession,apiContainer:LyncApiContainer,
     recordingStateChangedListener:RecordingStateChangeListener,callViewStateMachine:CallViewStateMachine,
-    listeners:Listeners,iconPathsService:IconPathsService,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    listeners:Listeners,iconPathsService:IconPathsService,private dynamicsChannelIntegration:DynamicsChannelIntegration,private callSessionTimer:CallSessionTimer) {
 
       super(callSessionStateChangeListener,
         logger,lyncApiGlobals,
@@ -35,15 +36,30 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         recordingStateChangedListener,callViewStateMachine,
         listeners,iconPathsService);     
 
+        this.callSessionTimer.init(1000);
+        this.callSessionTimer.onIntervalTick.subscribe(()=>{
+           this.callDuration = this.callSessionTimer.getTimeString();
+        });
+
   }    
 
+  callDuration:string;
  
-  afterHandle(){
+  afterHandle()
+  {
     super.afterHandle();
-    this.addCRMActivityRecord();
+    this.addCRMActivityRecord(); 
+
+    this.callSessionTimer.stop();  
+    
   }
 
   afterAnswer(){
+    
+    this.callSessionTimer.reset();
+    this.callSessionTimer.start();
+    
+
     super.afterAnswer();
     this.showContact();
   }

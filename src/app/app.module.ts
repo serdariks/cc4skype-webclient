@@ -74,6 +74,7 @@ import { DynamicsCallViewComponent } from './web-client/components/dynamics/dyna
 import { DynamicsOutboundCallViewComponent } from './web-client/components/dynamics/dynamics-outbound-call-view/dynamics-outbound-call-view.component';
 import { DynamicsContactSearchComponent } from './web-client/components/dynamics/dynamics-contact-search/dynamics-contact-search.component';
 import { DynamicsCc4skypeContactSearchComponent } from './web-client/components/dynamics/dynamics-cc4skype-contact-search/dynamics-cc4skype-contact-search.component';
+import { CallSessionTimer } from './web-client/services/call-session-timer';
 
 const appRoutes: Routes =
   [
@@ -161,6 +162,7 @@ const appRoutes: Routes =
       UserInitializeData,
       ConfigService,
       DynamicsChannelIntegration,
+      CallSessionTimer,
       { provide: APP_INITIALIZER, useFactory: ConfigLoader, deps: [ConfigService], multi: true }
   ]
   ,
