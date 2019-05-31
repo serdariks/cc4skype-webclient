@@ -23,7 +23,7 @@ export class CallCenterCallViewBase implements OnInit {
     private cdRef: ChangeDetectorRef,private callSessionRequests:CallSessionRequests,
     private activeCallSession:ActiveCallSession,private apiContainer:LyncApiContainer,
     private recordingStateChangedListener:RecordingStateChangeListener,private callViewStateMachine:CallViewStateMachine,
-    private listeners:Listeners,private iconPathsService:IconPathsService,protected dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    private listeners:Listeners,private iconPathsService:IconPathsService) {
 
       this.lyncApiAudioService = apiContainer.currentApi.audioService;  
 
@@ -139,7 +139,11 @@ export class CallCenterCallViewBase implements OnInit {
     this.callViewStateMachine.stateChanged.subscribe(args=>{           
       
        let isHandled:boolean = 
-        args.previousState.toString() == StateName[StateName.FirstNormalAgentConnected] &&
+        (
+          args.previousState.toString() == StateName[StateName.FirstNormalAgentConnected] 
+          || 
+          args.previousState.toString() == StateName[StateName.WarmInviteAcceptedFirstAgent]
+        )&&
         args.currentState.toString() == StateName[StateName.OffHook];      
 
        if(isHandled){

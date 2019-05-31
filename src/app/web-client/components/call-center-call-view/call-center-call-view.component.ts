@@ -26,14 +26,14 @@ export class CallCenterCallViewComponent extends CallCenterCallViewBase {
     cdRef: ChangeDetectorRef,callSessionRequests:CallSessionRequests,
     activeCallSession:ActiveCallSession,apiContainer:LyncApiContainer,
     recordingStateChangedListener:RecordingStateChangeListener,callViewStateMachine:CallViewStateMachine,
-    listeners:Listeners,iconPathsService:IconPathsService,dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    listeners:Listeners,iconPathsService:IconPathsService) {
 
       super(callSessionStateChangeListener,
         logger,lyncApiGlobals,
         cdRef,callSessionRequests,
         activeCallSession,apiContainer,
         recordingStateChangedListener,callViewStateMachine,
-        listeners,iconPathsService,dynamicsChannelIntegration);     
+        listeners,iconPathsService);     
 
   }  
 

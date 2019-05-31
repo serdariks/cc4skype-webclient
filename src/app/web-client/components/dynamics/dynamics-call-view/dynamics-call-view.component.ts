@@ -26,14 +26,14 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
     cdRef: ChangeDetectorRef,callSessionRequests:CallSessionRequests,
     activeCallSession:ActiveCallSession,apiContainer:LyncApiContainer,
     recordingStateChangedListener:RecordingStateChangeListener,callViewStateMachine:CallViewStateMachine,
-    listeners:Listeners,iconPathsService:IconPathsService,dynamicsChannelIntegration:DynamicsChannelIntegration) {
+    listeners:Listeners,iconPathsService:IconPathsService,private dynamicsChannelIntegration:DynamicsChannelIntegration) {
 
       super(callSessionStateChangeListener,
         logger,lyncApiGlobals,
         cdRef,callSessionRequests,
         activeCallSession,apiContainer,
         recordingStateChangedListener,callViewStateMachine,
-        listeners,iconPathsService,dynamicsChannelIntegration);     
+        listeners,iconPathsService);     
 
   }    
 
@@ -56,7 +56,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
      let activity = {
         contactId:null,
         currentCase:null,
-        description:"this activity added from test code for caller " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
+        description:"Activity record for incoming call: " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
         direction : CallDirection.Incoming,
         name : null,
         number : "05332414505",

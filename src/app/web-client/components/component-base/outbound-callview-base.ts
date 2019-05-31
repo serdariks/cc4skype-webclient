@@ -73,6 +73,42 @@ export class OutboundCallViewBase implements OnInit {
 
   }
 
+  private bindCallViewStateChanged(){
+
+    this.stateMachine.stateChanged.subscribe(args=>{           
+      
+       let isHandled:boolean = 
+        (
+          args.previousState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted] 
+          || 
+          args.previousState.toString() == OutBoundCallStateName[OutBoundCallStateName.WarmInviteAcceptedFirstAgent]
+        )&&
+        args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.OffHook];      
+
+       if(isHandled){
+         this.afterHandle();
+         return;
+       }
+
+       let isAnswered:boolean = args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted];      
+
+       if(isAnswered){
+         this.afterAnswer();
+       }
+       
+
+    });
+
+  }
+
+  afterHandle(){
+
+  }
+
+  afterAnswer(){
+
+  }
+
   setSwitchToCaller(){
 
     if(!this.warmSwitchedToCaller && this.lastModel.ConferenceActionAsString == ConferenceStatusAction[ConferenceStatusAction.WarmSwitchToCaller]){
@@ -122,6 +158,7 @@ export class OutboundCallViewBase implements OnInit {
   ngOnInit() {
 
     this.bindOutBoundCallMessagesListener();
+    this.bindCallViewStateChanged();
     this.bindRecordingStateChanged();
   }
 
