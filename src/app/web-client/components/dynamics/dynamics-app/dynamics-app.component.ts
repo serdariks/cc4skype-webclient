@@ -40,8 +40,8 @@ export class DynamicsAppComponent extends AppComponentBase {
 
   }
 
-  @ViewChild('dynamicsContactSearch') dynamicsContactSearch:DynamicsContactSearchComponent;
-  @ViewChild('dynamicsCC4SkypeContactSearch') dynamicsCC4SkypeContactSearch:DynamicsCc4skypeContactSearchComponent;
+  @ViewChild('dynamicsContactSearch',{static: false}) dynamicsContactSearch:DynamicsContactSearchComponent;
+  @ViewChild('dynamicsCC4SkypeContactSearch',{static: false}) dynamicsCC4SkypeContactSearch:DynamicsCc4skypeContactSearchComponent;
 
   searchContacts(searchText:string)
   {

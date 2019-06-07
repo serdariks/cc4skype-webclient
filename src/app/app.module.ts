@@ -66,7 +66,7 @@ import { IconPathsService } from './web-client/services/icon-paths-service';
 import { UserInitializeData } from './web-client/services/user-initialize-data';
 import { ConfigService } from './web-client/services/config-service';
 import { environment } from '../environments/environment';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { DynamicsChannelIntegration } from './web-client/services/dynamics-channel-integration';
 import { DynamicsTestComponent } from './dynamics-test/dynamics-test.component';
 import { DynamicsAppComponent } from './web-client/components/dynamics/dynamics-app/dynamics-app.component';
@@ -114,7 +114,7 @@ const appRoutes: Routes =
       BootstrapTestComponent
    ],
    imports: [
-      HttpModule,
+      HttpClientModule,
       BrowserModule,
       FormsModule,
       RouterModule.forRoot(appRoutes)
