@@ -1,0 +1,21 @@
+a{
+    cursor: pointer;
+}
+.navbar-inverse{
+    background-color: indigo;
+}
+.dropdown-menu>li>a{
+    background-color: indigo;
+    color: white;
+}
+.dropdown-menu>li>a:hover{
+    background-color:brown;
+    color: white;
+}
+.dropdown-menu{
+    background-color: indigo;
+}
+.nav >li>a:hover{
+    color:white;
+    background-color: brown;
+}
