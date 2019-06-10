@@ -63,8 +63,13 @@ export class LoginViewComponent implements OnInit, OnDestroy {
 
   currentPresence;
 
+  private messagingInitializedSubscription:Subscription;
+
+  private userSignedInSubscription:Subscription;
+  private userSignedOutSubscription:Subscription;
+
   ngOnInit() {
-    this.messaging.initialized.subscribe(() => {
+    this.messagingInitializedSubscription = this.messaging.initialized.subscribe(() => {
 
       this.lyncApiInitializer.initialize().then((client) => {
 
@@ -72,11 +77,11 @@ export class LoginViewComponent implements OnInit, OnDestroy {
 
           this.afterSignIn(this.lyncApiGlobals.personSignedIn);
 
-          this.lyncApiSignIn.userSignedIn.subscribe(() => {
+          this.userSignedInSubscription = this.lyncApiSignIn.userSignedIn.subscribe(() => {
             this.afterSignIn(this.lyncApiGlobals.personSignedIn);
           })
 
-          this.lyncApiSignIn.userSignedOut.subscribe(() => {
+          this.userSignedOutSubscription = this.lyncApiSignIn.userSignedOut.subscribe(() => {
             this.afterSignOut();
           });
 
@@ -107,15 +112,17 @@ export class LoginViewComponent implements OnInit, OnDestroy {
 
   }
 
+  private presenceAndNoteListenerSubscription:Subscription;
+
   bindPresenceAndNoteSetListener() {
-    this.presenceAndNoteSetListener.received.subscribe(r => {
+    this.presenceAndNoteListenerSubscription = this.presenceAndNoteSetListener.received.subscribe(r => {
       this.loggingService.log(`presence set request:${r.presence}, ${r.note}`);
       let lyncApiPresenceValue: string = this.globals.getApiPresenceForContactCenterPresence(r.presence);
       this.setPresenceOnRequest(lyncApiPresenceValue);
     });
   }
 
-  bindPresenceChangeSubscription() {
+  bindPresenceChangeListener() {
 
     this.presenceChangeSubscription = this.lyncApiPresence.presenceChange.subscribe(p => {
 
@@ -128,8 +135,14 @@ export class LoginViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy() 
+  {
     this.presenceChangeSubscription.unsubscribe();
+    this.userSignedInSubscription.unsubscribe();
+    this.userSignedOutSubscription.unsubscribe();
+    this.messagingInitializedSubscription.unsubscribe();
+    this.presenceAndNoteListenerSubscription.unsubscribe();    
+
   }
 
   onSignOut() {
@@ -177,7 +190,7 @@ export class LoginViewComponent implements OnInit, OnDestroy {
     this.socketManager.registerService(person.id);
     this.socketManager.joinRoom(person.id);
 
-    this.bindPresenceChangeSubscription();
+    this.bindPresenceChangeListener();
 
     this.personLoggedIn = person;
 

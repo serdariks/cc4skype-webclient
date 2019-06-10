@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { OutboundCall } from '../../services/outbound-call';
 import { LoggingService } from '../../../logging-service';
 import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
   templateUrl: './dtmf-menu.component.html',
   styleUrls: ['./dtmf-menu.component.css']
 })
-export class DtmfMenuComponent implements OnInit {
+export class DtmfMenuComponent implements OnInit,OnDestroy {
 
   @Output() outboundCallStarted = new EventEmitter<string>();
   private lyncApiAudioService:LyncApiAudioService;
@@ -27,6 +28,8 @@ export class DtmfMenuComponent implements OnInit {
 
   iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
+  private callStateChangedSubscription:Subscription;
+
   ngOnInit() {
      for(let i:number =0;i<10;i++){
 
@@ -37,10 +40,15 @@ export class DtmfMenuComponent implements OnInit {
      this.dtmfMenuItems.push('#');
      this.dtmfMenuItems.push('*');     
 
-     this.lyncApiAudioService.callStateChanged.subscribe(s=>{
+     this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe(s=>{
          this.isOutboundCallAvailable = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
          //this.logger.log(`dtmf-menu, s.state:${s.state} this.isOutboundCallAvailable:${this.isOutboundCallAvailable}`);
      });
+  }
+
+  ngOnDestroy()
+  {
+    this.callStateChangedSubscription.unsubscribe();
   }
 
   onToneClick(dtmfMenuItem: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Messaging } from '../../messaging/messaging';
 import { LyncApiSignIn } from '../../lync-api/lync-api-signin';
 import { LyncApi } from '../../lync-api/lync-api';
@@ -14,8 +14,9 @@ import { XHRHook } from '../../services/xhr-hook';
 import { InitializeData } from '../../services/initialize-data';
 import { DynamicsChannelIntegration } from '../../services/dynamics-channel-integration';
 import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
+import { Subscription } from 'rxjs';
 
-export class AppComponentBase implements OnInit {
+export class AppComponentBase implements OnInit,OnDestroy {
 
   private lyncApiSignIn: LyncApiSignIn;
   private lyncApi: LyncApi;
@@ -72,25 +73,35 @@ export class AppComponentBase implements OnInit {
 
   personLoggedIn: any;
 
+  messagingInitializeSubscription:Subscription;
+  userSignedInSubscription:Subscription;
+  lyncApiSignInSubscription:Subscription;
+
   ngOnInit(): void {
 
     this.cacheService.initialize();
 
-    this.messaging.initialized.subscribe(() => {
+    this.messagingInitializeSubscription = this.messaging.initialized.subscribe(() => {
       this.afterMessagingInitialize();
     });
 
     this.messaging.initialize();
 
-    this.lyncApiSignIn.userSignedIn.subscribe(() => {
+    this.userSignedInSubscription = this.lyncApiSignIn.userSignedIn.subscribe(() => {
       this.userSignedIn = true;
     });
-    this.lyncApiSignIn.userSignedOut.subscribe(() => {
+
+    this.lyncApiSignInSubscription = this.lyncApiSignIn.userSignedOut.subscribe(() => {
       this.userSignedIn = false;
-    });
+    });   
 
+  }
 
+  ngOnDestroy(){
 
+      this.messagingInitializeSubscription.unsubscribe();
+      this.userSignedInSubscription.unsubscribe();
+      this.lyncApiSignInSubscription.unsubscribe();
   }
 
   afterMessagingInitialize() {

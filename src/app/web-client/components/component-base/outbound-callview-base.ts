@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Listeners } from '../../services/listeners';
 import { Listener } from 'src/app/web-client/services/listener';
 import { LoggingService } from '../../../logging-service';
@@ -11,8 +11,9 @@ import { CallSessionRequests } from '../../services/call-session-requests';
 import { RecordingStateChangeListener } from '../../services/recording-state-change-listener';
 import { LyncApiGlobals } from '../../lync-api/lync-api-globals';
 import { ConferenceStatusAction } from '../call-center-call-view/enums';
+import { Subscription } from 'rxjs';
 
-export class OutboundCallViewBase implements OnInit {
+export class OutboundCallViewBase implements OnInit,OnDestroy {
 
   private lyncApiAudioService:LyncApiAudioService;
 
@@ -44,9 +45,10 @@ export class OutboundCallViewBase implements OnInit {
   onHoldButtonVisible:boolean = true;
   resumeButtonVisible:boolean = false;
 
+  private outboundCallMessagesSubscription:Subscription;
   private bindOutBoundCallMessagesListener(){   
 
-    this.outboundCallMessagesListener.received.subscribe(model=>{
+    this.outboundCallMessagesSubscription = this.outboundCallMessagesListener.received.subscribe(model=>{
 
       this.lastModel = model;
       this.lastModelJson = JSON.stringify(model);
@@ -73,9 +75,11 @@ export class OutboundCallViewBase implements OnInit {
 
   }
 
+  private stateChangedSubscription:Subscription;
+
   private bindCallViewStateChanged(){
 
-    this.stateMachine.stateChanged.subscribe(args=>{           
+    this.stateChangedSubscription = this.stateMachine.stateChanged.subscribe(args=>{           
       
        let isHandled:boolean = 
         (
@@ -125,9 +129,10 @@ export class OutboundCallViewBase implements OnInit {
     this.warmSwitchedToCaller = false;
   }
 
+  private recordingStateChangedSubscription:Subscription;
   bindRecordingStateChanged(){
 
-    this.recordingStateChangedListener.stateChanged.subscribe(c=>{
+    this.recordingStateChangedSubscription = this.recordingStateChangedListener.stateChanged.subscribe(c=>{
 
       this.isRecording = c.isRecording;
 
@@ -160,6 +165,12 @@ export class OutboundCallViewBase implements OnInit {
     this.bindOutBoundCallMessagesListener();
     this.bindCallViewStateChanged();
     this.bindRecordingStateChanged();
+  }
+
+  ngOnDestroy(){
+    this.stateChangedSubscription.unsubscribe();
+    this.outboundCallMessagesSubscription.unsubscribe();
+    this.recordingStateChangedSubscription.unsubscribe();
   }
 
   isRinging:boolean;

@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
 import { LoggingService } from '../../../logging-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-waiting-media',
   templateUrl: './waiting-media.component.html',
   styleUrls: ['./waiting-media.component.css']
 })
-export class WaitingMediaComponent implements OnInit {
+export class WaitingMediaComponent implements OnInit,OnDestroy {
 
   private waitingMediaChangeListener:Listener<any>;
   
@@ -25,9 +26,15 @@ export class WaitingMediaComponent implements OnInit {
 
   }
 
+  ngOnDestroy(){
+    this.waitingMediaChangedSubscription.unsubscribe();
+  }
+
+  private waitingMediaChangedSubscription:Subscription;
+
   private bindWaitingMediaChangeListener(){
 
-    this.waitingMediaChangeListener.received.subscribe(model=>{
+    this.waitingMediaChangedSubscription = this.waitingMediaChangeListener.received.subscribe(model=>{
 
       this.logger.log(`waiting-media-component. waiting media change:${JSON.stringify(model)}`);
 

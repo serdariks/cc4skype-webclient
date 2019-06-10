@@ -43,13 +43,15 @@ export class ContactsComponent implements OnInit,OnDestroy {
 
   }
 
+  private contactsSubscription:Subscription;
+
   ngOnInit() {       
 
     this.loggingService.log('ngOnInit, contacts component');
 
     this.bindPresenceChange();
 
-    this.contactsService.contacts.subscribe((contacts:Person[])=>{
+    this.contactsSubscription = this.contactsService.contacts.subscribe((contacts:Person[])=>{
 
       this.unBindPresenceListenersForContacts();
 
@@ -71,6 +73,8 @@ export class ContactsComponent implements OnInit,OnDestroy {
     this.loggingService.log('contacts component:ngOnDestroy, presenceListenerSubscription unsubscribed');
     
     this.unBindPresenceListenersForContacts();
+
+    this.presenceListenerSubscription.unsubscribe();
 
     this.contacts.length = 0;
 

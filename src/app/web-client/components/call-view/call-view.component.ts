@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoggingService } from '../../../logging-service';
 import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { Person } from '../../lync-api/lync-api-person';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-call-view',
   templateUrl: './call-view.component.html',
   styleUrls: ['./call-view.component.css']
 })
-export class CallViewComponent implements OnInit {
+export class CallViewComponent implements OnInit,OnDestroy {
 
   private lyncApiAudioService:LyncApiAudioService;
 
@@ -23,11 +24,13 @@ export class CallViewComponent implements OnInit {
   
   callDirection:CallDirectionType = CallDirectionType.None;
 
+  private callStateChangedSubscription:Subscription;
+
   ngOnInit() {    
     
     this.loggingService.log('call-view. on init called!!!');
 
-    this.lyncApiAudioService.callStateChanged.subscribe((s)=>{
+    this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe((s)=>{
 
       this.currentState = s;
 
@@ -50,6 +53,10 @@ export class CallViewComponent implements OnInit {
       
     });
    
+  }
+
+  ngOnDestroy(){
+      this.callStateChangedSubscription.unsubscribe();
   }
 
   onAcceptCall(){

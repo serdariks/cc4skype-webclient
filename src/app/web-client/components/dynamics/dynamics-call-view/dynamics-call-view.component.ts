@@ -13,6 +13,7 @@ import { DynamicsChannelIntegration, CallDirection } from '../../../services/dyn
 import { CallCenterCallViewBase } from '../../component-base/callcenter-callview-base';
 import { StateName } from '../../call-center-call-view/enums';
 import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,6 +22,8 @@ import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer
   styleUrls: ['./dynamics-call-view.component.css']
 })
 export class DynamicsCallViewComponent extends CallCenterCallViewBase {
+
+  private callSessionTimerSubscription:Subscription;
 
   constructor(callSessionStateChangeListener:CallSessionStateChangeListener,
     logger:LoggingService,lyncApiGlobals:LyncApiGlobals,
@@ -37,7 +40,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         listeners,iconPathsService);     
 
         this.callSessionTimer.init(1000);
-        this.callSessionTimer.onIntervalTick.subscribe(()=>{
+        this.callSessionTimerSubscription = this.callSessionTimer.onIntervalTick.subscribe(()=>{
            this.callDuration = this.callSessionTimer.getTimeString();
         });
 
@@ -102,6 +105,13 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
       this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => { });
     
+  }
+
+  ngOnDestroy(){
+    super.ngOnDestroy();
+
+    this.callSessionTimerSubscription.unsubscribe();
+
   }
 
 }

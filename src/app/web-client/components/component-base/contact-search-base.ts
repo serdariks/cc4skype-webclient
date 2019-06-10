@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InvokeServiceArgs } from '../../messaging/dto/invoke-service-args';
 import { ServiceCall } from '../../messaging/service-call';
 import { LoggingService } from '../../../logging-service';
@@ -20,7 +20,7 @@ import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
 import { UserInitializeData, UserData, Roles, UserRole } from '../../services/user-initialize-data';
 
-export class ContactSearchBase implements OnInit {
+export class ContactSearchBase implements OnInit,OnDestroy {
 
   private lyncApiAudioService:LyncApiAudioService;
   private lyncApiPresence:LyncApiPresence;
@@ -67,6 +67,14 @@ export class ContactSearchBase implements OnInit {
     this.onSearch('');
 
     let cccc = this.isOperator;
+  }
+  ngOnDestroy(){
+    this.presenceListenerSubscription.unsubscribe();
+    this.noteListenerSubscription.unsubscribe();
+    this.callViewStateChangedSubscription.unsubscribe();
+    this.callSessionStateChangedSubscription.unsubscribe();
+    this.outboundCallMessagesSubscription.unsubscribe();
+    this.outboundCallStateChangedSubscription.unsubscribe();
   }
 
   onSearch(searchInput:string){
@@ -237,9 +245,11 @@ export class ContactSearchBase implements OnInit {
   hasTransferableOutBoundCall:boolean;
   hasOutBoundCall:boolean;
 
+  private callViewStateChangedSubscription:Subscription;
+
   private bindCallViewStateChanged(){
 
-    this.callViewStateMachine.stateChanged.subscribe(args=>{           
+     this.callViewStateChangedSubscription = this.callViewStateMachine.stateChanged.subscribe(args=>{           
 
       this.hasTransferableCall = 
       args.currentState.toString() == StateName[StateName.FirstNormalAgentConnected] || 
@@ -251,8 +261,9 @@ export class ContactSearchBase implements OnInit {
 
   }
 
+  private outboundCallStateChangedSubscription:Subscription;
   private bindOutBoundCallStateChanged(){
-    this.outboundCallStateMachine.stateChanged.subscribe(args=>{
+    this.outboundCallStateChangedSubscription = this.outboundCallStateMachine.stateChanged.subscribe(args=>{
 
       this.hasTransferableOutBoundCall = args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted];
       this.hasOutBoundCall = args.currentState.toString() != OutBoundCallStateName[OutBoundCallStateName.OffHook];
@@ -261,18 +272,21 @@ export class ContactSearchBase implements OnInit {
   }
   
   isOperatorCallActive:boolean;
+  private callSessionStateChangedSubscription:Subscription;
+
   private bindCallSessionStateChanged(){
 
-    this.callSessionStateChangeListener.stateChanged.subscribe((mediaModel)=>{
+    this.callSessionStateChangedSubscription = this.callSessionStateChangeListener.stateChanged.subscribe((mediaModel)=>{
 
       this.isOperatorCallActive = mediaModel.IsOperatorCall;    
 
     });
   }
 
+  private outboundCallMessagesSubscription: Subscription;
   private bindOutBoundCallMessagesListener(){
 
-    this.outboundCallMessagesListener.received.subscribe(model=>{
+    this.outboundCallMessagesSubscription = this.outboundCallMessagesListener.received.subscribe(model=>{
       //this.isOperatorCallActive = model.InitiatedFromOperatorQueue;
 
     });

@@ -12,14 +12,18 @@ import { OutboundCallViewBase } from '../../component-base/outbound-callview-bas
 import { CallDirection, DynamicsChannelIntegration } from 'src/app/web-client/services/dynamics-channel-integration';
 import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer';
 import { strict } from 'assert';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamics-outbound-call-view',
   templateUrl: './dynamics-outbound-call-view.component.html',
   styleUrls: ['./dynamics-outbound-call-view.component.css']
 })
+
 export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
   
+  private callSessionTimerSubscription:Subscription;
+
   constructor(listeners:Listeners,logger:LoggingService,stateMachine:OutBoundCallStateMachine,
     iconPathsService:IconPathsService,apiContainer:LyncApiContainer,activeCallSession:ActiveCallSession,
     callSessionRequests:CallSessionRequests,recordingStateChangedListener:RecordingStateChangeListener,lyncApiGlobals:LyncApiGlobals,private dynamicsChannelIntegration:DynamicsChannelIntegration,private callSessionTimer:CallSessionTimer) {
@@ -29,11 +33,16 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
       callSessionRequests,recordingStateChangedListener,lyncApiGlobals)
 
       this.callSessionTimer.init(1000);
-      this.callSessionTimer.onIntervalTick.subscribe(()=>{
+      this.callSessionTimerSubscription = this.callSessionTimer.onIntervalTick.subscribe(()=>{
          this.callDuration = this.callSessionTimer.getTimeString();
       });
 
-  }   
+  }  
+  
+  ngOnDestroy(){
+    super.ngOnDestroy();
+    this.callSessionTimerSubscription.unsubscribe();
+  }
   
   callDuration:string;
 

@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoggingService } from '../../../logging-service';
 import { CacheService } from '../../services/cache-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-log-view',
   templateUrl: './log-view.component.html',
   styleUrls: ['./log-view.component.css']
 })
-export class LogViewComponent implements OnInit {
+export class LogViewComponent implements OnInit,OnDestroy {
 
   constructor(private loggingService:LoggingService,private cacheService:CacheService) { }
   
@@ -15,11 +16,13 @@ export class LogViewComponent implements OnInit {
 
   filteredLogs:string[]=[];
 
+  private logGeneratedSubscription:Subscription;
+
   ngOnInit() {
 
     this.onFilterChange('');
   
-    this.loggingService.logGenerated.subscribe((message:string)=>
+    this.logGeneratedSubscription = this.loggingService.logGenerated.subscribe((message:string)=>
     {
       /*   this.logs.push(message); */
 
@@ -28,6 +31,11 @@ export class LogViewComponent implements OnInit {
         }
 
     });
+  }
+
+  ngOnDestroy()
+  {
+    this.logGeneratedSubscription.unsubscribe();
   }
 
   onClear()

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { CallSessionStateChangeListener } from '../../services/call-session-state-change-listener';
 import { LoggingService } from '../../../logging-service';
 import { LyncApiGlobals } from '../../lync-api/lync-api-globals';
@@ -12,9 +12,10 @@ import { RecordingStateChangeListener } from '../../services/recording-state-cha
 import { Listeners } from '../../services/listeners';
 import { IconPathsService, IconPaths } from '../../services/icon-paths-service';
 import { DynamicsChannelIntegration, CallDirection } from '../../services/dynamics-channel-integration';
+import { Subscription } from 'rxjs';
 
 
-export class CallCenterCallViewBase implements OnInit {
+export class CallCenterCallViewBase implements OnInit,OnDestroy {
 
   private lyncApiAudioService:LyncApiAudioService;
   
@@ -66,10 +67,18 @@ export class CallCenterCallViewBase implements OnInit {
 
     
   }
+  ngOnDestroy()
+  {
+    this.callSessionStateChangedSubscription.unsubscribe();
+    this.callViewStateChangedSubscription.unsubscribe();
+    this.hangUpSubscription.unsubscribe();
+    this.recordingStateChangedSubscription.unsubscribe();
+  }
 
+  private hangUpSubscription:Subscription;
   private bindHangUpListener(){
 
-    this.hangUpListener.received.subscribe(({conferencingUri:string})=>{
+    this.hangUpSubscription = this.hangUpListener.received.subscribe(({conferencingUri:string})=>{
       this.lyncApiAudioService.hangUp().then(()=>{
         this.logger.log('call-center-call-view-component: Hangup success');
       }).catch((error)=>{
@@ -81,9 +90,11 @@ export class CallCenterCallViewBase implements OnInit {
 
   mediaModel:any;
 
+  private callSessionStateChangedSubscription:Subscription;
+
   bindCallSessionStateChanged(){
 
-    this.callSessionStateChangeListener.stateChanged.subscribe(s=>{            
+    this.callSessionStateChangedSubscription = this.callSessionStateChangeListener.stateChanged.subscribe(s=>{            
       
       this.logger.log(JSON.stringify(s));
 
@@ -134,9 +145,11 @@ export class CallCenterCallViewBase implements OnInit {
 
   }
 
+  private callViewStateChangedSubscription:Subscription;
+
   private bindCallViewStateChanged(){
 
-    this.callViewStateMachine.stateChanged.subscribe(args=>{           
+    this.callViewStateChangedSubscription = this.callViewStateMachine.stateChanged.subscribe(args=>{           
       
        let isHandled:boolean = 
         (
@@ -206,9 +219,11 @@ export class CallCenterCallViewBase implements OnInit {
 
   isRecording:boolean;
 
+  private recordingStateChangedSubscription:Subscription;
+
   bindRecordingStateChanged(){
 
-    this.recordingStateChangedListener.stateChanged.subscribe(c=>{
+    this.recordingStateChangedSubscription = this.recordingStateChangedListener.stateChanged.subscribe(c=>{
 
       this.isRecording = c.isRecording;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoggingService } from '../../../logging-service';
 import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
@@ -6,13 +6,14 @@ import { LyncApiGlobals } from '../../lync-api/lync-api-globals';
 import { CallSessionRequests, MonitoringType} from '../../services/call-session-requests';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
 import { LyncApiContainer } from '../../lync-api/lync-api-container';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-handling-media',
   templateUrl: './handling-media.component.html',
   styleUrls: ['./handling-media.component.css']
 })
-export class HandlingMediaComponent implements OnInit {
+export class HandlingMediaComponent implements OnInit,OnDestroy {
 
   monitorIconPath:string = 'assets/img/cc4s/Monitor.png';
   whisperIconPath:string = 'assets/img/cc4s/Whisper.png';
@@ -38,9 +39,16 @@ export class HandlingMediaComponent implements OnInit {
 
   }
 
+  ngOnDestroy()
+  {
+    this.handlingMediaChangedSubscription.unsubscribe();
+  }
+  
+  private handlingMediaChangedSubscription:Subscription;
+
   bindHandlingMediaChange(){
 
-    this.handlingMediaChangedListener.received.subscribe(model=>{
+    this.handlingMediaChangedSubscription = this.handlingMediaChangedListener.received.subscribe(model=>{
       this.logger.log(`handling-media-component. model received:${JSON.stringify(model)}`);
       this.processHandlingMediaChange(model);
     });

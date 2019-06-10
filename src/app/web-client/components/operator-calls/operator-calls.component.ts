@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Listeners } from '../../services/listeners';
 import { Listener } from '../../services/listener';
 import { LoggingService } from '../../../logging-service';
 import { CallSessionRequests } from '../../services/call-session-requests';
 import { LyncApiContainer } from '../../lync-api/lync-api-container';
 import { LyncApiAudioService } from '../../lync-api/lync-api-audio-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-operator-calls',
   templateUrl: './operator-calls.component.html',
   styleUrls: ['./operator-calls.component.css']
 })
-export class OperatorCallsComponent implements OnInit {
+export class OperatorCallsComponent implements OnInit,OnDestroy {
 
   private operatorCallsListener:Listener<any>;
 
@@ -26,10 +27,12 @@ export class OperatorCallsComponent implements OnInit {
 
   }
 
+  private operatorCallsSubscription:Subscription;
+
   ngOnInit() 
   {
     
-    this.operatorCallsListener.received.subscribe(operatorCallUpdate=>{  
+    this.operatorCallsSubscription = this.operatorCallsListener.received.subscribe(operatorCallUpdate=>{  
 
         this.logger.log(`OperatorCallUpdate:${JSON.stringify(operatorCallUpdate)}`);    
         
@@ -37,6 +40,11 @@ export class OperatorCallsComponent implements OnInit {
 
     });    
 
+  }
+
+  ngOnDestroy()
+  {
+    this.operatorCallsSubscription.unsubscribe();
   }
 
   processOperatorCallUpdate(operatorCallUpdate:any){
