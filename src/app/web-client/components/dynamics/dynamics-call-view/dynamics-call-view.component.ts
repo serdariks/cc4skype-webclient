@@ -48,11 +48,12 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
   afterHandle()
   {
     super.afterHandle();
-    this.addCRMActivityRecord(); 
-
+    
     this.callSessionTimer.stop();  
     this.callSessionTimer.reset();
     this.callDuration = '';
+
+    this.addCRMActivityRecord();    
     
   }
 
