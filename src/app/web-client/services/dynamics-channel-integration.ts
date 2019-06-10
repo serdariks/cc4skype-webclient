@@ -166,7 +166,8 @@ export class DynamicsChannelIntegration {
         }.bind(this));
     }
     /* Create a new activity record for this phone call using appropriate CIF APIs. */
-    createCallActivity(callActivity: CallActivity, onCallActivityCreated: (CreateCallActivityResult) => void) {
+    createCallActivity(callActivity: CallActivity, onCallActivityCreated: (CreateCallActivityResult) => void) {        
+
         var phActivity: any = {};
         //Setup basic details of the activity - subject, direction, duration
         phActivity["phonenumber"] = callActivity.number;

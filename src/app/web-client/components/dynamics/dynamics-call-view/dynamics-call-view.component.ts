@@ -47,13 +47,15 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
  
   afterHandle()
   {
-    super.afterHandle();
-    
-    this.callSessionTimer.stop();  
-    this.callSessionTimer.reset();
-    this.callDuration = '';
+    super.afterHandle();        
 
-    this.addCRMActivityRecord();    
+    this.addCRMActivityRecord().then((activityId)=>{
+      
+      this.callSessionTimer.stop();  
+      this.callSessionTimer.reset();
+      this.callDuration = '';
+
+    });    
     
   }
 
@@ -69,10 +71,11 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
   private currentActivityId:any;
 
-  addCRMActivityRecord(){
+  addCRMActivityRecord():Promise<string>{
     
-    
-     let activity = {
+    return new Promise<string>((resolve,reject)=>{
+      
+      let activity = {
         contactId:null,
         currentCase:null,
         description:"Activity record for incoming call: " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName,
@@ -85,7 +88,12 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       this.dynamicsChannelIntegration.createCallActivity(activity,
       r=>{
           this.currentActivityId = r.activityId;
+          resolve(r.activityId);
       });
+
+
+    });   
+     
     
 
   }

@@ -11,6 +11,7 @@ import { LyncApiGlobals } from '../../../lync-api/lync-api-globals';
 import { OutboundCallViewBase } from '../../component-base/outbound-callview-base';
 import { CallDirection, DynamicsChannelIntegration } from 'src/app/web-client/services/dynamics-channel-integration';
 import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer';
+import { strict } from 'assert';
 
 @Component({
   selector: 'app-dynamics-outbound-call-view',
@@ -37,13 +38,16 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
   callDuration:string;
 
   afterHandle(){
-    super.afterHandle();
-
-    this.callSessionTimer.stop();  
-    this.callSessionTimer.reset();
-    this.callDuration = '';
     
-    this.addCRMActivityRecord();
+    super.afterHandle();    
+
+    this.addCRMActivityRecord().then(activityId=>{
+
+      this.callSessionTimer.stop();  
+      this.callSessionTimer.reset();
+      this.callDuration = '';
+
+    });
   }
 
   afterAnswer(){
@@ -57,10 +61,11 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
   private currentActivityId:any;
 
-  addCRMActivityRecord(){
+  addCRMActivityRecord():Promise<string>{
     
-    
-     let activity = {
+    return new Promise<string>((resolve,reject)=>{
+
+      let activity = {
         contactId:null,
         currentCase:null,
         description:"Activity record for outgoing call: " + this.lastModel.QueueName + "->" + this.lastModel.CalledAgentSIP,
@@ -73,8 +78,11 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
       this.dynamicsChannelIntegration.createCallActivity(activity,
       r=>{
           this.currentActivityId = r.activityId;
+          resolve(r.activityId);
+          
       });
-    
+
+    });          
 
   }
 
