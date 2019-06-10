@@ -1,4 +1,4 @@
-<div *ngIf="lastActivity">
+<div *ngIf="lastActivity!=null">
   <a style="cursor: pointer;" *ngIf="!inUpdateMode" (click)="enableUpdate()" >Update last phone call activity</a>
   <div class = "form-group" *ngIf="inUpdateMode">
     <label for = "activityDescriptionInput">Comments</label>
