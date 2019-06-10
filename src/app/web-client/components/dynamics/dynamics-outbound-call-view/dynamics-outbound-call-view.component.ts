@@ -11,8 +11,8 @@ import { LyncApiGlobals } from '../../../lync-api/lync-api-globals';
 import { OutboundCallViewBase } from '../../component-base/outbound-callview-base';
 import { CallDirection, DynamicsChannelIntegration } from 'src/app/web-client/services/dynamics-channel-integration';
 import { CallSessionTimer } from 'src/app/web-client/services/call-session-timer';
-import { strict } from 'assert';
 import { Subscription } from 'rxjs';
+import { LastPhoneCallActivityService, LastPhoneCallActivity } from '../last-phone-call-activity.service';
 
 @Component({
   selector: 'app-dynamics-outbound-call-view',
@@ -28,7 +28,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
   constructor(listeners:Listeners,logger:LoggingService,stateMachine:OutBoundCallStateMachine,
     iconPathsService:IconPathsService,apiContainer:LyncApiContainer,activeCallSession:ActiveCallSession,
-    callSessionRequests:CallSessionRequests,recordingStateChangedListener:RecordingStateChangeListener,lyncApiGlobals:LyncApiGlobals,private dynamicsChannelIntegration:DynamicsChannelIntegration,private callSessionTimer:CallSessionTimer) {
+    callSessionRequests:CallSessionRequests,recordingStateChangedListener:RecordingStateChangeListener,lyncApiGlobals:LyncApiGlobals,private dynamicsChannelIntegration:DynamicsChannelIntegration,private callSessionTimer:CallSessionTimer,private lastPhoneCallActivityService:LastPhoneCallActivityService) {
 
     super(listeners,logger,stateMachine,
       iconPathsService,apiContainer,activeCallSession,
@@ -54,6 +54,10 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
     this.addCRMActivityRecord().then(activityId=>{
 
+      this.currentActivityId = activityId;
+      
+      this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity(activityId,this.activityDescription)); 
+
       this.callSessionTimer.stop();  
       this.callSessionTimer.reset();
       this.callDuration = '';
@@ -62,6 +66,11 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
   }
 
   afterAnswer(){
+
+    this.activityDescription = "";
+    this.currentActivityId = "";
+
+    this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity("",""));    
 
     this.callSessionTimer.reset();
     this.callSessionTimer.start();
@@ -76,10 +85,16 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
     
     return new Promise<string>((resolve,reject)=>{
 
+      let defaultDescription:string = "Outgoing call to: " + this.lastModel.QueueName + "->" + this.lastModel.CalledAgentSIP;
+
+      let desciption = (this.activityDescription && this.activityDescription.length > 0) ?
+        this.activityDescription  : defaultDescription;      
+        
+      
       let activity = {
         contactId:null,
         currentCase:null,
-        description:"Activity record for outgoing call: " + this.lastModel.QueueName + "->" + this.lastModel.CalledAgentSIP,
+        description: desciption,
         direction : CallDirection.Outgoing,
         name : null,
         number : this.lastModel.CalledAgentSIP,
@@ -88,7 +103,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
       this.dynamicsChannelIntegration.createCallActivity(activity,
       r=>{
-          this.currentActivityId = r.activityId;
+          
           resolve(r.activityId);
           
       });

@@ -1,0 +1,8 @@
+<a style="cursor: pointer;" *ngIf="!inUpdateMode" >Update last phone call activity</a>
+<div class = "form-group" *ngIf="inUpdateMode">
+  <label for = "activityDescriptionInput">Comments</label>
+  <textarea id="activityDescriptionInput" 
+  class = "form-control" rows = "3" placeholder = "Dynamics activity comments"  [(ngModel)]="activityDescription" ></textarea>            
+  <button class="btn btn-primary" (click)="onSave()">Save</button>
+  <button class="btn btn-primary" (click)="onClose()">Close</button>
+</div>

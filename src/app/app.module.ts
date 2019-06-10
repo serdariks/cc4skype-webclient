@@ -76,6 +76,7 @@ import { DynamicsContactSearchComponent } from './web-client/components/dynamics
 import { DynamicsCc4skypeContactSearchComponent } from './web-client/components/dynamics/dynamics-cc4skype-contact-search/dynamics-cc4skype-contact-search.component';
 import { CallSessionTimer } from './web-client/services/call-session-timer';
 import { BootstrapTestComponent } from './web-client/components/bootstrap-test/bootstrap-test.component';
+import { DynamicsLastActivityUpdateComponent } from './web-client/components/dynamics/dynamics-last-activity-update/dynamics-last-activity-update.component';
 
 const appRoutes: Routes =
   [
@@ -111,7 +112,8 @@ const appRoutes: Routes =
       DynamicsOutboundCallViewComponent,
       DynamicsContactSearchComponent,
       DynamicsCc4skypeContactSearchComponent,
-      BootstrapTestComponent
+      BootstrapTestComponent,
+      DynamicsLastActivityUpdateComponent,
    ],
    imports: [
       HttpClientModule,

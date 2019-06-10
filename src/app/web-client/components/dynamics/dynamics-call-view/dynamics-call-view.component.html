@@ -51,6 +51,14 @@
           <img [ngClass]="getMonitoringClass('Silent')" [src]="iconPaths['silentMonitorImg']" (click)="onToggleMonitor('Silent')" title="Silent monitor">
           <img [ngClass]="getMonitoringClass('Whisper')" [src]="iconPaths['whisperImg']" (click)="onToggleMonitor('Whisper')" title="Whisper">
           <img [ngClass]="getMonitoringClass('BargeIn')" [src]="iconPaths['bargeInImg']" (click)="onToggleMonitor('BargeIn')" title="Barge in">
+      </div>
+      <div *ngIf="isFirstNormalAgentConnected">
+         <div class = "form-group">
+            <label for = "activityDescriptionInput">Comments</label>
+            <textarea id="activityDescriptionInput" 
+            class = "form-control" rows = "3" placeholder = "Dynamics activity comments"  [(ngModel)]="activityDescription" ></textarea>
+            {{activityDescription}}            
+         </div>
        </div>
   </div>    
 </div>

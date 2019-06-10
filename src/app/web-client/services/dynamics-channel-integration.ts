@@ -253,20 +253,24 @@ export class DynamicsChannelIntegration {
     }
 
     /* Update the activity record with additional details. In this sample, we update the 'description' field with the notes taken during the call */
-    updateActivity(req: UpdateActivityRequest) {
+    updateActivity(req: UpdateActivityRequest): Promise<string> {
 
-        //if (!phone || phone.state != PhoneState.CallSummary) {
-        //    return;
-        //}
-        if (!req.activityId) {
-            //phone.createCallActivity();
-            return;
-        }
-        var data = {};
-        data["description"] = req.callNotes;
-        Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then(function(ret){
-            this.openActivity(req.activityId);
-        }.bind(this));
+        return new Promise<string>((resolve, reject) => {
+            //if (!phone || phone.state != PhoneState.CallSummary) {
+            //    return;
+            //}
+            if (!req.activityId) {
+                //phone.createCallActivity();
+                return;
+            }
+            var data = {};
+            data["description"] = req.callNotes;
+            Microsoft.CIFramework.updateRecord("phonecall", req.activityId, JSON.stringify(data)).then(function (ret) {
+                this.openActivity(req.activityId);
+                resolve(req.activityId);
+            }.bind(this));
+        });
+
     }
 
     /* Event handler. When clicked, opens the activity record created for this phone call */
