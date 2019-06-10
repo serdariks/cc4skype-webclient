@@ -68,6 +68,8 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
   afterAnswer(){
     
+    super.afterAnswer();
+
     this.activityDescription = "";
     this.currentActivityId = "";
 
@@ -79,6 +81,12 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
     super.afterAnswer();
     this.showContact();
+  }
+
+  afterIncomingCall(){
+    
+    super.afterIncomingCall();
+    this.lastPhoneCallActivityService.setLastPhoneCallActivity(null);
   }
 
   private currentActivityId:any;

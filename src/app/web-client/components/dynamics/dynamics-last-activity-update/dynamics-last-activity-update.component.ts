@@ -26,7 +26,7 @@ export class DynamicsLastActivityUpdateComponent implements OnInit,OnDestroy {
     this.lastPhoneCallActivityChangedSubscription = 
       this.lastPhoneCallActivityService.Changed.subscribe(a=>{
         this.lastActivity = a;
-        this.activityDescription = this.lastActivity.activityDescription;
+        this.activityDescription = this.lastActivity ? this.lastActivity.activityDescription : '';
       });
   }
 
@@ -43,6 +43,8 @@ export class DynamicsLastActivityUpdateComponent implements OnInit,OnDestroy {
 
   onSave(){
     
+    if(!this.lastActivity) return;
+
     this.lastActivity.activityDescription = this.activityDescription;
 
     this.lastPhoneCallActivityService.setLastPhoneCallActivity(this.lastActivity)

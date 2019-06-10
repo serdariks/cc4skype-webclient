@@ -169,9 +169,19 @@ export class CallCenterCallViewBase implements OnInit,OnDestroy {
        if(isAnswered){
          this.afterAnswer();
        }
+
+       let isIncomingCall:boolean = args.currentState.toString() == StateName[StateName.FirstAgentCallRinging];      
+
+       if(isIncomingCall){
+         this.afterIncomingCall();
+       }
        
 
     });
+
+  }
+
+  afterIncomingCall(){
 
   }
 

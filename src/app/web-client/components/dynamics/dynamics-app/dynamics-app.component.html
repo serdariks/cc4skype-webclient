@@ -8,8 +8,7 @@
     <div class="row">
       <div class="col-xs-12">
         <app-dynamics-call-view></app-dynamics-call-view>
-        <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>
-        <app-dynamics-last-activity-update></app-dynamics-last-activity-update>
+        <app-dynamics-outbound-call-view></app-dynamics-outbound-call-view>        
         <!--<img [src]="iconPaths['dialpadImg']" (click)="onDialpadClick()" title="Outbound call">-->        
         
         <ul class="nav nav-tabs" style="margin-bottom: 20px;">
@@ -21,6 +20,11 @@
           <li role="presentation" [ngClass]="activeTabClass('contacts')">
             <a (click)="showTab('contacts')">            
                 <img class="navtab-icon" [src]="iconPaths['contactsImg']" title="Contacts">
+            </a>
+          </li>
+          <li role="presentation" [ngClass]="activeTabClass('activities')">
+            <a (click)="showTab('activities')">            
+                <img class="navtab-icon" [src]="iconPaths['contactsImg']" title="Activities">
             </a>
           </li>
         </ul>
@@ -40,7 +44,10 @@
                     <app-dynamics-cc4skype-contact-search #dynamicsCC4SkypeContactSearch></app-dynamics-cc4skype-contact-search>
                 </div>
             </div>                        
-        </div>        
+        </div> 
+        <div [ngClass]="visibilityClass('activities')" class="panel panel-default group-panel"> 
+          <app-dynamics-last-activity-update></app-dynamics-last-activity-update>
+        </div>   
       </div>
     </div>
   

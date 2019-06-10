@@ -79,6 +79,13 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
     this.showContact();
   }
 
+  afterCalling(){
+    super.afterCalling();
+
+    this.lastPhoneCallActivityService.setLastPhoneCallActivity(null); 
+
+  }
+
   private currentActivityId:any;
 
   addCRMActivityRecord():Promise<string>{
