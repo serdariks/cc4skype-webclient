@@ -24,6 +24,8 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
   
   private callSessionTimerSubscription:Subscription;
 
+  activityDescription:string;
+
   constructor(listeners:Listeners,logger:LoggingService,stateMachine:OutBoundCallStateMachine,
     iconPathsService:IconPathsService,apiContainer:LyncApiContainer,activeCallSession:ActiveCallSession,
     callSessionRequests:CallSessionRequests,recordingStateChangedListener:RecordingStateChangeListener,lyncApiGlobals:LyncApiGlobals,private dynamicsChannelIntegration:DynamicsChannelIntegration,private callSessionTimer:CallSessionTimer) {

@@ -47,6 +47,15 @@
           <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()" title = "Reject cold transfer">
        </div>
 
+       <div *ngIf="isAccepted">
+         <div class = "form-group">
+            <label for = "activityDescriptionInput">Comments</label>
+            <textarea id="activityDescriptionInput" 
+            class = "form-control" rows = "3" placeholder = "Dynamics activity comments"  [(ngModel)]="activityDescription" ></textarea>
+            {{activityDescription}}            
+         </div>
+       </div>
+
   </div>  
 </div>
 
