@@ -16,7 +16,7 @@ export class DynamicsLastActivityUpdateComponent implements OnInit,OnDestroy {
   constructor(private lastPhoneCallActivityService:LastPhoneCallActivityService,private dynamicsChannelIntegration:DynamicsChannelIntegration) { }
 
   private lastPhoneCallActivityChangedSubscription:Subscription;
-  private lastActivity:LastPhoneCallActivity;  
+  lastActivity:LastPhoneCallActivity;  
 
   ngOnInit() {
 
