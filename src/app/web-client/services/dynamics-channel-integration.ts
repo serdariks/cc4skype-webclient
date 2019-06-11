@@ -246,18 +246,21 @@ export class DynamicsChannelIntegration {
 
     }
 
-    getPhoneCallActivities():Promise<any[]>{
+    getPhoneCallActivities():Promise<DynamicsActivity[]>{
 
-        return new Promise<any[]>((resolve,reject)=>{
+        return new Promise<DynamicsActivity[]>((resolve,reject)=>{
+            
+            let fields:string = 'activityid,createdon,description,directioncode@OData.Community.Display.V1.FormattedValue' +
+            'phonenumber,subject,actualdurationminutes,directioncode';
 
-            let queryParams = "?$select=&$filter=";
+            let queryParams = "?$select=" + fields;
 
             Microsoft.CIFramework.searchAndOpenRecords("phonecall",queryParams,true).then(
                 function(queryResponse){    
                     try {
-                        let val:[any] = <[any]>JSON.parse(queryResponse);
+                        let val:[DynamicsActivity] = <[DynamicsActivity]>JSON.parse(queryResponse);
                         
-                        let phoneCalls: any[] = [];
+                        let phoneCalls: DynamicsActivity[] = [];
                         
                         for(var index in val){
                             let phoneCall = val[index];                                                       
@@ -432,4 +435,15 @@ export class DynamicsContact{
     contactId:string;
     mobilePhone:string;
 
+}
+export class DynamicsActivity{
+    
+    activityid;
+    createdon;
+    description;
+    phonenumber;
+    subject;
+    actualdurationminutes;
+    directioncode;
+    
 }
