@@ -258,7 +258,7 @@ export class DynamicsChannelIntegration {
             Microsoft.CIFramework.searchAndOpenRecords("phonecall",queryParams,true).then(
                 function(queryResponse){    
                     try {
-                        let val:[DynamicsActivity] = <[DynamicsActivity]>JSON.parse(queryResponse);
+                        let val:[any] = <[any]>JSON.parse(queryResponse);
                         
                         let phoneCalls: DynamicsActivity[] = [];
                         
