@@ -246,6 +246,44 @@ export class DynamicsChannelIntegration {
 
     }
 
+    getPhoneCallActivities():Promise<any[]>{
+
+        return new Promise<any[]>((resolve,reject)=>{
+
+            Microsoft.CIFramework.searchAndOpenRecords("phonecall").then(
+                function(queryResponse){    
+                    try {
+                        let val:[any] = <[any]>JSON.parse(queryResponse);
+                        
+                        let phoneCalls: any[] = [];
+                        
+                        for(var index in val){
+                            let phoneCall = val[index];                                                       
+    
+                            phoneCalls.push(phoneCall);
+                        }
+
+                        resolve(phoneCalls);
+                     
+                    }
+                    catch (e) {
+                        reject(e);
+                    }
+                }.bind(this)
+            ).catch(function(reason){
+                if (!reason) {
+                    reason = "Unknown Reason";
+                }
+
+                reject(reason);
+                
+            }.bind(this));
+
+        });
+
+        
+    }
+
     private stripParens(val) {
         var start = val.indexOf('{') + 1, end = val.lastIndexOf('}');
         end = (end > 0 ? end : val.length);
