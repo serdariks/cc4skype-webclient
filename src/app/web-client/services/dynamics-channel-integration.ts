@@ -250,7 +250,9 @@ export class DynamicsChannelIntegration {
 
         return new Promise<any[]>((resolve,reject)=>{
 
-            Microsoft.CIFramework.searchAndOpenRecords("phonecall").then(
+            let queryParams = "";
+
+            Microsoft.CIFramework.searchAndOpenRecords("phonecall",queryParams).then(
                 function(queryResponse){    
                     try {
                         let val:[any] = <[any]>JSON.parse(queryResponse);
