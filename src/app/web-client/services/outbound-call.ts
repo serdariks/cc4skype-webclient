@@ -30,9 +30,10 @@ export class OutboundCall{
             return;
           }
     
-          let endpointUri = this.initializeData.endpoints[0].EndpointSipUri;//TODO!!for now the first endpoint, later we will choose the endpoint from a dropdown above dialpad!
+          let endpoint = this.initializeData.endpoints[0];//TODO!!for now the first endpoint, later we will choose the endpoint from a dropdown above dialpad!
+          
     
-          this.startContactCenterCall(endpointUri,nextInstance=>{
+          this.startContactCenterCall(endpoint,nextInstance=>{
             
             this.addOutBoundCallRequest(callerSip,number,(result:boolean)=>{
     
@@ -68,11 +69,15 @@ export class OutboundCall{
        the actual contact center instance according to load balance rule.
        We are registering a record on Redis showing that we will call from this caller sip right now and it's a web client call
       */
-      private startContactCenterCall(originalEndpointCalled:string, onSuccess:(nextInstance:string)=>void){
+      private startContactCenterCall(originalEndpoint:any, onSuccess:(nextInstance:string)=>void){
         
-        let caller = this.lyncApiGlobals.personSignedIn;    
-    
-        let requestData =  {OriginalEndpointCalled:originalEndpointCalled,CallerUri:caller.id,CallerDisplayName:caller.displayName}; 
+        let caller = this.lyncApiGlobals.personSignedIn;         
+        
+        let requestData =  {
+          OriginalEndpointCalledSip:originalEndpoint.EndpointSipUri,
+          OriginalEndpointCalledLineUri:originalEndpoint.EndpointLineUri,
+          CallerUri:caller.id,
+          CallerDisplayName:caller.displayName}; 
       
         let args:InvokeServiceArgs={
           

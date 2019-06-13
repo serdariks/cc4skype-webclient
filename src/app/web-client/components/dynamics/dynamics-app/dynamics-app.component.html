@@ -1,5 +1,20 @@
 <div class="container" style="max-width:350px;margin-top: 20px;">
-  <div class="row">
+  
+  <!-- <div *ngIf="true">
+
+    <script>
+      
+      function ciLoadDone() {
+          ciLoaded = true;
+          console.log("CI LOADED!!!!!!!!!!!!!!!!!!!!!!");
+  
+     }
+   </script>
+   <script [src]="dynamicsScriptPath" onload="ciLoadDone();"></script>
+
+  </div>   -->
+ 
+ <div class="row">
     <div class="col-xs-12">
       <app-login-view [personLoggedIn]="personLoggedIn"></app-login-view>
     </div>

@@ -1,3 +1,10 @@
 <app-dynamics-last-activity-update></app-dynamics-last-activity-update>
-<br>
+<br/>
 <button class="btn btn-primary" (click)="loadActivities()">Load Activities</button>
+
+<div class="list-group">
+  <a style="cursor: pointer;" class="list-group-item" *ngFor="let activity of activities" (click)="openActivity(activity.activityid)">
+    {{activity.createdon}}
+  </a>
+</div>
+

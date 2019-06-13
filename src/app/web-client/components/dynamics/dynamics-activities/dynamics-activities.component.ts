@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicsChannelIntegration } from 'src/app/web-client/services/dynamics-channel-integration';
+import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client/services/dynamics-channel-integration';
 
 @Component({
   selector: 'app-dynamics-activities',
@@ -10,12 +10,12 @@ export class DynamicsActivitiesComponent implements OnInit {
 
   constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration) { }
   
-  activities:any[] = [];
+  activities:DynamicsActivity[] = [];
 
   ngOnInit() {
 
     this.loadActivities();
-    
+
   }
 
   private loadActivities(){
@@ -25,6 +25,10 @@ export class DynamicsActivitiesComponent implements OnInit {
       console.log("ACTIVITIES:");
       console.log(activites);
     });
+  }
+
+  openActivity(activityid:string){
+
   }
 
 }

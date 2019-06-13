@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { OutboundCall } from "./outbound-call";
 import { CallSessionTimer } from "./call-session-timer";
+import { interval } from 'rxjs';
 
 declare var Microsoft: any;
 declare var ciLoaded: any;
@@ -10,6 +11,7 @@ export class DynamicsChannelIntegration {
     environment: any;
 
     constructor(private outBoundCall:OutboundCall,private callSessionTimer:CallSessionTimer) {
+        
         this.tryInit();
     }
 
@@ -19,6 +21,13 @@ export class DynamicsChannelIntegration {
             this.init();
         } else {
             window.setTimeout(this.tryInit, 200);
+           /*  const myInterval = interval(200);
+            myInterval.subscribe(()=>{
+                this.tryInit();
+                if(ciLoaded){
+                    myInterval
+                }
+            }); */
         }
 
     }

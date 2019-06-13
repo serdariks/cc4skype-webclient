@@ -1,4 +1,4 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, Renderer2, Inject} from '@angular/core';
 
 import { Messaging } from '../../../messaging/messaging';
 import { LyncApiSignIn } from '../../../lync-api/lync-api-signin';
@@ -18,6 +18,7 @@ import { AppComponentBase } from '../../component-base/app-component-base';
 import { IconPathsService } from 'src/app/web-client/services/icon-paths-service';
 import { DynamicsContactSearchComponent } from '../dynamics-contact-search/dynamics-contact-search.component';
 import { DynamicsCc4skypeContactSearchComponent } from '../dynamics-cc4skype-contact-search/dynamics-cc4skype-contact-search.component';
+//import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-dynamics-app',
@@ -29,7 +30,9 @@ export class DynamicsAppComponent extends AppComponentBase {
     logger: LoggingService, lyncApiGlobals: LyncApiGlobals,apiContainer: LyncApiContainer
     , lyncSDKApi: LyncSDKApi, activatedRoute: ActivatedRoute, socketManager: SocketManager, 
     xhrHook: XHRHook,
-    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService){
+    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService, 
+    //private renderer2: Renderer2,@Inject(DOCUMENT) private _document
+    ){
     super(messaging,cacheService,serviceCall,logger,lyncApiGlobals,apiContainer,
       lyncSDKApi,activatedRoute,socketManager,xhrHook,initializeData,dynamicsChannelIntegration,iconPathsService);
   }
@@ -38,7 +41,28 @@ export class DynamicsAppComponent extends AppComponentBase {
     super.ngOnInit();
     this.currentTab = 'dialpad';
 
+    //this.loadDynamicsScript();
+
+    //this.runningAsDynamicsWidget = this.dynamicsBaseUrl.length > 0;
+
   }
+
+ /*  loadDynamicsScript(){
+    const s = this.renderer2.createElement('script');
+    s.type = 'text/javascript';
+    s.onload = this.loadNextScript.bind(this);
+    s.src = this.dynamicsScriptPath;
+    s.text = ``;
+    this.renderer2.appendChild(this._document.body, s);
+  }
+
+  loadNextScript() {
+    const s = this.renderer2.createElement('script');
+    s.text = `
+      ciLoaded=true;
+    `;
+    this.renderer2.appendChild(this._document.body, s);
+ } */
 
   @ViewChild('dynamicsContactSearch',{static: false}) dynamicsContactSearch:DynamicsContactSearchComponent;
   @ViewChild('dynamicsCC4SkypeContactSearch',{static: false}) dynamicsCC4SkypeContactSearch:DynamicsCc4skypeContactSearchComponent;
@@ -46,7 +70,25 @@ export class DynamicsAppComponent extends AppComponentBase {
   searchContacts(searchText:string)
   {
     this.dynamicsContactSearch.searchContacts(searchText);
-    this.dynamicsCC4SkypeContactSearch.onSearch(searchText);
+    this.dynamicsCC4SkypeContactSearch.onSearch(searchText);    
   }
+
+ /*  runningAsDynamicsWidget:boolean = false;
+
+  get dynamicsBaseUrl():string{
+
+    let args:string[] = window.location.search.substr(1).split('&');
+
+    let baseUrlArg = args.map(a=>{
+      let argParts = a.split('=');
+      return {key:argParts[0],value:argParts[1]};
+    }).find(a=>a.key == 'base');
+
+    return baseUrlArg ? baseUrlArg.value : '';      
+
+  }
+
+  dynamicsScriptPath:string = this.dynamicsBaseUrl + "/webresources/Widget/msdyn_ciLibrary.js"; */
+  
 
 }
