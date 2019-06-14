@@ -7,7 +7,7 @@
   *ngFor="let activity of activities" (click)="openActivity(activity.activityid)"
   title="{{activity.subject}}">
     <div class="row">
-      <div class="col-xs-2"><img [src] ="activityDirectionImgPath(activity)"/></div>
+      <div class="col-xs-2"><img class="direction-img" [src] ="activityDirectionImgPath(activity)"/></div>
       <div class="col-xs-10">{{activity.phonenumber}}</div>
     </div>
     <div class="row">
