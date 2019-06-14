@@ -33,6 +33,9 @@ export class DynamicsActivitiesComponent implements OnInit {
 
     this.dynamicsChannelIntegration.getPhoneCallActivities().then((activites)=>{ 
       
+      this.pageCount = ((activites.length - (activites.length % this.pageSize)) / this.pageSize) + 1;
+
+      if (this.pageIndex>this.pageCount-1) this.pageIndex = 0;
      
       this.activities = this.paginate(activites.sort((a1,a2)=>{
         let d1 = new Date(a1.createdon); 
@@ -40,15 +43,14 @@ export class DynamicsActivitiesComponent implements OnInit {
         if (d1<d2) return 1;
         else if(d1>d2) return -1;
         else if(d1==d2) return 0;
-      }),6,1);
+      }),this.pageSize,this.pageIndex);
 
       console.log("ACTIVITIES:");
       console.log(activites);
     });
   }
 
-  paginate<T> (array:T[], page_size:number, page_number:number):T[] {
-    --page_number; // because pages logically start with 1, but technically with 0
+  paginate<T> (array:T[], page_size:number, page_number:number):T[] {    
     return array.slice(page_number * page_size, (page_number + 1) * page_size);
   }
 
@@ -64,21 +66,24 @@ export class DynamicsActivitiesComponent implements OnInit {
     this.outboundCall.start(phoneNumber).then((result)=>{          
      
     });
-  }
-  
-  goPreviousChars(){
-    return encodeURIComponent("<<");
-  }
-  goNextChars(){
-    return encodeURIComponent("<<");
-  }
-
+  }  
+ 
+  pageSize:number= 5;
+  pageCount:number=0;
   pageIndex:number=0;
   goNext(){
-    this.pageIndex++;
+    if(!(this.pageIndex == this.pageCount-1)) {
+      this.pageIndex++;
+    }    
+
+    this.loadActivities();
+
   }
   goPrevious(){
-    this.pageIndex--;
+    
+    if(!(this.pageIndex ==0)) this.pageIndex--;
+
+    this.loadActivities();
   }
 
 }

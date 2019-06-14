@@ -4,8 +4,10 @@
   <div class="panel-heading">
     Activities 
     <a style="cursor:pointer;" class="glyphicon glyphicon-menu-left"  (click)="goPrevious()"></a>
-    <a style="cursor:pointer;" class="glyphicon glyphicon-menu-right" (click)="goNext()"></a>
+    <a style="cursor:pointer;" class="glyphicon glyphicon-menu-right" (click)="goNext()"></a>    
     <img class="refresh-icon pull-right" [src]="iconPaths['refreshImg']" (click)="loadActivities()" title="Reload Activities"/>
+    <br>
+    (Displaying page {{pageIndex+1}} of {{pageCount}} pages)
   </div>
   <div class="panel-body">
       <div class="list-group">
