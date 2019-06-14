@@ -11,8 +11,16 @@
               
               </div>
               <div class="col-xs-2">
+                  <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a style="cursor: pointer;" (click)="onSignOut()">Sign out</a></li>                        
+                      </ul>
+                    </div>
                   <!--<button class="btn btn-primary" (click)="onSignOut()">Sign out</button>-->
-                  <img [src]="iconPaths['logoutImg']" (click)="onSignOut()" title="Sign out"/> 
+                  <!--<img [src]="iconPaths['logoutImg']" (click)="onSignOut()" title="Sign out"/> -->
               </div>
           </div>                                   
 
