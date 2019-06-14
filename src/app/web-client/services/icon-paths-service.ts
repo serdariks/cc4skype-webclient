@@ -28,7 +28,8 @@ export class IconPathsService {
             { key: 'logoutImg', path: 'assets/img/cc4s/log-out-icon-5.jpg' },
             { key: 'contactsImg', path: 'assets/img/cc4s/contacts.png' },
             { key: 'incomingCallImg', path: 'assets/img/cc4s/incomingCall.png'},
-            { key: 'outgoingCallImg', path: 'assets/img/cc4s/outgoingCall.png'}                          
+            { key: 'outgoingCallImg', path: 'assets/img/cc4s/outgoingCall.png'} ,
+            { key: 'refreshImg', path: 'assets/img/cc4s/refresh.png'}                          
 
         ];
 
