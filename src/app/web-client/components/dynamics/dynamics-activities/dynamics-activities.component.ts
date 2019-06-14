@@ -28,7 +28,7 @@ export class DynamicsActivitiesComponent implements OnInit {
   }
 
   openActivity(activityid:string){
-
+    this.dynamicsChannelIntegration.openActivity(activityid);
   }
 
 }
