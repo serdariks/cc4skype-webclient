@@ -40,7 +40,7 @@ export class DynamicsActivitiesComponent implements OnInit {
         if (d1<d2) return 1;
         else if(d1>d2) return -1;
         else if(d1==d2) return 0;
-      }),1,6);
+      }),6,1);
 
       console.log("ACTIVITIES:");
       console.log(activites);
