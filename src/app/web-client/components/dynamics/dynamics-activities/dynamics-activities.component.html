@@ -1,10 +1,8 @@
 <!--<app-dynamics-last-activity-update></app-dynamics-last-activity-update>-->
 
-<button class="btn btn-primary" (click)="loadActivities()">Load Activities</button>
-
 <div class="panel panel-default">
   <div class="panel-heading">
-    Activities <img class="pull-right" [src]="iconPaths['refreshImg']" (click)="loadActivities()" title="Reload Activities"/>
+    Activities <img class="refresh-icon pull-right" [src]="iconPaths['refreshImg']" (click)="loadActivities()" title="Reload Activities"/>
   </div>
   <div class="panel-body">
       <div class="list-group">
