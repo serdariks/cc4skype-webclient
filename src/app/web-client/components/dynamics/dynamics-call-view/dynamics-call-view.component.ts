@@ -97,6 +97,11 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       
       let defaultDescription:string = "Incoming call from : " + this.mediaModel.QueueName + "->" + this.mediaModel.CallerName;
 
+      //mediaModel fields:
+      //CallerName: "905372414505"
+      //CallerSIP: "sip:+905372414505@cc4skype.com"
+      //CallerUri: "tel:905372414505"
+
       let desciption = (this.activityDescription && this.activityDescription.length > 0) ?
         this.activityDescription  : defaultDescription;
 
@@ -106,7 +111,8 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         description:desciption,
         direction : CallDirection.Incoming,
         name : null,
-        number : "05332414505",
+        //number : "05332414505",
+        number: this.mediaModel.CallerName,
         userId : null
       };
 

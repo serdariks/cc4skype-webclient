@@ -4,7 +4,7 @@
 
 <div class="list-group">
   <a style="cursor: pointer;" class="list-group-item" *ngFor="let activity of activities" (click)="openActivity(activity.activityid)">
-    {{activity.createdon}}
+    {{activity.createdon | date}}
   </a>
 </div>
 
