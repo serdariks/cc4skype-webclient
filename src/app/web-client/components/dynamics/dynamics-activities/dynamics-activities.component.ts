@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client/services/dynamics-channel-integration';
 import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
+import { OutboundCall } from 'src/app/web-client/services/outbound-call';
 
 @Component({
   selector: 'app-dynamics-activities',
@@ -13,7 +14,7 @@ export class DynamicsActivitiesComponent implements OnInit {
   
   activities:DynamicsActivity[] = [];
 
-  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService) { 
+  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outboundCall:OutboundCall) { 
     
   } 
   
@@ -29,7 +30,7 @@ export class DynamicsActivitiesComponent implements OnInit {
   private loadActivities(){
 
     this.activities = [];
-    
+
     this.dynamicsChannelIntegration.getPhoneCallActivities().then((activites)=>{      
       this.activities = activites.sort((a1,a2)=>{
         let d1 = new Date(a1.createdon); 
@@ -49,6 +50,12 @@ export class DynamicsActivitiesComponent implements OnInit {
 
   activityDirectionImgPath(activity:DynamicsActivity){
     return activity.directioncode == false ? this.iconPaths['incomingCallImg']:this.iconPaths['outgoingCallImg'];
+  }
+
+  startOutBoundCall(phoneNumber:string){
+    this.outboundCall.start(phoneNumber).then((result)=>{          
+     
+    });
   }
 
 }

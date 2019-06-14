@@ -11,7 +11,9 @@
           title="{{activity.subject}}">
             <div class="row">
               <div class="col-xs-2"><img class="direction-img" [src] ="activityDirectionImgPath(activity)"/></div>
-              <div class="col-xs-10">{{activity.phonenumber}}</div>
+              <div class="col-xs-10">{{activity.phonenumber}}
+                  <img [src]="iconPaths['dialImg']" (click)="startOutBoundCall(activity.phonenumber)" title="Dial"/>
+              </div>
             </div>
             <div class="row">
               <div class="col-offset-xs-2 col-xs-10">{{activity.createdon | date:'medium'}}</div>
