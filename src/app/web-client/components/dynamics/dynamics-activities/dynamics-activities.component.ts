@@ -31,17 +31,25 @@ export class DynamicsActivitiesComponent implements OnInit {
 
     this.activities = [];
 
-    this.dynamicsChannelIntegration.getPhoneCallActivities().then((activites)=>{      
-      this.activities = activites.sort((a1,a2)=>{
+    this.dynamicsChannelIntegration.getPhoneCallActivities().then((activites)=>{ 
+      
+     
+      this.activities = this.paginate(activites.sort((a1,a2)=>{
         let d1 = new Date(a1.createdon); 
         let d2 = new Date(a2.createdon);
         if (d1<d2) return 1;
         else if(d1>d2) return -1;
         else if(d1==d2) return 0;
-      });
+      }),1,6);
+
       console.log("ACTIVITIES:");
       console.log(activites);
     });
+  }
+
+  paginate<T> (array:T[], page_size:number, page_number:number):T[] {
+    --page_number; // because pages logically start with 1, but technically with 0
+    return array.slice(page_number * page_size, (page_number + 1) * page_size);
   }
 
   openActivity(activityid:string){
