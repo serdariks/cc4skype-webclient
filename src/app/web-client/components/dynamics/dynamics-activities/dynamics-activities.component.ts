@@ -29,7 +29,13 @@ export class DynamicsActivitiesComponent implements OnInit {
   private loadActivities(){
 
     this.dynamicsChannelIntegration.getPhoneCallActivities().then((activites)=>{      
-      this.activities = activites;
+      this.activities = activites.sort((a1,a2)=>{
+        let d1 = new Date(a1.createdon); 
+        let d2 = new Date(a2.createdon);
+        if (d1<d2) return 1;
+        else if(d1>d2) return -1;
+        else if(d1==d2) return 0;
+      });
       console.log("ACTIVITIES:");
       console.log(activites);
     });
