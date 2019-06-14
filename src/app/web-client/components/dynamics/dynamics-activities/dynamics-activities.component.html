@@ -6,7 +6,9 @@
   <a style="cursor: pointer;" class="list-group-item" 
   *ngFor="let activity of activities" (click)="openActivity(activity.activityid)"
   title="{{activity.subject}}">
-    {{activity.phonenumber}} {{activity.directioncode == false ? '<--':'-->'}} {{activity.createdon | date:'medium'}}
+    {{activity.phonenumber}}
+    <img [src] ="activityDirectionImgPath(activity)"/>
+    {{activity.createdon | date:'medium'}}
   </a>
 </div>
 

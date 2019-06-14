@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client/services/dynamics-channel-integration';
+import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
 
 @Component({
   selector: 'app-dynamics-activities',
@@ -8,11 +9,18 @@ import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client
 })
 export class DynamicsActivitiesComponent implements OnInit {
 
-  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration) { }
+  iconPaths:IconPaths = { };
   
   activities:DynamicsActivity[] = [];
 
+  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService) { 
+    
+  } 
+  
+
   ngOnInit() {
+
+    this.iconPaths = this.iconPathsService.iconPaths;
 
     this.loadActivities();
 
@@ -29,6 +37,10 @@ export class DynamicsActivitiesComponent implements OnInit {
 
   openActivity(activityid:string){
     this.dynamicsChannelIntegration.openActivity(activityid);
+  }
+
+  activityDirectionImgPath(activity:DynamicsActivity){
+    return activity.directioncode == false ? this.iconPaths['incomingCallImg']:this.iconPaths['outgoingCallImg'];
   }
 
 }
