@@ -65,5 +65,20 @@ export class DynamicsActivitiesComponent implements OnInit {
      
     });
   }
+  
+  goPreviousChars(){
+    return encodeURIComponent("<<");
+  }
+  goNextChars(){
+    return encodeURIComponent("<<");
+  }
+
+  pageIndex:number=0;
+  goNext(){
+    this.pageIndex++;
+  }
+  goPrevious(){
+    this.pageIndex--;
+  }
 
 }

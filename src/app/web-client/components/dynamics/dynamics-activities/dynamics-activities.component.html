@@ -2,7 +2,10 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    Activities <img class="refresh-icon pull-right" [src]="iconPaths['refreshImg']" (click)="loadActivities()" title="Reload Activities"/>
+    Activities 
+    <a style="cursor:pointer;" class="glyphicon glyphicon-menu-left"  (click)="goPrevious()"></a>
+    <a style="cursor:pointer;" class="glyphicon glyphicon-menu-right" (click)="goNext()"></a>
+    <img class="refresh-icon pull-right" [src]="iconPaths['refreshImg']" (click)="loadActivities()" title="Reload Activities"/>
   </div>
   <div class="panel-body">
       <div class="list-group">
