@@ -179,7 +179,7 @@ export class DynamicsChannelIntegration {
 
         var phActivity: any = {};
         //Setup basic details of the activity - subject, direction, duration
-        phActivity["phonenumber"] = callActivity.number;
+        phActivity["phonenumber"] = '+' + callActivity.number;
         //phActivity["subject"] = "Call with " + callActivity.number + " at "+ this.callSessionTimer.startTime.toLocaleTimeString();
         phActivity["directioncode"] = callActivity.direction == CallDirection.Incoming ? false : true;
         phActivity["actualdurationminutes"] = Math.trunc(this.callSessionTimer.duration / 60);

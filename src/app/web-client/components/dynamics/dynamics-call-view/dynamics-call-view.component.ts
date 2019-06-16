@@ -105,6 +105,8 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       let desciption = (this.activityDescription && this.activityDescription.length > 0) ?
         this.activityDescription  : defaultDescription;
 
+       let callerPhone:string= this.mediaModel.CallerSIP.split('@')[0].split(':')[1];
+
       let activity = {
         contactId:null,
         currentCase:null,
@@ -112,7 +114,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
         direction : CallDirection.Incoming,
         name : null,
         //number : "05332414505",
-        number: this.mediaModel.CallerName,
+        number: callerPhone,
         userId : null
       };
 
