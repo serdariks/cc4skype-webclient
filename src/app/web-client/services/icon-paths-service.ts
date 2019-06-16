@@ -29,7 +29,8 @@ export class IconPathsService {
             { key: 'contactsImg', path: 'assets/img/cc4s/contacts.png' },
             { key: 'incomingCallImg', path: 'assets/img/cc4s/incomingCall.png'},
             { key: 'outgoingCallImg', path: 'assets/img/cc4s/outgoingCall.png'} ,
-            { key: 'refreshImg', path: 'assets/img/cc4s/refresh.png'}                          
+            { key: 'refreshImg', path: 'assets/img/cc4s/refresh.png'},
+            { key: 'activitiesImg', path: 'assets/img/cc4s/dynamics-activities.png'}                          
 
         ];
 
