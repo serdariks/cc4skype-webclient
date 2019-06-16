@@ -1,8 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-body" *ngIf="isOutboundCallAvailable" >
         <div class="row" >
-            <div class="col-xs-12">
-                <input type="text" [(ngModel)]="digits" class="form-control">
+            <div class="col-xs-10">
+                <input type="text" [(ngModel)]="digits" class="form-control">               
+            </div>
+            <div class="col-xs-2 align-right">
                 <img [src]="iconPaths['dialImg']" (click)="startOutBoundCall()" title="Dial"/>
             </div>                                 
         </div>            
