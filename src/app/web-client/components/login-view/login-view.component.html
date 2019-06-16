@@ -4,10 +4,12 @@
 
           <div class="row">
               <div class="col-xs-12">
-
-                  <span>{{personLoggedIn.displayName}}</span>
-                  <span><app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select></span>
-                  <span>
+                  <span style="float:left;">
+                      <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
+                  </span>
+                  <span style="float:left;margin-left:5px;">{{personLoggedIn.displayName}}</span>
+                  
+                  <span style="float:right;">
                       <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                       </a>
