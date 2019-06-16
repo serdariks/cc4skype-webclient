@@ -11,8 +11,8 @@
   </div>
   <div class="panel-body">
       <div class="list-group">
-          <a style="cursor: pointer;" class="list-group-item" 
-          *ngFor="let activity of activities" (click)="openActivity(activity.activityid)"
+          <a  class="list-group-item" 
+          *ngFor="let activity of activities" 
           title="{{activity.subject}}">
             <div class="row">
               <div class="col-xs-2"><img class="direction-img" [src] ="activityDirectionImgPath(activity)"/></div>
@@ -21,7 +21,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-offset-xs-2 col-xs-10">{{activity.createdon | date:'medium'}}</div>
+              <a style="cursor: pointer;" title="open activity" class="col-offset-xs-2 col-xs-10">{{activity.createdon | date:'medium'}}
+                  (click)="openActivity(activity.activityid)"
+              </a>
             </div>           
           </a>
         </div>
