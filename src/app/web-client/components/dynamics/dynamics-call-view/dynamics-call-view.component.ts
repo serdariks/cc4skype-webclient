@@ -56,7 +56,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
     this.addCRMActivityRecord().then((activityId)=>{
       
-      this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity(activityId,this.activityDescription)); 
+      //this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity(activityId,this.activityDescription)); 
 
       this.callSessionTimer.stop();  
       this.callSessionTimer.reset();
@@ -73,7 +73,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
     this.activityDescription = "";
     this.currentActivityId = "";
 
-    this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity("",""));
+    //this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity("",""));
     
     this.callSessionTimer.reset();
     this.callSessionTimer.start();
@@ -86,7 +86,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
   afterIncomingCall(){
     
     super.afterIncomingCall();
-    this.lastPhoneCallActivityService.setLastPhoneCallActivity(null);
+    //this.lastPhoneCallActivityService.setLastPhoneCallActivity(null);
   }
 
   private currentActivityId:any;

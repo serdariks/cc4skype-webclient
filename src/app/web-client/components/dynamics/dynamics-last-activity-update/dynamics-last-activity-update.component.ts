@@ -47,7 +47,7 @@ export class DynamicsLastActivityUpdateComponent implements OnInit,OnDestroy {
 
     this.lastActivity.activityDescription = this.activityDescription;
 
-    this.lastPhoneCallActivityService.setLastPhoneCallActivity(this.lastActivity)
+    //this.lastPhoneCallActivityService.setLastPhoneCallActivity(this.lastActivity)
 
     let req = new UpdateActivityRequest();
     req.activityId = this.lastActivity.activityId;

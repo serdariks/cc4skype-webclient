@@ -56,7 +56,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
       this.currentActivityId = activityId;
       
-      this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity(activityId,this.activityDescription)); 
+      //this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity(activityId,this.activityDescription)); 
 
       this.callSessionTimer.stop();  
       this.callSessionTimer.reset();
@@ -70,7 +70,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
     this.activityDescription = "";
     this.currentActivityId = "";
 
-    this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity("",""));    
+    //this.lastPhoneCallActivityService.setLastPhoneCallActivity(new LastPhoneCallActivity("",""));    
 
     this.callSessionTimer.reset();
     this.callSessionTimer.start();
@@ -82,7 +82,7 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
   afterCalling(){
     super.afterCalling();
 
-    this.lastPhoneCallActivityService.setLastPhoneCallActivity(null); 
+    //this.lastPhoneCallActivityService.setLastPhoneCallActivity(null); 
 
   }
 
