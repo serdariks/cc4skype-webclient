@@ -4,8 +4,9 @@
 
           <div class="row">
               <div class="col-xs-12">
-                  {{personLoggedIn.displayName}}
-                  <app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select>
+
+                  <span>{{personLoggedIn.displayName}}</span>
+                  <span><app-presence-select [selectedValue]="currentPresence" (select)="onPresenceSelect($event)"></app-presence-select></span>
                   <span>
                       <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
