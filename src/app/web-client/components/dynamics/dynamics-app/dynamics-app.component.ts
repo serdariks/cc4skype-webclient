@@ -64,14 +64,14 @@ export class DynamicsAppComponent extends AppComponentBase {
     this.renderer2.appendChild(this._document.body, s);
  } */
 
-  @ViewChild('dynamicsContactSearch',{static: false}) dynamicsContactSearch:DynamicsContactSearchComponent;
+  /* @ViewChild('dynamicsContactSearch',{static: false}) dynamicsContactSearch:DynamicsContactSearchComponent;
   @ViewChild('dynamicsCC4SkypeContactSearch',{static: false}) dynamicsCC4SkypeContactSearch:DynamicsCc4skypeContactSearchComponent;
 
   searchContacts(searchText:string)
   {
     this.dynamicsContactSearch.searchContacts(searchText);
     this.dynamicsCC4SkypeContactSearch.onSearch(searchText);    
-  }
+  } */
 
  /*  runningAsDynamicsWidget:boolean = false;
 

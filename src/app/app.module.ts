@@ -79,6 +79,7 @@ import { BootstrapTestComponent } from './web-client/components/bootstrap-test/b
 import { DynamicsLastActivityUpdateComponent } from './web-client/components/dynamics/dynamics-last-activity-update/dynamics-last-activity-update.component';
 import { LastPhoneCallActivityService } from './web-client/components/dynamics/last-phone-call-activity.service';
 import { DynamicsActivitiesComponent } from './web-client/components/dynamics/dynamics-activities/dynamics-activities.component';
+import { DynamicsContactsTabComponent } from './web-client/components/dynamics/dynamics-contacts-tab/dynamics-contacts-tab.component';
 
 const appRoutes: Routes =
   [
@@ -117,6 +118,7 @@ const appRoutes: Routes =
       BootstrapTestComponent,
       DynamicsLastActivityUpdateComponent,
       DynamicsActivitiesComponent,
+      DynamicsContactsTabComponent,
    ],
    imports: [
       HttpClientModule,
