@@ -263,7 +263,7 @@ export class DynamicsChannelIntegration {
             //'phonenumber,subject,actualdurationminutes,directioncode';
 
             //let queryParams = "?$select=" + fields;
-            let queryParams = '?';
+            let queryParams = "?$select=activityid,createdon,description,phonenumber,subject,actualdurationminutes,directioncode";
 
             Microsoft.CIFramework.searchAndOpenRecords("phonecall",queryParams,true).then(
                 function(queryResponse){    
