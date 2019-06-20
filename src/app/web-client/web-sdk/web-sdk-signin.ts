@@ -7,6 +7,7 @@ import { WebSDKCache } from "./web-sdk-cache";
 import { Person } from "../lync-api/lync-api-person";
 import { ConfigService } from "../services/config-service";
 import { Configuration } from "../services/configuration";
+import { strict } from 'assert';
 
 @Injectable()
 export class WebSDKSignIn implements LyncApiSignIn{      
@@ -46,15 +47,45 @@ export class WebSDKSignIn implements LyncApiSignIn{
 
             let autoDiscoverRootUrl:string = `${this.config.lyncServerFQDN}/autodiscover/autodiscoverservice.svc/root`;
 
+           // let xframeUrl:string = `${this.config.lyncServerFQDN}/xframe`;
+
+/*             this.globals.client.signInManager.signIn({
+                   
+                domain: "cc4skype.com",
+                auth: function (req, get) {
+                    var src = this.src(); // e.g. https://pool-a.contoso.com/xframe
+                
+                    return get(req).then(function (rsp) {
+                        if (rsp.status != 401)
+                            return rsp;
+                            
+                        // note, that req.url may contain ony path, e.g. /ucwa/v1/oauth/applications/1132
+                        // and the getAccessTokenFor function needs to use the src value to get the token audience
+                        let token = this.getAccessTokenFor(req, rsp, src);
+                        req.headers["Authorization"] = "Bearer " + token;
+                        return get(req);
+
+                       //  return this.getAccessTokenFor(req, rsp, src).then(function (token) {
+                         //   req.headers["Authorization"] = "Bearer " + token;
+                           // return get(req);
+                        //}); 
+                    });
+                }
+            }) */
+
             this.globals.client.signInManager.signIn({
                 //version: version,
                 username: username,
                 password: password,
+                //root: { user: `${this.config.lyncServerFQDN}/autodiscover/autodiscoverservice.svc/user` },
+                
                 origins: [
                     autoDiscoverRootUrl,
                     autoDiscoverRootUrl
-                  ]
-            }).then((response)=> {
+                ]
+                  
+            })
+            .then((response)=> {
         
                 console.log('Signed in successfully.');                 
                 
@@ -90,6 +121,12 @@ export class WebSDKSignIn implements LyncApiSignIn{
 
         });       
     
+    }
+
+    getAccessTokenFor(req, rsp, src){
+
+       return "";
+
     }
 
     private signInWithToken(access_token:string):Promise<any>{

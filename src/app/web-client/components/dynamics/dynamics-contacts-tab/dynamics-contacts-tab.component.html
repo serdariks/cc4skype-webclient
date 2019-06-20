@@ -1,21 +1,28 @@
-<input type="text" #searchText (input)="searchContacts(searchText.value)" class="form-control" placeholder="Find contacts">
+<div class="panel panel-default">
+    <div class="panel-heading">Contacts</div>
+    <div class="panel-body">
+        <input type="text" #searchText (input)="searchContacts(searchText.value)" class="form-control" placeholder="Find contacts">
 
-<ul class="nav nav-tabs" style="margin-bottom: 20px;">
-    <li role="presentation" [ngClass]="activeTabClass('dialpad')">
-      <a (click)="showTab('dynamics')">
-        Dynamics
-      </a>
-    </li>
-    <li role="presentation" [ngClass]="activeTabClass('contacts')">
-      <a (click)="showTab('contacts')">            
-        CC4Skype
-      </a>
-    </li>    
-</ul>
+        <ul class="nav nav-tabs" style="margin-bottom: 20px;margin-top:10px;">
+            <li role="presentation" [ngClass]="activeTabClass('dynamics')">
+              <a (click)="showTab('dynamics')">
+                Dynamics
+              </a>
+            </li>
+            <li role="presentation" [ngClass]="activeTabClass('cc4skype')">
+              <a (click)="showTab('cc4skype')">            
+                CC4Skype
+              </a>
+            </li>    
+        </ul>
+        
+        <div [ngClass]="visibilityClass('dynamics')" class="panel panel-default group-panel">     
+            <app-dynamics-contact-search #dynamicsContactSearch></app-dynamics-contact-search>    
+        </div>
+        <div [ngClass]="visibilityClass('cc4skype')" class="panel panel-default group-panel">     
+            <app-dynamics-cc4skype-contact-search #dynamicsCC4SkypeContactSearch></app-dynamics-cc4skype-contact-search>    
+        </div>  
+        
+    </div>
+  </div>
 
-<div [ngClass]="visibilityClass('dynamics')" class="panel panel-default group-panel">     
-    <app-dynamics-contact-search #dynamicsContactSearch></app-dynamics-contact-search>    
-</div>
-<div [ngClass]="visibilityClass('cc4skype')" class="panel panel-default group-panel">     
-    <app-dynamics-cc4skype-contact-search #dynamicsCC4SkypeContactSearch></app-dynamics-cc4skype-contact-search>    
-</div>  
