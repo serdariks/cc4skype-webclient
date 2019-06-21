@@ -77,6 +77,19 @@ export class DynamicsAppComponent extends AppComponentBase {
           this.showTab('contacts');
        }
 
+       let isHandled:boolean = 
+       (
+         args.previousState.toString() == StateName[StateName.FirstNormalAgentConnected] 
+         || 
+         args.previousState.toString() == StateName[StateName.WarmInviteAcceptedFirstAgent]
+       )&&
+       args.currentState.toString() == StateName[StateName.OffHook];      
+
+      if(isHandled){
+        this.showTab('dialpad');
+        
+      }
+
     });
 
     
@@ -96,6 +109,20 @@ export class DynamicsAppComponent extends AppComponentBase {
        {
          this.showTab('contacts');
        }
+
+
+       let isHandled:boolean = 
+       (
+         args.previousState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted] 
+         || 
+         args.previousState.toString() == OutBoundCallStateName[OutBoundCallStateName.WarmInviteAcceptedFirstAgent]
+       )&&
+       args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.OffHook];      
+
+      if(isHandled){
+        this.showTab('dialpad');
+       
+      }
        
 
     });
