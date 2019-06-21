@@ -21,6 +21,7 @@ import { DynamicsCc4skypeContactSearchComponent } from '../dynamics-cc4skype-con
 import { CallViewStateMachine } from '../../call-center-call-view/call-view-state-machine';
 import { Subscription } from 'rxjs';
 import { StateName } from '../../call-center-call-view/enums';
+import { OutBoundCallStateMachine, OutBoundCallStateName } from '../../component-base/outbound-call-state-machine';
 //import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -33,7 +34,9 @@ export class DynamicsAppComponent extends AppComponentBase {
     logger: LoggingService, lyncApiGlobals: LyncApiGlobals,apiContainer: LyncApiContainer
     , lyncSDKApi: LyncSDKApi, activatedRoute: ActivatedRoute, socketManager: SocketManager, 
     xhrHook: XHRHook,
-    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService, private callViewStateMachine:CallViewStateMachine
+    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService, 
+    private callViewStateMachine:CallViewStateMachine,
+    private outboundCallstateMachine:OutBoundCallStateMachine,
     //private renderer2: Renderer2,@Inject(DOCUMENT) private _document
     ){
     super(messaging,cacheService,serviceCall,logger,lyncApiGlobals,apiContainer,
@@ -44,6 +47,7 @@ export class DynamicsAppComponent extends AppComponentBase {
     super.ngOnInit();
     this.currentTab = 'dialpad';
     this.bindCallViewStateChanged();
+    this.bindOutboundCallViewStateChanged();
 
     //this.loadDynamicsScript();
 
@@ -54,8 +58,9 @@ export class DynamicsAppComponent extends AppComponentBase {
   ngOnDestroy()
   {
     super.ngOnDestroy();
-    
+
     this.callViewStateChangedSubscription.unsubscribe();
+    this.outboundCallStateChangedSubscription.unsubscribe();
   }
 
   private callViewStateChangedSubscription:Subscription;
@@ -75,6 +80,25 @@ export class DynamicsAppComponent extends AppComponentBase {
     });
 
     
+
+  }
+
+  private outboundCallStateChangedSubscription:Subscription;
+
+  private bindOutboundCallViewStateChanged(){
+
+    this.outboundCallStateChangedSubscription = this.outboundCallstateMachine.stateChanged.subscribe(args=>{           
+            
+
+       let isAnswered:boolean = args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted];      
+      
+       if(isAnswered)
+       {
+         this.showTab('contacts');
+       }
+       
+
+    });
 
   }
 
