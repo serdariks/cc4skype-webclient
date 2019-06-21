@@ -60,9 +60,15 @@ export class DynamicsOutboundCallViewComponent extends OutboundCallViewBase {
 
       this.callSessionTimer.stop();  
       this.callSessionTimer.reset();
-      this.callDuration = '';
+      this.callDuration = '';      
+
+      this.openActivity(activityId);
 
     });
+  }
+
+  openActivity(activityid:string){
+    this.dynamicsChannelIntegration.openActivity(activityid);
   }
 
   afterAnswer(){

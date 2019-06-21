@@ -61,9 +61,15 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       this.callSessionTimer.stop();  
       this.callSessionTimer.reset();
       this.callDuration = '';
+      
+      this.openActivity(activityId);
 
     });    
     
+  }
+
+  openActivity(activityid:string){
+    this.dynamicsChannelIntegration.openActivity(activityid);
   }
 
   afterAnswer(){
