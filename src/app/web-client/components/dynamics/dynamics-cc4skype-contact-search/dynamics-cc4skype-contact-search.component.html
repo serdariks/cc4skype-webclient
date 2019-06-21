@@ -15,11 +15,11 @@
     <div class="row">
         <div class="col-xs-offset-9 col-xs-3">
             <img *ngIf="shouldShowWarmTransfer(result)" [src]="warmTransferIconPath"
-            (click)="onStartWarmTransfer(result.SipAddress)" />
+            (click)="onStartWarmTransfer(result.SipAddress)" title="Warm Transfer"/>
           <img *ngIf="shouldShowColdTransfer(result)" [src]="coldTransferIconPath"
-            (click)="onColdTransfer(result.SipAddress)" />
+            (click)="onColdTransfer(result.SipAddress)" title="Cold Transfer" />
           <img *ngIf="shouldShowPersonalPark(result)" [src]="personalParkIconPath"
-            (click)="onColdTransfer(result.SipAddress)" />
+            (click)="onColdTransfer(result.SipAddress)" title="Personal Park"/>
 
         </div>        
   
