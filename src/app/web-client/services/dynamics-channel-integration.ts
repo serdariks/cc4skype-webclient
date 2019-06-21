@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { OutboundCall } from "./outbound-call";
 import { CallSessionTimer } from "./call-session-timer";
-import { interval } from 'rxjs';
+import { interval, Subject } from 'rxjs';
 
 declare var Microsoft: any;
 declare var ciLoaded: any;
@@ -14,6 +14,8 @@ export class DynamicsChannelIntegration {
         
         this.tryInit();
     }
+
+    activityListChanged:Subject<void> = new Subject<void>();
 
     tryInit() {
 
@@ -244,6 +246,9 @@ export class DynamicsChannelIntegration {
                 console.log("NewActivityString:" + newActivityStr);
                 let newActivity = JSON.parse(newActivityStr);
                 onCallActivityCreated({ activityId: newActivity.id });
+
+                this.activityListChanged.next();
+                
                 //this._activityId = newActivity.id;
                 //$("#activityLink").show();
             }.bind(this));

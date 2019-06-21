@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client/services/dynamics-channel-integration';
 import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
 import { OutboundCall } from 'src/app/web-client/services/outbound-call';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamics-activities',
   templateUrl: './dynamics-activities.component.html',
   styleUrls: ['./dynamics-activities.component.css']
 })
-export class DynamicsActivitiesComponent implements OnInit {
+export class DynamicsActivitiesComponent implements OnInit,OnDestroy {
 
   iconPaths:IconPaths = { };
   
@@ -18,6 +19,7 @@ export class DynamicsActivitiesComponent implements OnInit {
     
   } 
   
+  activityListChangedSubscription:Subscription;
 
   ngOnInit() {
 
@@ -25,6 +27,16 @@ export class DynamicsActivitiesComponent implements OnInit {
 
     this.loadActivities();
 
+    this.activityListChangedSubscription = this.dynamicsChannelIntegration.activityListChanged.subscribe(()=>{
+      this.loadActivities();
+    });
+
+  }
+
+  ngOnDestroy(){
+
+    this.activityListChangedSubscription.unsubscribe();
+    
   }
 
   private loadActivities(){
