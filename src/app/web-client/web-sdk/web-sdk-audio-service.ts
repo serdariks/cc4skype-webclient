@@ -67,29 +67,45 @@ export class WebSDKAudioService implements LyncApiAudioService{
             }); 
     }
 
-    call(targetUri:string) {
+    call(targetUri: string): Promise<string> {
 
-        //var conversation = client.conversationsManager.createConversation();
-    
-        //var conversationParticipant = conversation.createParticipant(person);
-    
-        //conversation.participants.add(conversationParticipant);
-    
-        //client.conversationsManager.conversations.add(conversation);
-    
-        let client = this.globals.client;
+        return new Promise<string>((resolve, reject) => {
+
+            //var conversation = client.conversationsManager.createConversation();
+
+            //var conversationParticipant = conversation.createParticipant(person);
+
+            //conversation.participants.add(conversationParticipant);
+
+            //client.conversationsManager.conversations.add(conversation);
+
+            let client = this.globals.client;
+
+            this.activeConversation = client.conversationsManager.getConversation(targetUri);
+
+            //this.bindAudioStateChange();        
+
+            var audioModality = this.activeConversation.activeModalities.audio;
+
+            //console.log('audioModality=' + audioModality());
+
+            setTimeout(()=>{
                 
-        this.activeConversation = client.conversationsManager.getConversation(targetUri);
-    
-        //this.bindAudioStateChange();        
-    
-        var audioModality = this.activeConversation.activeModalities.audio;
-    
-        //console.log('audioModality=' + audioModality());
-    
-        this.activeConversation.audioService.start();
-    
+                this.activeConversation.audioService.start().then(() => {
+                    resolve('audio start success!');
+                }, (error) => {
+                    reject('audio start error!' + error);
+                    // handle error
+                });;
+
+            },0);
+
             
+
+        });
+
+
+
     }
 
     private getParticipants():{person1:any,person2:any}{

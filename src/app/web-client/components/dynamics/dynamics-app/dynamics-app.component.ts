@@ -18,6 +18,9 @@ import { AppComponentBase } from '../../component-base/app-component-base';
 import { IconPathsService } from 'src/app/web-client/services/icon-paths-service';
 import { DynamicsContactSearchComponent } from '../dynamics-contact-search/dynamics-contact-search.component';
 import { DynamicsCc4skypeContactSearchComponent } from '../dynamics-cc4skype-contact-search/dynamics-cc4skype-contact-search.component';
+import { CallViewStateMachine } from '../../call-center-call-view/call-view-state-machine';
+import { Subscription } from 'rxjs';
+import { StateName } from '../../call-center-call-view/enums';
 //import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -30,7 +33,7 @@ export class DynamicsAppComponent extends AppComponentBase {
     logger: LoggingService, lyncApiGlobals: LyncApiGlobals,apiContainer: LyncApiContainer
     , lyncSDKApi: LyncSDKApi, activatedRoute: ActivatedRoute, socketManager: SocketManager, 
     xhrHook: XHRHook,
-    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService, 
+    initializeData: InitializeData,dynamicsChannelIntegration:DynamicsChannelIntegration,iconPathsService:IconPathsService, private callViewStateMachine:CallViewStateMachine
     //private renderer2: Renderer2,@Inject(DOCUMENT) private _document
     ){
     super(messaging,cacheService,serviceCall,logger,lyncApiGlobals,apiContainer,
@@ -40,10 +43,38 @@ export class DynamicsAppComponent extends AppComponentBase {
   ngOnInit(): void {
     super.ngOnInit();
     this.currentTab = 'dialpad';
+    this.bindCallViewStateChanged();
 
     //this.loadDynamicsScript();
 
     //this.runningAsDynamicsWidget = this.dynamicsBaseUrl.length > 0;
+
+  }
+
+  ngOnDestroy()
+  {
+    super.ngOnDestroy();
+    
+    this.callViewStateChangedSubscription.unsubscribe();
+  }
+
+  private callViewStateChangedSubscription:Subscription;
+  
+  private bindCallViewStateChanged(){
+
+    this.callViewStateChangedSubscription = this.callViewStateMachine.stateChanged.subscribe(args=>{           
+            
+
+       let isAnswered:boolean = args.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];      
+    
+       if(isAnswered)
+       {
+          this.showTab('contacts');
+       }
+
+    });
+
+    
 
   }
 

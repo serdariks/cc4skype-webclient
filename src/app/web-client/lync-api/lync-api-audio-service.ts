@@ -5,7 +5,7 @@ export interface LyncApiAudioService{
     
     callStateChanged:Subject<{state:any,person1:Person,person2:Person}>;
 
-    call(targetUri:string);
+    call(targetUri:string):Promise<string>;
     registerIncomingAudio();
     acceptCall():Promise<any>;
     rejectCall():Promise<any>;

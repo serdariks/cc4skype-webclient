@@ -105,7 +105,7 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
       let desciption = (this.activityDescription && this.activityDescription.length > 0) ?
         this.activityDescription  : defaultDescription;
 
-       let callerPhone:string= this.mediaModel.CallerSIP.split('@')[0].split(':')[1];
+       let callerPhone:string= this.getCallerPhone();
 
       let activity = {
         contactId:null,
@@ -131,9 +131,18 @@ export class DynamicsCallViewComponent extends CallCenterCallViewBase {
 
   }
 
+  getCallerPhone()
+  {
+    let callerPhone:string= this.mediaModel.CallerSIP.split('@')[0].split(':')[1];
+
+    return callerPhone;
+  }
+
   showContact() {
 
-      this.dynamicsChannelIntegration.searchContactsAndOpen("05332414505").then(c => { });
+      let callerPhone = this.getCallerPhone();
+
+      this.dynamicsChannelIntegration.searchContactsAndOpen(this.getCallerPhone()).then(c => { });
     
   }
 

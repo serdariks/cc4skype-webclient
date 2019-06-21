@@ -61,8 +61,10 @@ export class LyncSDKAudioService implements LyncApiAudioService{
 
     callStateChanged:Subject<{state:any,person1:Person,person2:Person}> = new Subject<{state:any,person1:Person,person2:Person}>();
     
-    call(targetUri: string) 
+    call(targetUri: string):Promise<string> 
     {
+      return new Promise<string>((resolve,reject)=>{
+
         let requestData =  {TargetUri:targetUri};
               
         let args:InvokeServiceArgs={
@@ -74,17 +76,21 @@ export class LyncSDKAudioService implements LyncApiAudioService{
           responseHandler : {
       
             success:(result)=>{          
-                             
+               resolve(result);              
             }
             ,
             error:(err)=>{
-              this.logger.log(err);
+              reject(err);
             }
       
           }
-        };
-      
+        };              
+
         this.serviceCall.invokeService(args);
+
+      });
+
+        
     }
     registerIncomingAudio() {
         //throw new Error("Method not implemented.");

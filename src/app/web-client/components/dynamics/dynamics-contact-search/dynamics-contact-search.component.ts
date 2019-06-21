@@ -17,7 +17,7 @@ export class DynamicsContactSearchComponent implements OnInit {
   iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
   ngOnInit() {
-    this.addTestContacts();
+    //this.addTestContacts();
     this.searchContacts('');
   }
 

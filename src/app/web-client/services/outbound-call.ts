@@ -43,8 +43,12 @@ export class OutboundCall{
               {
                 this.logger.log(`outbound-call: will start call:${nextInstance}`);
     
-                this.lyncApiAudioService.call(nextInstance);  
-                resolve();
+                this.lyncApiAudioService.call(nextInstance).then((resp)=>{
+                  resolve();
+                }).catch(error=>{
+                  console.log(error);
+                });  
+                
     
               } 
               else
