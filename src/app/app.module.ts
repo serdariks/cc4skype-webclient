@@ -85,7 +85,8 @@ const appRoutes: Routes =
   [
     { path: 'with-user-id/:id', component: AppComponent },
     { path:'dynamics',component:DynamicsAppComponent},
-    { path: '', component: AppComponent }    
+    { path: '', component: DynamicsAppComponent } 
+    // { path: '', component: AppComponent }    
   ];
 
 @NgModule({

@@ -103,7 +103,7 @@ export class OutboundCallViewBase implements OnInit,OnDestroy {
        let afterCalling:boolean = args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Ringing];      
 
        if(afterCalling){
-         this.afterAnswer();
+         this.afterCalling();
        }
        
 
