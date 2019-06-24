@@ -94,7 +94,9 @@ export class OutboundCallViewBase implements OnInit,OnDestroy {
          return;
        }
 
-       let isAnswered:boolean = args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted];      
+       let isAnswered:boolean = 
+        args.previousState.toString()!= OutBoundCallStateName[OutBoundCallStateName.Accepted] &&
+        args.currentState.toString() == OutBoundCallStateName[OutBoundCallStateName.Accepted];      
 
        if(isAnswered){
          this.afterAnswer();
