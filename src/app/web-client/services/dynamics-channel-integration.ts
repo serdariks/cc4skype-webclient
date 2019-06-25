@@ -12,16 +12,54 @@ export class DynamicsChannelIntegration {
 
     constructor(private outBoundCall:OutboundCall,private callSessionTimer:CallSessionTimer) {
         
-        this.tryInit();
+        //this.tryInit();
+        this.preinit();
+    }
+
+    private preinit() 
+    {
+        console.log('dci. THIS IS DYNAMICS LOADER');
+
+        var args = window.location.search.substr(1).split('&');
+
+        let baseUrlArg = args.map(a => {
+            let argParts = a.split('=');
+            return { key: argParts[0], value: argParts[1] };
+        }).find(a => a.key == 'base');
+
+        if(!baseUrlArg){ // it must be running outside dynamics, so leave the initialization
+            return;
+        }
+
+        console.log('dci. ' + baseUrlArg.value);
+
+        var script = document.createElement('script');
+        script.onload = ()=> {
+            //do stuff with the script
+            //ciLoaded = true;
+            console.log('dci. ciLoaded set to true');
+            ciLoaded = true;
+            this.tryInit();
+            //setTimeout(()=>{
+            //    ciLoaded = true;
+            //},5000);
+        };
+
+        script.src = decodeURIComponent(baseUrlArg.value + '/webresources/Widget/msdyn_ciLibrary.js');
+        //script.src = "https://cc4skypesb.crm4.dynamics.com/webresources/Widget/msdyn_ciLibrary.js";
+        document.head.appendChild(script);
     }
 
     activityListChanged:Subject<void> = new Subject<void>();
 
     tryInit() {
 
+        console.log('dci. tryinit invoked');
         if (ciLoaded) {
+            console.log('dci. ciloaded, calling init');
             this.init();
         } else {
+            console.log('dci. ci not loaded, calling tryinit again within 200 ms')
             window.setTimeout(this.tryInit, 200);
            /*  const myInterval = interval(200);
             myInterval.subscribe(()=>{
