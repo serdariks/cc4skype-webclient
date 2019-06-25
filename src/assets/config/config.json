@@ -1,6 +1,6 @@
 {
     "socketServerIsOnTheSameDomain" : false,
-    "socketServerDomain": "https://sockethub.serdariks.co.uk",
+    "socketServerDomain": "https://sockethub.cc4skype.com",
     "socketServerPort":"",
-    "lyncServerFQDN":"https://1933ec6f.ngrok.io/"
+    "lyncServerFQDN":"https://skype.cc4skype.com"
 }
