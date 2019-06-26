@@ -29,6 +29,12 @@ export class WebSDKSignIn implements LyncApiSignIn{
     private bindSignOutOtherLoginsListener(){
         this.signOutOtherLoginsListener.received.subscribe((data)=>{
              console.log(`WebSDKSignIn.bindSignOutOtherLoginsListener.received: ${JSON.stringify(data)}`);
+
+             let senderClientDifferent:boolean = data.socketId != this.socketManager.socketId;
+
+             if(senderClientDifferent){
+                 this.signOut();
+             }
              
         });
     }
