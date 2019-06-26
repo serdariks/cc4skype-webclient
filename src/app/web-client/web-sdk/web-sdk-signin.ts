@@ -102,11 +102,7 @@ export class WebSDKSignIn implements LyncApiSignIn{
             .then((response)=> {
         
                 console.log('Signed in successfully.');                 
-                
-                this.signOutOtherLogins().then(()=>{
-                    
-                });
-                   
+                                                 
                 //this.lyncApiGlobals.clientSip = username;
         
                 let webSDKPersonSignedIn = this.globals.client.personsAndGroupsManager.mePerson;                
@@ -116,6 +112,10 @@ export class WebSDKSignIn implements LyncApiSignIn{
                 let person:Person = this.cache.persons.convertToPerson(webSDKPersonSignedIn);
                    
                 this.lyncApiGlobals.personSignedIn = person; 
+                
+                this.signOutOtherLogins().then(()=>{
+                    
+                });
 
                 this.lyncApiGlobals.clientSip = person.id;
         
