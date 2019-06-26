@@ -19,37 +19,62 @@ export class WebSDKInitializer implements LyncApiInitializer{
 
         return new Promise((resolve,reject)=>{
 
-            Skype.initialize({ apiKey: this.globals.config.apiKey }, (apiObj)=>{
+            this.addScriptReference().then(()=>{
 
-                this.globals.api = apiObj;
-                //Application = api.application; // this is the Application constructor
-            
-                
-                //var Application = api.application;
-            
-                //client = new Application();
-                
-                //client = apiObj.UIApplicationInstance;
-            
-                //client = api.application;
-            
-                //client = new Skype.Web.Model.Application;
-            
-                this.createNewClient();
+                Skype.initialize({ apiKey: this.globals.config.apiKey }, (apiObj)=>{
 
-                resolve(this.globals.client);
-                this.initialized.next();
-            
-                /* this.lyncApiSignIn.signIn(this.globals.clientSip,'cc4l!1234'); */
+                    this.globals.api = apiObj;
+                    //Application = api.application; // this is the Application constructor
                 
-            
-            }, function (err) {
-                reject(err);
-                console.log("cannot load the sdk package", err);
+                    
+                    //var Application = api.application;
+                
+                    //client = new Application();
+                    
+                    //client = apiObj.UIApplicationInstance;
+                
+                    //client = api.application;
+                
+                    //client = new Skype.Web.Model.Application;
+                
+                    this.createNewClient();
+    
+                    resolve(this.globals.client);
+                    this.initialized.next();
+                
+                    /* this.lyncApiSignIn.signIn(this.globals.clientSip,'cc4l!1234'); */
+                    
+                
+                }, function (err) {
+                    reject(err);
+                    console.log("cannot load the sdk package", err);
+                });
+
             });
+
+
 
         });       
 
+    }
+
+    private addScriptReference():Promise<void>{
+
+        return new Promise<void>((resolve,reject)=>{
+
+            var script = document.createElement('script');
+            
+            script.onload = function () {
+                resolve();
+            };
+        
+            script.src = decodeURIComponent('https://swx.cdn.skype.com/shared/v/1.2.15/SkypeBootstrap.min.js');
+        
+            document.head.appendChild(script);
+
+        });
+
+         
     }
 
     private createNewClient(){
