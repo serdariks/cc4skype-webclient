@@ -208,7 +208,9 @@ export class WebSDKSignIn implements LyncApiSignIn{
     
           let args: InvokeServiceArgs = {
     
-            targetService: currentUri
+            //targetService: currentUri
+            //,
+            targetRooms: [currentUri]
             ,
             operation: "signOutOtherLogins",
     
