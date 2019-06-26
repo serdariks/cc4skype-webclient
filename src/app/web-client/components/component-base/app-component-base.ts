@@ -71,7 +71,7 @@ export class AppComponentBase implements OnInit,OnDestroy {
     this.currentTab = tab;
   }
 
-  personLoggedIn: any;
+  //personLoggedIn: any;
 
   messagingInitializeSubscription:Subscription;
   userSignedInSubscription:Subscription;
