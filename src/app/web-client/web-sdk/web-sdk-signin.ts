@@ -7,16 +7,29 @@ import { WebSDKCache } from "./web-sdk-cache";
 import { Person } from "../lync-api/lync-api-person";
 import { ConfigService } from "../services/config-service";
 import { Configuration } from "../services/configuration";
-import { strict } from 'assert';
+import { InvokeServiceArgs } from '../messaging/dto/invoke-service-args';
+import { SocketManager } from '../messaging/socket-manager';
+import { Listeners } from '../services/listeners';
+import { Listener } from '../services/listener';
+
 
 @Injectable()
 export class WebSDKSignIn implements LyncApiSignIn{      
 
     private config:Configuration;
-    
-    constructor(private configService:ConfigService,private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache){
+    private signOutOtherLoginsListener:Listener<any>;
+    constructor(private configService:ConfigService,private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache,private socketManager:SocketManager,private listeners:Listeners){
 
         this.config = this.configService.Config;
+        this.signOutOtherLoginsListener = this.listeners.createListener<any>("signOutOtherLogins");
+        this.bindSignOutOtherLoginsListener();
+    }
+    
+    private bindSignOutOtherLoginsListener(){
+        this.signOutOtherLoginsListener.received.subscribe((data)=>{
+             console.log(`WebSDKSignIn.bindSignOutOtherLoginsListener.received: ${JSON.stringify(data)}`);
+             
+        });
     }
 
     userSignedIn= new Subject<string>();
@@ -89,6 +102,9 @@ export class WebSDKSignIn implements LyncApiSignIn{
         
                 console.log('Signed in successfully.');                 
                 
+                this.signOutOtherLogins().then(()=>{
+                    
+                });
                    
                 //this.lyncApiGlobals.clientSip = username;
         
@@ -178,5 +194,50 @@ export class WebSDKSignIn implements LyncApiSignIn{
         this.globals.client = new Application();
     
     }
+
+    private signOutOtherLogins(): Promise<any[]> {
+
+
+        return new Promise<Array<any>>((resolve, reject) => {
+    
+          let currentUri:string =  this.lyncApiGlobals.personSignedIn.id;
+          let socketId:string = this.socketManager.socketId;
+    
+          let requestData = {socketId:socketId,currentUri:currentUri};
+    
+          let args: InvokeServiceArgs = {
+    
+            targetService: currentUri
+            ,
+            operation: "signOutOtherLogins",
+    
+            requestData: requestData,
+    
+            responseHandler: {
+    
+              success: (result) => {
+    
+                //this.logger.log('GetEndpointList response received: ' + JSON.stringify(result));
+    
+                  resolve(result);                
+    
+              }
+              ,
+              error: (err) => {
+                //this.logger.log(err);
+                reject(err);
+              }
+    
+            }
+          };
+    
+          this.serviceCall.invokeService(args);
+    
+    
+        });
+    
+    
+    
+      }
 
 }
