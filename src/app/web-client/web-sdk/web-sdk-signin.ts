@@ -11,6 +11,7 @@ import { InvokeServiceArgs } from '../messaging/dto/invoke-service-args';
 import { SocketManager } from '../messaging/socket-manager';
 import { Listeners } from '../services/listeners';
 import { Listener } from '../services/listener';
+import { ServiceCall } from '../messaging/service-call';
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class WebSDKSignIn implements LyncApiSignIn{
 
     private config:Configuration;
     private signOutOtherLoginsListener:Listener<any>;
-    constructor(private configService:ConfigService,private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache,private socketManager:SocketManager,private listeners:Listeners){
+    constructor(private configService:ConfigService,private globals:WebSDKGlobals,private lyncApiGlobals:LyncApiGlobals,private cache:WebSDKCache,private socketManager:SocketManager,private listeners:Listeners,private serviceCall:ServiceCall){
 
         this.config = this.configService.Config;
         this.signOutOtherLoginsListener = this.listeners.createListener<any>("signOutOtherLogins");
