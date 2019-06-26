@@ -92,9 +92,9 @@ export class ServiceCall
 		{            
             Target:targetService,
             TargetRooms:targetRooms,
-            operation:operation,            
-			requestData: requestData ? JSON.stringify(requestData) : undefined ,
-			uniqueRequestId:this.handlersCounter
+            Operation:operation,            
+			RequestData: requestData ? JSON.stringify(requestData) : undefined ,
+			UniqueRequestId:this.handlersCounter
 		};
 
 	    console.log('serviceCallPackage: ' + JSON.stringify(serviceCallPackage));
