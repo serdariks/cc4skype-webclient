@@ -240,7 +240,7 @@ export class DynamicsChannelIntegration {
 
         if (!this.isInitializedSuccessfully) {
 
-            onCallActivityCreated(null);
+            onCallActivityCreated(new CreateCallActivityResult());
 
             return;
         }
@@ -431,7 +431,7 @@ export class DynamicsChannelIntegration {
     createCase(req: CreateCaseRequest, onCaseCreated: (CaseCreatedResult) => void) {
 
         if(!this.isInitializedSuccessfully) {
-            onCaseCreated(null);
+            onCaseCreated(new CaseCreatedResult());
             return;
         }
 
