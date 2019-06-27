@@ -12,16 +12,16 @@
         <img [src]="iconPaths['ignoreImg']" (click)="onRejectCall()" title="Ignore">
      </div>
      <div *ngIf="isFirstNormalAgentConnected">
-          <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()" title = "Stop recording">
-          <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()" title = "Start recording">
+          <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()" title = "Start recording">
+          <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()" title = "Stop recording">
           <img *ngIf="onHoldButtonVisible" [src]="iconPaths['holdImg']" (click)="onAgentPutOnHold()" title = "Hold">
           <img *ngIf="resumeButtonVisible" [src]="iconPaths['resumeImg']" (click)="onAgentResumed()" title = "Resume">
           <img [src]="iconPaths['warmTransferStartImg']" (click)="onWarmTransferStart()" title="Warm Transfer">
           <img [src]="iconPaths['disconnectImg']" (click)="onHangupCall()" title="Hang up">
      </div>
      <div *ngIf="isFirstOperatorAgentConnected">
-        <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()" title = "Stop recording">
-        <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()" title = "Start recording">
+        <img *ngIf="!isRecording" [src]="iconPaths['startRecordImg']" (click)="onToggleRecording()" title = "Start recording">
+        <img *ngIf="isRecording" [src]="iconPaths['stopRecordImg']" (click)="onToggleRecording()" title = "Stop recording">
         <img *ngIf="onHoldButtonVisible" [src]="iconPaths['holdImg']" (click)="onAgentPutOnHold()" title = "Hold">
         <img *ngIf="resumeButtonVisible" [src]="iconPaths['resumeImg']" (click)="onAgentResumed()" title = "Resume">
         <img [src]="iconPaths['parkImg']" (click)="onParkCall()" title= "Park">
