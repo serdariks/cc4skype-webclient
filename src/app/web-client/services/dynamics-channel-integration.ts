@@ -10,6 +10,8 @@ export class DynamicsChannelIntegration {
 
     environment: any;
 
+    isInitializedSuccessfully:boolean=false;
+
     constructor(private outBoundCall:OutboundCall,private callSessionTimer:CallSessionTimer) {
         
         //this.tryInit();
@@ -88,6 +90,7 @@ export class DynamicsChannelIntegration {
         Microsoft.CIFramework.getEnvironment().then(function(res){
             console.log("dci. environment result" + res);
             this.environment = JSON.parse(res);
+            this.isInitializedSuccessfully = true;
         }.bind(this));
 
         console.log("dci. after get environment");
@@ -131,6 +134,14 @@ export class DynamicsChannelIntegration {
     searchContacts(keyword: string): Promise<DynamicsContact[]> {
 
         return new Promise<DynamicsContact[]>((resolve, reject) => {
+
+            let contacts:DynamicsContact[] = [];
+
+            if(!this.isInitializedSuccessfully) {
+                resolve(contacts);
+                return;
+            }
+
             this.updateCallerDetailsFromCRM(keyword, true, null, (contacts) => {
                 resolve(contacts);
             });
@@ -142,6 +153,14 @@ export class DynamicsChannelIntegration {
     searchContactsAndOpen(keyword: string): Promise<DynamicsContact[]> {
 
         return new Promise<DynamicsContact[]>((resolve, reject) => {
+
+            let contacts:DynamicsContact[] = [];
+
+            if(!this.isInitializedSuccessfully) {
+                resolve(contacts);
+                return;
+            }
+
             this.updateCallerDetailsFromCRM(keyword, false, null, (contacts) => {
                 resolve(contacts);
             });
@@ -216,6 +235,15 @@ export class DynamicsChannelIntegration {
     }
     /* Create a new activity record for this phone call using appropriate CIF APIs. */
     createCallActivity(callActivity: CallActivity, onCallActivityCreated: (CreateCallActivityResult) => void) {        
+
+        
+
+        if (!this.isInitializedSuccessfully) {
+
+            onCallActivityCreated(null);
+
+            return;
+        }
 
         var phActivity: any = {};
         //Setup basic details of the activity - subject, direction, duration
@@ -302,6 +330,12 @@ export class DynamicsChannelIntegration {
 
         return new Promise<DynamicsActivity[]>((resolve,reject)=>{
             
+            let activities:DynamicsActivity[] = [];
+
+            if(!this.isInitializedSuccessfully) {
+                resolve(activities);
+                return;
+            }
             //let fields:string = 'activityid,createdon,description,directioncode@OData.Community.Display.V1.FormattedValue' +
             //'phonenumber,subject,actualdurationminutes,directioncode';
 
@@ -352,6 +386,13 @@ export class DynamicsChannelIntegration {
     updateActivity(req: UpdateActivityRequest): Promise<string> {
 
         return new Promise<string>((resolve, reject) => {
+            
+
+            if(!this.isInitializedSuccessfully) {
+                resolve(null);
+                return;
+            }
+
             //if (!phone || phone.state != PhoneState.CallSummary) {
             //    return;
             //}
@@ -371,6 +412,11 @@ export class DynamicsChannelIntegration {
 
     /* Event handler. When clicked, opens the activity record created for this phone call */
     openActivity(activityId: string) {
+
+        if(!this.isInitializedSuccessfully) {
+            return;
+        }
+
         var ef = {};
         ef["entityName"] = "phonecall";
         if (activityId) {
@@ -383,6 +429,12 @@ export class DynamicsChannelIntegration {
     //Invoke CIF APIs to create a new case record.
     //This will open the case create form with certain fields like contactId and description pre-populated */
     createCase(req: CreateCaseRequest, onCaseCreated: (CaseCreatedResult) => void) {
+
+        if(!this.isInitializedSuccessfully) {
+            onCaseCreated(null);
+            return;
+        }
+
         var ef = {};
         ef["entityName"] = "incident";
         var fp = {};
@@ -409,6 +461,11 @@ export class DynamicsChannelIntegration {
 
     /* Event handler. When clicked, opens the case record created for this phone call */
     openCase(req: openCaseRequest) {
+        
+        if(!this.isInitializedSuccessfully) {
+            return;
+        }
+
         var ef = {};
         ef["entityName"] = "incident";
         if (req.currentCase) {
@@ -419,6 +476,10 @@ export class DynamicsChannelIntegration {
 
 
     testsearchContacts() {
+
+        if(!this.isInitializedSuccessfully) {
+            return;
+        }
 
         let entityLogicalName: string = "contact";
         let queryStr: string = "";
