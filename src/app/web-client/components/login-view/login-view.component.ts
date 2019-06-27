@@ -79,11 +79,7 @@ export class LoginViewComponent implements OnInit, OnDestroy {
 
           this.userSignedInSubscription = this.lyncApiSignIn.userSignedIn.subscribe(() => {
             this.afterSignIn(this.lyncApiGlobals.personSignedIn);
-          })
-
-          this.userSignedOutSubscription = this.lyncApiSignIn.userSignedOut.subscribe(() => {
-            this.afterSignOut();
-          });
+          })          
 
         }
         else {
@@ -97,6 +93,10 @@ export class LoginViewComponent implements OnInit, OnDestroy {
           }
 
         }
+
+        this.userSignedOutSubscription = this.lyncApiSignIn.userSignedOut.subscribe(() => {
+          this.afterSignOut();
+        });
 
 
       }).
