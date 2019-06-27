@@ -1,10 +1,10 @@
 
 <div class="list-group" style="margin-top:10px;">
-  <div class="list-group-item" *ngFor="let contact of contacts">
+  <a class="list-group-item" *ngFor="let contact of contacts">
     <h4 class="list-group-item-heading">{{contact.fullName}}</h4>  
     <p class="list-group-item-text">
       {{contact.mobilePhone}}
       <img [src]="iconPaths['dialImg']" (click)="onDialClick(contact.mobilePhone)" title="Dial"/>
     </p>      
-  </div>        
+  </a>        
 </div>
