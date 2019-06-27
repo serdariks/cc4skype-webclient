@@ -165,7 +165,7 @@ export class CallCenterCallViewBase implements OnInit,OnDestroy {
        }
 
        let isAnswered:boolean = 
-       args.previousState.toString() != StateName[StateName.FirstNormalAgentConnected]
+       args.previousState.toString() != StateName[StateName.FirstNormalAgentConnected] &&
        args.currentState.toString() == StateName[StateName.FirstNormalAgentConnected];      
 
        if(isAnswered){
