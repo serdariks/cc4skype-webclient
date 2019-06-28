@@ -425,6 +425,21 @@ export class DynamicsChannelIntegration {
         Microsoft.CIFramework.openForm(JSON.stringify(ef));
     }
 
+    openContact(id: string) {
+
+        if(!this.isInitializedSuccessfully) {
+            return;
+        }
+
+        var ef = {};
+        ef["entityName"] = "contact";
+        if (id) {
+            ef["entityId"] = id;
+        }
+        Microsoft.CIFramework.openForm(JSON.stringify(ef));
+    }
+
+
 
     //Invoke CIF APIs to create a new case record.
     //This will open the case create form with certain fields like contactId and description pre-populated */

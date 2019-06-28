@@ -56,4 +56,8 @@ export class DynamicsContactSearchComponent implements OnInit {
     
   }
 
+  showContact(contact){
+    this.dynamicsService.openContact(contact.id);
+  }
+
 }
