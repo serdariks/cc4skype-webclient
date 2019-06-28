@@ -4,6 +4,7 @@ import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-pa
 import { OutboundCall } from 'src/app/web-client/services/outbound-call';
 import { Subscription } from 'rxjs';
 import { LyncApiAudioService } from 'src/app/web-client/lync-api/lync-api-audio-service';
+import { LyncApiContainer } from 'src/app/web-client/lync-api/lync-api-container';
 
 @Component({
   selector: 'app-dynamics-activities',
@@ -16,8 +17,10 @@ export class DynamicsActivitiesComponent implements OnInit,OnDestroy {
   
   activities:DynamicsActivity[] = [];
 
-  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outboundCall:OutboundCall,private lyncApiAudioService:LyncApiAudioService) { 
-    
+  private lyncApiAudioService:LyncApiAudioService;
+
+  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outboundCall:OutboundCall,private apiContainer:LyncApiContainer) { 
+    this.lyncApiAudioService = apiContainer.currentApi.audioService;  
   } 
   
   activityListChangedSubscription:Subscription;

@@ -4,6 +4,7 @@ import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-pa
 import { OutboundCall } from 'src/app/web-client/services/outbound-call';
 import { LyncApiAudioService } from 'src/app/web-client/lync-api/lync-api-audio-service';
 import { Subscription } from 'rxjs';
+import { LyncApiContainer } from 'src/app/web-client/lync-api/lync-api-container';
 
 @Component({
   selector: 'app-dynamics-contact-search',
@@ -12,8 +13,10 @@ import { Subscription } from 'rxjs';
 })
 export class DynamicsContactSearchComponent implements OnInit,OnDestroy {
 
-  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outBoundCall:OutboundCall,private lyncApiAudioService:LyncApiAudioService) {
+  private lyncApiAudioService:LyncApiAudioService;
 
+  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outBoundCall:OutboundCall,private apiContainer: LyncApiContainer) {
+    this.lyncApiAudioService = apiContainer.currentApi.audioService;
   }
 
   iconPaths:IconPaths = this.iconPathsService.iconPaths;
