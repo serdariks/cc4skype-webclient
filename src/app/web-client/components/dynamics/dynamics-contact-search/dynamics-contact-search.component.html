@@ -4,7 +4,7 @@
     <h4 class="list-group-item-heading"><a style="cursor: pointer;" (click)="showContact(contact)">{{contact.fullName}}</a></h4>  
     <p class="list-group-item-text">
       {{contact.mobilePhone}}
-      <img *ngIf="isActiveCallPresent" [src]="iconPaths['dialImg']" (click)="onDialClick(contact.mobilePhone)" title="Dial"/>
+      <img *ngIf="!isActiveCallPresent" [src]="iconPaths['dialImg']" (click)="onDialClick(contact.mobilePhone)" title="Dial"/>
     </p>      
   </a>        
 </div>

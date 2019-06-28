@@ -18,7 +18,7 @@
               <div class="col-xs-2"><img class="direction-img" [src] ="activityDirectionImgPath(activity)"/></div>
               <div class="col-xs-10">
                   {{activity.phonenumber}}
-                  <img *ngIf="isActiveCallPresent" style="cursor: pointer;" [src]="iconPaths['dialImg']" (click)="startOutBoundCall(activity.phonenumber)" title="Dial"/>
+                  <img *ngIf="!isActiveCallPresent" style="cursor: pointer;" [src]="iconPaths['dialImg']" (click)="startOutBoundCall(activity.phonenumber)" title="Dial"/>
               </div>
             </div>
             <div class="row">
