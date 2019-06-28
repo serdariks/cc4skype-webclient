@@ -24,7 +24,7 @@ export class DtmfMenuComponent implements OnInit,OnDestroy {
 
   dtmfMenuItems:string[] = new Array<string>();
 
-  isOutboundCallAvailable:boolean=true;
+  isActiveCallPresent:boolean=true;
 
   iconPaths:IconPaths = this.iconPathsService.iconPaths;
 
@@ -41,7 +41,7 @@ export class DtmfMenuComponent implements OnInit,OnDestroy {
      this.dtmfMenuItems.push('*');     
 
      this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe(s=>{
-         this.isOutboundCallAvailable = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
+         this.isActiveCallPresent = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
          //this.logger.log(`dtmf-menu, s.state:${s.state} this.isOutboundCallAvailable:${this.isOutboundCallAvailable}`);
      });
   }

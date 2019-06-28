@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicsChannelIntegration, DynamicsContact } from 'src/app/web-client/services/dynamics-channel-integration';
 import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
 import { OutboundCall } from 'src/app/web-client/services/outbound-call';
+import { LyncApiAudioService } from 'src/app/web-client/lync-api/lync-api-audio-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dynamics-contact-search',
   templateUrl: './dynamics-contact-search.component.html',
   styleUrls: ['./dynamics-contact-search.component.css']
 })
-export class DynamicsContactSearchComponent implements OnInit {
+export class DynamicsContactSearchComponent implements OnInit,OnDestroy {
 
-  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outBoundCall:OutboundCall) {
+  constructor(private dynamicsService:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outBoundCall:OutboundCall,private lyncApiAudioService:LyncApiAudioService) {
 
   }
 
@@ -19,6 +21,10 @@ export class DynamicsContactSearchComponent implements OnInit {
   ngOnInit() {
     //this.addTestContacts();
     this.searchContacts('');
+    this.bindForActiveCall();
+  }
+  ngOnDestroy(){
+    this.callStateChangedSubscription.unsubscribe();
   }
 
   contacts:DynamicsContact[] = [];
@@ -58,6 +64,18 @@ export class DynamicsContactSearchComponent implements OnInit {
 
   showContact(contact){
     this.dynamicsService.openContact(contact.contactId);
+  }
+
+  isActiveCallPresent:boolean=false;
+
+  callStateChangedSubscription:Subscription;
+
+  private bindForActiveCall(){
+
+    this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe(s=>{
+      this.isActiveCallPresent = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
+      //this.logger.log(`dtmf-menu, s.state:${s.state} this.isOutboundCallAvailable:${this.isOutboundCallAvailable}`);
+  });
   }
 
 }

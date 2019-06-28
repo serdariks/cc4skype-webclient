@@ -3,6 +3,7 @@ import { DynamicsChannelIntegration, DynamicsActivity } from 'src/app/web-client
 import { IconPathsService, IconPaths } from 'src/app/web-client/services/icon-paths-service';
 import { OutboundCall } from 'src/app/web-client/services/outbound-call';
 import { Subscription } from 'rxjs';
+import { LyncApiAudioService } from 'src/app/web-client/lync-api/lync-api-audio-service';
 
 @Component({
   selector: 'app-dynamics-activities',
@@ -15,7 +16,7 @@ export class DynamicsActivitiesComponent implements OnInit,OnDestroy {
   
   activities:DynamicsActivity[] = [];
 
-  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outboundCall:OutboundCall) { 
+  constructor(private dynamicsChannelIntegration:DynamicsChannelIntegration,private iconPathsService:IconPathsService,private outboundCall:OutboundCall,private lyncApiAudioService:LyncApiAudioService) { 
     
   } 
   
@@ -31,11 +32,14 @@ export class DynamicsActivitiesComponent implements OnInit,OnDestroy {
       this.loadActivities();
     });
 
+    this.bindForActiveCall();
+
   }
 
   ngOnDestroy(){
 
     this.activityListChangedSubscription.unsubscribe();
+    this.callStateChangedSubscription.unsubscribe();
     
   }
 
@@ -96,6 +100,18 @@ export class DynamicsActivitiesComponent implements OnInit,OnDestroy {
     if(!(this.pageIndex ==0)) this.pageIndex--;
 
     this.loadActivities();
+  }
+
+  isActiveCallPresent:boolean=false;
+
+  callStateChangedSubscription:Subscription;
+
+  private bindForActiveCall(){
+
+    this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe(s=>{
+      this.isActiveCallPresent = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
+      //this.logger.log(`dtmf-menu, s.state:${s.state} this.isOutboundCallAvailable:${this.isOutboundCallAvailable}`);
+  });
   }
 
 }
