@@ -185,10 +185,13 @@ export class DynamicsChannelIntegration {
             query += "contactid eq " + recordId;
         }
         else {  //oData query to search all records for current phone number
-            query += "contains(mobilephone, '" + keyword.substring(1) + 
+            query += "_ownerid_value eq "  + this.stripParens(this.environment.userId) +
+            " and " +
+            "(contains(mobilephone, '" + keyword.substring(1) + 
             "') or contains(mobilephone, '" + keyword.substring(2) + 
-            "') or contains(mobilephone, '" + keyword.substring(3) + 
-            "') or contains(fullname, '" + keyword + "')";
+            "') or contains(mobilephone, '" + keyword.substring(3) +
+            "') or contains(mobilephone, '" + keyword.substring(4) + 
+            "') or contains(fullname, '" + keyword + "'))";
         }
         //In this sample, we search all 'contact' records
         Microsoft.CIFramework.searchAndOpenRecords("contact", query, searchOnly).then(
@@ -340,7 +343,9 @@ export class DynamicsChannelIntegration {
             //'phonenumber,subject,actualdurationminutes,directioncode';
 
             //let queryParams = "?$select=" + fields;
-            let queryParams = "?$select=activityid,createdon,description,phonenumber,subject,actualdurationminutes,directioncode";
+            let queryParams = 
+            "?$select=activityid,createdon,description,phonenumber,subject,actualdurationminutes,directioncode" +
+            "&$filter=_ownerid_value eq " + this.stripParens(this.environment.userId);
 
             Microsoft.CIFramework.searchAndOpenRecords("phonecall",queryParams,true).then(
                 function(queryResponse){    

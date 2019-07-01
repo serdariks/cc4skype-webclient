@@ -69,14 +69,14 @@ export class DynamicsContactSearchComponent implements OnInit,OnDestroy {
     this.dynamicsService.openContact(contact.contactId);
   }
 
-  isActiveCallPresent:boolean=false;
+  noActiveCall:boolean=true;
 
   callStateChangedSubscription:Subscription;
 
   private bindForActiveCall(){
 
     this.callStateChangedSubscription = this.lyncApiAudioService.callStateChanged.subscribe(s=>{
-      this.isActiveCallPresent = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
+      this.noActiveCall = (s.state == 'Disconnected' || s.state == 'ConversationDisconnected');
       //this.logger.log(`dtmf-menu, s.state:${s.state} this.isOutboundCallAvailable:${this.isOutboundCallAvailable}`);
   });
   }
