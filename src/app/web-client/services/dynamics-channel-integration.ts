@@ -161,7 +161,10 @@ export class DynamicsChannelIntegration {
                 return;
             }
 
-            this.updateCallerDetailsFromCRM(keyword, false, null, (contacts) => {
+            this.updateCallerDetailsFromCRM(keyword, true, null, (contacts) => {
+
+                this.openContact(contacts[0].contactId);
+
                 resolve(contacts);
             });
 
@@ -185,8 +188,9 @@ export class DynamicsChannelIntegration {
             query += "contactid eq " + recordId;
         }
         else {  //oData query to search all records for current phone number
-            query += "_ownerid_value eq "  + this.stripParens(this.environment.userId) +
-            " and " +
+            query += 
+            //"_ownerid_value eq "  + this.stripParens(this.environment.userId) +
+            //" and " +
             "(contains(mobilephone, '" + keyword.substring(1) + 
             "') or contains(mobilephone, '" + keyword.substring(2) + 
             "') or contains(mobilephone, '" + keyword.substring(3) +
